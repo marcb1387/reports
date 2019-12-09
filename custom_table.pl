@@ -5,7 +5,7 @@ $dbh2 = DBI->connect('DBI:mysql:pogo;host=localhost', '', ''
 $count=0;
 open(ROUTE,'/home/marc/MAD/files/stops_dundalk.calc');
 foreach $line (<ROUTE>) {
-    @coords = split(", ",$line);
+    @coords = split(",",$line);
     my $query = "select pokestop_id from pokestop where latitude = '@coords[0]' and longitude = '@coords[1]'";
     $sth2 = $dbh2->prepare($query);
     $sth2->execute();
