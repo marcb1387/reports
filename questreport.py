@@ -12,7 +12,7 @@ webhookurl = 'https://discordapp.com/api/webhooks/'
 def quest_mon(monid,mon,shiny,typeid,formid):
  mariadb_connection = mariadb.connect(user='', password='', database='', host='')
  cursor = mariadb_connection.cursor()
- query = ("select CONVERT(pokestop.name USING ascii) as pokestopname,pokestop.latitude,pokestop.longitude from pokestop inner join trs_quest on pokestop.pokestop_id = trs_quest.GUID where quest_pokemon_id ="+monid+" and quest_pokemon_form_id ="+typeid+" and ST_CONTAINS(ST_GEOMFROMTEXT('POLYGON(("+area+"))'), point(pokestop.latitude, pokestop.longitude))")
+ query = ("select CONVERT(pokestop.name USING ascii) as pokestopname,pokestop.latitude,pokestop.longitude,quest_task from pokestop inner join trs_quest on pokestop.pokestop_id = trs_quest.GUID where quest_pokemon_id ="+monid+" and quest_pokemon_form_id ="+typeid+" and ST_CONTAINS(ST_GEOMFROMTEXT('POLYGON(("+area+"))'), point(pokestop.latitude, pokestop.longitude))")
  cursor.execute(query)
  name = cursor.fetchall()
  
@@ -35,7 +35,9 @@ def quest_mon(monid,mon,shiny,typeid,formid):
     print ("larger then 2048 breaking up")
     print (mon+" Length:", len(research))
     embed = DiscordEmbed(title= shiny+mon+' Field Research'+shiny, description=research, color=16777011)
-    embed.set_thumbnail(url='https://raw.githubusercontent.com/whitewillem/PogoAssets/resized/no_border/pokemon_icon_'+monid+'_'+formid+'.png') 
+    embed.set_thumbnail(url='https://raw.githubusercontent.com/whitewillem/PogoAssets/resized/no_border/pokemon_icon_'+monid+'_'+formid+'.png')
+    embed.set_footer(text='Research by ')
+    embed.set_author(name='Research Task: '+stop[3])
     #add embed object to webhook
     webhook.add_embed(embed)
     webhook.execute()
@@ -44,7 +46,9 @@ def quest_mon(monid,mon,shiny,typeid,formid):
   
   print (mon+" Length:", len(research))
   embed = DiscordEmbed(title= shiny+mon+' Field Research'+shiny, description=research, color=16777011)
-  embed.set_thumbnail(url='https://raw.githubusercontent.com/whitewillem/PogoAssets/resized/no_border/pokemon_icon_'+monid+'_'+formid+'.png') 
+  embed.set_thumbnail(url='https://raw.githubusercontent.com/whitewillem/PogoAssets/resized/no_border/pokemon_icon_'+monid+'_'+formid+'.png')
+  embed.set_footer(text='Research by ')
+  embed.set_author(name='Research Task: '+stop[3])
   #add embed object to webhook
   webhook.add_embed(embed)
   webhook.execute()
@@ -84,6 +88,7 @@ def quest_item(itemid,item,sprite):
     
     print (item+" Length:", len(research))
     embed = DiscordEmbed(title= item+' Field Research', description=research, color=4390656)
+    embed.set_footer(text='Research by ')
     embed.set_thumbnail(url=sprite) 
     #add embed object to webhook
     webhook.add_embed(embed)
@@ -92,6 +97,7 @@ def quest_item(itemid,item,sprite):
     time.sleep(2)
   print (item+" Length:", len(research))
   embed = DiscordEmbed(title= item+' Field Research', description=research, color=4390656)
+  embed.set_footer(text='Research by ')
   embed.set_thumbnail(url=sprite) 
   #add embed object to webhook
   webhook.add_embed(embed)
@@ -129,6 +135,7 @@ def quest_stardust(itemid,item,sprite):
     
     print (item+" Length:", len(research))
     embed = DiscordEmbed(title= item+' Field Research', description=research, color=16711931)
+    embed.set_footer(text='Research by ')
     embed.set_thumbnail(url=sprite) 
     #add embed object to webhook
     webhook.add_embed(embed)
@@ -137,6 +144,7 @@ def quest_stardust(itemid,item,sprite):
     time.sleep(2)
   print (item+" Length:", len(research))
   embed = DiscordEmbed(title= item+' Field Research', description=research, color=16711931)
+  embed.set_footer(text='Research by ')
   embed.set_thumbnail(url=sprite) 
   #add embed object to webhook
   webhook.add_embed(embed)
