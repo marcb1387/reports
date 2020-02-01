@@ -29,17 +29,26 @@ def quest_mon(monid,mon,shiny,typeid,formid):
  
   research = ''
   for stop in res: 
- 
-   research += ('['+stop[0]+'](''https://www.google.com/maps/search/?api=1&query='''+stop[1]+','+stop[2]+')'+'\n') 
- 
+   research += ('['+stop[0]+'](''https://www.google.com/maps/search/?api=1&query='''+stop[1]+','+stop[2]+')'+'\n')
+
+   if len(research)> 1950:
+    print ("larger then 2048 breaking up")
+    print (mon+" Length:", len(research))
+    embed = DiscordEmbed(title= shiny+mon+' Field Research'+shiny, description=research, color=16777011)
+    embed.set_thumbnail(url='https://raw.githubusercontent.com/whitewillem/PogoAssets/resized/no_border/pokemon_icon_'+monid+'_'+formid+'.png') 
+    #add embed object to webhook
+    webhook.add_embed(embed)
+    webhook.execute()
+    research = ''
+    time.sleep(2)
+  
+  print (mon+" Length:", len(research))
   embed = DiscordEmbed(title= shiny+mon+' Field Research'+shiny, description=research, color=16777011)
-  embed.set_thumbnail(url='https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/pokemon_icons/pokemon_icon_'+monid+'_'+formid+'.png') 
-
-
-
-  # add embed object to webhook
+  embed.set_thumbnail(url='https://raw.githubusercontent.com/whitewillem/PogoAssets/resized/no_border/pokemon_icon_'+monid+'_'+formid+'.png') 
+  #add embed object to webhook
   webhook.add_embed(embed)
   webhook.execute()
+  research = ''
   time.sleep(2)
 
 #Items
@@ -72,8 +81,8 @@ def quest_item(itemid,item,sprite):
 
    if len(research)> 1950:
     print ("larger then 2048 breaking up")
-    nlines = research.count('\n')
-    print (nlines)
+    
+    print (item+" Length:", len(research))
     embed = DiscordEmbed(title= item+' Field Research', description=research, color=4390656)
     embed.set_thumbnail(url=sprite) 
     #add embed object to webhook
@@ -81,6 +90,7 @@ def quest_item(itemid,item,sprite):
     webhook.execute()
     research = ''
     time.sleep(2)
+  print (item+" Length:", len(research))
   embed = DiscordEmbed(title= item+' Field Research', description=research, color=4390656)
   embed.set_thumbnail(url=sprite) 
   #add embed object to webhook
@@ -114,11 +124,24 @@ def quest_stardust(itemid,item,sprite):
  
    research += ('['+stop[0]+'](''https://www.google.com/maps/search/?api=1&query='''+stop[1]+','+stop[2]+')'+' - '+stop[3]+' - Amount:'+stop[4]+'\n') 
 
+   if len(research)> 1950:
+    print ("larger then 2048 breaking up")
+    
+    print (item+" Length:", len(research))
+    embed = DiscordEmbed(title= item+' Field Research', description=research, color=16711931)
+    embed.set_thumbnail(url=sprite) 
+    #add embed object to webhook
+    webhook.add_embed(embed)
+    webhook.execute()
+    research = ''
+    time.sleep(2)
+  print (item+" Length:", len(research))
   embed = DiscordEmbed(title= item+' Field Research', description=research, color=16711931)
   embed.set_thumbnail(url=sprite) 
-  # add embed object to webhook
+  #add embed object to webhook
   webhook.add_embed(embed)
   webhook.execute()
+  research = ''
   time.sleep(2)
 
 
@@ -137,7 +160,7 @@ quest_mon("032","Nidoran",":sparkles:","0","00")
 quest_mon("033","Nidorino",":sparkles:","0","00")
 quest_mon("034","Nidoking",":sparkles:","0","00")
 quest_mon("037","Vulpix","","0","00")
-quest_mon("037","Alolan Vulpix",":sparkles:","56","61")
+quest_mon("037","Alolan Vulpix",":sparkles:","56","56")
 quest_mon("041","Ditto","","0","00")
 quest_mon("056","Mankey",":sparkles:","0","00")
 quest_mon("058","Growlithe",":sparkles:","0","00")
@@ -198,7 +221,7 @@ quest_mon("311","Plusle",":sparkles:","0","00")
 quest_mon("312","Minun",":sparkles:","0","00")
 quest_mon("317","Swalot","","0","00")
 quest_mon("325","Spoink",":sparkles:","0","00")
-quest_mon("327","Spinda Number 7",":sparkles:","0","00")
+quest_mon("327","Spinda Number 7",":sparkles:","0","17")
 quest_mon("335","Zangoose",":sparkles:","0","00")
 quest_mon("336","Seviper",":sparkles:","0","00")
 quest_mon("345","Lileep",":sparkles:","0","00")
