@@ -19,19 +19,14 @@ def quest_mon(monid,mon,shiny,typeid,formid):
  if not name:
   print ("no quests for "+mon)
  else:
-   
   #convert data into string
   res =[tuple(str(ele) for ele in sub) for sub in name]
- 
   webhook = DiscordWebhook(url=webhookurl)
- 
   # create embed object for webhook 
- 
   research = ''
   for stop in res: 
    research += ('['+stop[0]+'](''https://www.google.com/maps/search/?api=1&query='''+stop[1]+','+stop[2]+')'+'\n')
-
-   if len(research)> 1950:
+   if len(research)> 1900:
     print ("larger then 2048 breaking up")
     print (mon+" Length:", len(research))
     embed = DiscordEmbed(title= shiny+mon+' Field Research'+shiny, description=research, color=16777011)
@@ -40,7 +35,6 @@ def quest_mon(monid,mon,shiny,typeid,formid):
     embed.set_author(name='Research Task: '+stop[3])
     #add embed object to webhook
     webhook.add_embed(embed)
-    webhook.execute()
     research = ''
     time.sleep(2)
   
@@ -67,32 +61,21 @@ def quest_item(itemid,item,sprite):
  if not name:
   print ("no quests for "+item)
  else:
-   
   #convert data into string
-
   res =[tuple(str(ele) for ele in sub) for sub in name]
-  
   webhook = DiscordWebhook(url=webhookurl)
- 
   # create embed object for webhook 
- 
   research = ''
-  new_str = ''
-
   for stop in res: 
    research += ('['+stop[0]+'](''https://www.google.com/maps/search/?api=1&query='''+stop[1]+','+stop[2]+')'+' - '+stop[3]+' - Amount:'+stop[4]+'\n')
-   new_str = ('['+stop[0]+'](''https://www.google.com/maps/search/?api=1&query='''+stop[1]+','+stop[2]+')'+' - '+stop[3]+' - Amount:'+stop[4]+'\n')
-
-   if len(research)> 1950:
+   if len(research)> 1900:
     print ("larger then 2048 breaking up")
-    
     print (item+" Length:", len(research))
     embed = DiscordEmbed(title= item+' Field Research', description=research, color=4390656)
     embed.set_footer(text='Research by ')
     embed.set_thumbnail(url=sprite) 
     #add embed object to webhook
     webhook.add_embed(embed)
-    webhook.execute()
     research = ''
     time.sleep(2)
   print (item+" Length:", len(research))
@@ -117,29 +100,21 @@ def quest_stardust(itemid,item,sprite):
  if not name:
   print ("no quests for "+item)
  else:
-   
   #convert data into string
   res =[tuple(str(ele) for ele in sub) for sub in name]
- 
   webhook = DiscordWebhook(url=webhookurl)
- 
   # create embed object for webhook 
- 
   research = ''
   for stop in res: 
- 
    research += ('['+stop[0]+'](''https://www.google.com/maps/search/?api=1&query='''+stop[1]+','+stop[2]+')'+' - '+stop[3]+' - Amount:'+stop[4]+'\n') 
-
-   if len(research)> 1950:
+   if len(research)> 1900:
     print ("larger then 2048 breaking up")
-    
     print (item+" Length:", len(research))
     embed = DiscordEmbed(title= item+' Field Research', description=research, color=16711931)
     embed.set_footer(text='Research by ')
     embed.set_thumbnail(url=sprite) 
     #add embed object to webhook
     webhook.add_embed(embed)
-    webhook.execute()
     research = ''
     time.sleep(2)
   print (item+" Length:", len(research))
@@ -169,7 +144,9 @@ quest_mon("033","Nidorino",":sparkles:","0","00")
 quest_mon("034","Nidoking",":sparkles:","0","00")
 quest_mon("037","Vulpix","","0","00")
 quest_mon("037","Alolan Vulpix",":sparkles:","56","56")
-quest_mon("041","Ditto","","0","00")
+quest_mon("039","Jigglypuff","","0","00")
+quest_mon("041","Zubat",":sparkles:","157","00")
+quest_mon("052","Alolan Meowth",":sparkles:","64","64")
 quest_mon("056","Mankey",":sparkles:","0","00")
 quest_mon("058","Growlithe",":sparkles:","0","00")
 quest_mon("059","Arcanine",":sparkles:","0","00")
@@ -206,7 +183,10 @@ quest_mon("138","Omanyte",":sparkles:","0","00")
 quest_mon("140","Kabuto",":sparkles:","0","00")
 quest_mon("142","Aerodactyl",":sparkles:","0","00")
 quest_mon("147","Dratini",":sparkles:","0","00")
+quest_mon("183","Marill","","0","00")
 quest_mon("191","Sunkern",":sparkles:","0","00")
+quest_mon("196","Espeon","","0","00")
+quest_mon("197","Umbreon","","0","00")
 quest_mon("220","Swinub",":sparkles:","0","00")
 quest_mon("209","Snubbull",":sparkles:","0","00")
 quest_mon("215","Sneasel",":sparkles:","797","00")
@@ -234,6 +214,7 @@ quest_mon("335","Zangoose",":sparkles:","0","00")
 quest_mon("336","Seviper",":sparkles:","0","00")
 quest_mon("345","Lileep",":sparkles:","0","00")
 quest_mon("347","Anorith",":sparkles:","0","00")
+quest_mon("349","Feebas",":sparkles:","0","00")
 quest_mon("353","Shuppet",":sparkles:","0","00")
 quest_mon("359","Absol",":sparkles:","0","00")
 quest_mon("361","Snorunt",":sparkles:","0","00")
