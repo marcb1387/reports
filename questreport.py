@@ -10,6 +10,7 @@ user = ''
 passwd = ''
 database = ''
 host = ''
+author = ''
 
 
 #Pokemon - Standard Task
@@ -35,7 +36,7 @@ def quest_mon(monid,mon,shiny,typeid,formid):
     print (mon+" Length:", len(research))
     embed = DiscordEmbed(title= shiny+mon+' Field Research'+shiny, description=research, color=16777011)
     embed.set_thumbnail(url='https://raw.githubusercontent.com/whitewillem/PogoAssets/resized/no_border/pokemon_icon_'+monid+'_'+formid+'.png')
-    embed.set_footer(text='Research by Harambe1387')
+    embed.set_footer(text='Research by '+author)
     embed.set_author(name='Research Task: '+stop[3])
     #add embed object to webhook
     webhook.add_embed(embed)
@@ -47,7 +48,7 @@ def quest_mon(monid,mon,shiny,typeid,formid):
   print (mon+" Length:", len(research))
   embed = DiscordEmbed(title= shiny+mon+' Field Research'+shiny, description=research, color=16777011)
   embed.set_thumbnail(url='https://raw.githubusercontent.com/whitewillem/PogoAssets/resized/no_border/pokemon_icon_'+monid+'_'+formid+'.png')
-  embed.set_footer(text='Research by Harambe1387')
+  embed.set_footer(text='Research by '+author)
   embed.set_author(name='Research Task: '+stop[3])
   #add embed object to webhook
   webhook.add_embed(embed)
@@ -78,7 +79,7 @@ def quest_mon_var(monid,mon,shiny,typeid,formid):
     print (mon+" Length:", len(research))
     embed = DiscordEmbed(title= shiny+mon+' Field Research'+shiny, description=research, color=16777011)
     embed.set_thumbnail(url='https://raw.githubusercontent.com/whitewillem/PogoAssets/resized/no_border/pokemon_icon_'+monid+'_'+formid+'.png')
-    embed.set_footer(text='Research by Harambe1387')
+    embed.set_footer(text='Research by '+author)
     #add embed object to webhook
     webhook.add_embed(embed)
     webhook.execute()
@@ -89,7 +90,7 @@ def quest_mon_var(monid,mon,shiny,typeid,formid):
   print (mon+" Length:", len(research))
   embed = DiscordEmbed(title= shiny+mon+' Field Research'+shiny, description=research, color=16777011)
   embed.set_thumbnail(url='https://raw.githubusercontent.com/whitewillem/PogoAssets/resized/no_border/pokemon_icon_'+monid+'_'+formid+'.png')
-  embed.set_footer(text='Research by Harambe1387')
+  embed.set_footer(text='Research by '+author)
   #add embed object to webhook
   webhook.add_embed(embed)
   webhook.execute()
@@ -120,7 +121,7 @@ def quest_item_same(itemid,item,sprite):
     print (item+" Length:", len(research))
     embed = DiscordEmbed(title= item+' Field Research', description=research, color=4390656)
     embed.set_author(name='Research Task: '+stop[3])
-    embed.set_footer(text='Research by Harambe1387')
+    embed.set_footer(text='Research by '+author)
     embed.set_thumbnail(url=sprite) 
     #add embed object to webhook
     webhook.add_embed(embed)
@@ -131,7 +132,7 @@ def quest_item_same(itemid,item,sprite):
   print (item+" Length:", len(research))
   embed = DiscordEmbed(title= item+' Field Research', description=research, color=4390656)
   embed.set_author(name='Research Task: '+stop[3])
-  embed.set_footer(text='Research by Harambe1387')
+  embed.set_footer(text='Research by '+author)
   embed.set_thumbnail(url=sprite) 
   #add embed object to webhook
   webhook.add_embed(embed)
@@ -162,7 +163,7 @@ def quest_item_var(itemid,item,sprite):
     print ("larger then 2048 breaking up")
     print (item+" Length:", len(research))
     embed = DiscordEmbed(title= item+' Field Research', description=research, color=4390656)
-    embed.set_footer(text='Research by Harambe1387')
+    embed.set_footer(text='Research by '+author)
     embed.set_thumbnail(url=sprite) 
     #add embed object to webhook
     webhook.add_embed(embed)
@@ -172,7 +173,7 @@ def quest_item_var(itemid,item,sprite):
     time.sleep(2)
   print (item+" Length:", len(research))
   embed = DiscordEmbed(title= item+' Field Research', description=research, color=4390656)
-  embed.set_footer(text='Research by Harambe1387')
+  embed.set_footer(text='Research by '+author)
   embed.set_thumbnail(url=sprite) 
   #add embed object to webhook
   webhook.add_embed(embed)
@@ -202,7 +203,7 @@ def quest_stardust(itemid,item,sprite):
     print ("larger then 2048 breaking up")
     print (item+" Length:", len(research))
     embed = DiscordEmbed(title= item+' Field Research', description=research, color=16711931)
-    embed.set_footer(text='Research by Harambe1387')
+    embed.set_footer(text='Research by '+author)
     embed.set_thumbnail(url=sprite) 
     #add embed object to webhook
     webhook.add_embed(embed)
@@ -212,7 +213,7 @@ def quest_stardust(itemid,item,sprite):
     time.sleep(2)
   print (item+" Length:", len(research))
   embed = DiscordEmbed(title= item+' Field Research', description=research, color=16711931)
-  embed.set_footer(text='Research by Harambe1387')
+  embed.set_footer(text='Research by '+author)
   embed.set_thumbnail(url=sprite) 
   #add embed object to webhook
   webhook.add_embed(embed)
