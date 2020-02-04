@@ -1,5 +1,9 @@
 # quest-report
-Python report that will post to discord
+Discord Python Report that will post Reseach for Pokemon Go. For use with MAD Scanner. 
+
+DO NOT INSTALL ON SAME MACHINE AS SCANNER.
+
+Will post all Pokemon encounters, Stardust over 1000 and Rare Items. 
 
 area = 'Cordinates of geofence for research LAT LONG, LAT LONG first and last corrdinates must be the same'
 
@@ -15,11 +19,7 @@ host = 'Database IP address'
 
 author = 'Name that will appear in footer of embed, Research by __________'
 
-Stardust will only post reseach that rewards over 1000. 
-
-DO NOT INSTALL ON SAME MACHINE AS SCANNER.
-
-Requires: 
+Requires the Python Moidules below: 
 
 https://pypi.org/project/discord-webhook/ 
 pip install discord-webhook
