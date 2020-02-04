@@ -1,7 +1,19 @@
 # quest-report
 Python report that will post to discord
 
-Please fill out your webhook,Database information and, area with the first and last cordinates being the same.
+area = 'Cordinates of geofence for research LAT LONG, LAT LONG first and last corrdinates must be the same'
+
+webhookurl = 'WEBHOOK URL'
+
+user = 'Database username'
+
+passwd = 'Database password'
+
+database = 'Scanner Databse Name'
+
+host = 'Database IP address'
+
+author = 'Name that will appear in footer of embed, Research by __________'
 
 Stardust will only post reseach that rewards over 1000. 
 
