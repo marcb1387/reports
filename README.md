@@ -5,8 +5,10 @@ DO NOT INSTALL ON SAME ENVIRONMENT AS SCANNER.
 
 Will post all Pokemon encounters, Stardust over 1000 and Rare Items. 
 
+Please edit the top of the script
+
 ```
-area = 'Cordinates of geofence for research LAT LONG, LAT LONG first and last corrdinates must be the same'
+area = 'LAT LONG, LAT LONG, LAT LONG' #Cordinates of geofence for research, first and last corrdinates must be the same
 
 webhookurl = 'WEBHOOK URL'
 
