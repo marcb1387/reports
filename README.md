@@ -5,6 +5,7 @@ DO NOT INSTALL ON SAME ENVIRONMENT AS SCANNER.
 
 Will post all Pokemon encounters, Stardust over 1000 and Rare Items. 
 
+```
 area = 'Cordinates of geofence for research LAT LONG, LAT LONG first and last corrdinates must be the same'
 
 webhookurl = 'WEBHOOK URL'
@@ -18,7 +19,7 @@ database = 'Scanner Databse Name'
 host = 'Database IP address'
 
 author = 'Name that will appear in footer of embed, Research by __________'
-
+```
 Example Pokemon, Items and Stradust reports 
 
 ![Iteam_pokemon_example](https://i.imgur.com/oia6W60.png)![Iteam_item_example](https://i.imgur.com/A3I8L47.png)![Iteam_stardust_example](https://i.imgur.com/8t9UAMp.png)
