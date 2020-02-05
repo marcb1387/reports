@@ -34,6 +34,8 @@ def rocket(leader,lname,sprite,guide):
    if len(research)> 1900:
     print ("larger then 2048 breaking up")
     print (lname+" Length:", len(research))
+    webhook.username = 'Leader: '+lname
+    webhook.avatar_url=sprite
     embed = DiscordEmbed(title= 'Leader: '+lname, description=research, color=3158064)
     embed.set_thumbnail(url=sprite)
     embed.set_footer(text='Leader Locations by: '+author)
