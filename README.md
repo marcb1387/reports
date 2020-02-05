@@ -28,7 +28,7 @@ Example Pokemon, Items and Stradust reports
 
 # Rocket Report
 
-Used to show where Team rocket leaders are located
+Used to show where Team rocket leaders are located, Top Link to Counters guide for each leader as well.
 
 Example report
 
