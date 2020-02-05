@@ -30,3 +30,6 @@ pip install mysql-connector-python
 # Rocket Report
 
 Used to show where Team rocket leaders are located
+Example report
+![Iteam_rocket_example](https://i.imgur.com/uIH4JSV.png)
+
