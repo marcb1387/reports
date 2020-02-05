@@ -34,7 +34,7 @@ Example report
 
 ![Iteam_rocket_example](https://i.imgur.com/uIH4JSV.png)
 
-Requires the Python Moidules below: 
+Requires the Python Modules below: 
 
 https://pypi.org/project/discord-webhook/ 
 pip install discord-webhook
