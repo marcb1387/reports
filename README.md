@@ -29,4 +29,4 @@ pip install mysql-connector-python
 
 # Rocket Report
 
-Used to show what Team rocket Leads are located at specific stops
+Used to show where Team rocket leaders are located
