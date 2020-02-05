@@ -1,4 +1,4 @@
-# quest-report
+# Field Research Report
 Discord Python Report that will post Reseach for Pokemon Go. For use with MAD Scanner. 
 
 DO NOT INSTALL ON SAME MACHINE AS SCANNER.
@@ -26,3 +26,7 @@ pip install discord-webhook
 
 https://pypi.org/project/mysql-connector-python/
 pip install mysql-connector-python
+
+# Rocket Report
+
+Used to show what Team rocket Leads are located at specific stops
