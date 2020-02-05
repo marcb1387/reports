@@ -24,7 +24,11 @@ author = 'Name that will appear in footer of embed, Research by __________'
 ```
 Example Pokemon, Items and Stradust reports 
 
-![Iteam_pokemon_example](https://i.imgur.com/oia6W60.png)![Iteam_item_example](https://i.imgur.com/A3I8L47.png)![Iteam_stardust_example](https://i.imgur.com/8t9UAMp.png)
+![Iteam_pokemon_example](https://i.imgur.com/oia6W60.png)
+
+![Iteam_item_example](https://i.imgur.com/A3I8L47.png)
+
+![Iteam_stardust_example](https://i.imgur.com/8t9UAMp.png)
 
 # Rocket Report
 
