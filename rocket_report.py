@@ -17,7 +17,7 @@ author = ''
 def rocket(leader,lname,sprite,guide):
  mariadb_connection = mariadb.connect(user=user, password=passwd, database=database, host=host)
  cursor = mariadb_connection.cursor()
- query = ("select CONVERT(pokestop.name USING ascii) as pokestopname,pokestop.latitude,pokestop.longitude from pokestop WHERE incident_grunt_type = "+leader+" and ST_CONTAINS(ST_GEOMFROMTEXT('POLYGON(("+area+"))'), point(pokestop.latitude, pokestop.longitude))")
+ query = ("select CONVERT(pokestop.name USING UTF8MB4) as pokestopname,pokestop.latitude,pokestop.longitude from pokestop WHERE incident_grunt_type = "+leader+" and ST_CONTAINS(ST_GEOMFROMTEXT('POLYGON(("+area+"))'), point(pokestop.latitude, pokestop.longitude))")
  cursor.execute(query)
  name = cursor.fetchall()
  
