@@ -13,7 +13,7 @@ host = ''
 author = ''
 
 
-#Pokemon - Standard Task
+#Rocket Leaders - Standard
 def rocket(leader,lname,sprite,guide):
  mariadb_connection = mariadb.connect(user=user, password=passwd, database=database, host=host)
  cursor = mariadb_connection.cursor()
