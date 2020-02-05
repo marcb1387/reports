@@ -19,13 +19,9 @@ host = 'Database IP address'
 
 author = 'Name that will appear in footer of embed, Research by __________'
 
-Requires the Python Moidules below: 
+Example Pokemon, Items and Stradust reports 
 
-https://pypi.org/project/discord-webhook/ 
-pip install discord-webhook
-
-https://pypi.org/project/mysql-connector-python/
-pip install mysql-connector-python
+![Iteam_pokemon_example](https://i.imgur.com/oia6W60.png)![Iteam_item_example](https://i.imgur.com/A3I8L47.png)![Iteam_stardust_example](https://i.imgur.com/8t9UAMp.png)
 
 # Rocket Report
 
@@ -35,3 +31,10 @@ Example report
 
 ![Iteam_rocket_example](https://i.imgur.com/uIH4JSV.png)
 
+Requires the Python Moidules below: 
+
+https://pypi.org/project/discord-webhook/ 
+pip install discord-webhook
+
+https://pypi.org/project/mysql-connector-python/
+pip install mysql-connector-python
