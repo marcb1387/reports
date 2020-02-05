@@ -1,7 +1,7 @@
 # Field Research Report
 Discord Python Report that will post Reseach for Pokemon Go. For use with MAD Scanner. 
 
-DO NOT INSTALL ON SAME MACHINE AS SCANNER.
+DO NOT INSTALL ON SAME ENVIRONMENT AS SCANNER.
 
 Will post all Pokemon encounters, Stardust over 1000 and Rare Items. 
 
