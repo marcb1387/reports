@@ -199,7 +199,7 @@ def quest_stardust(itemid,item,sprite):
   research = ''
   for stop in res: 
    research += ('['+stop[0]+'](''https://www.google.com/maps/search/?api=1&query='''+stop[1]+','+stop[2]+')'+' '+stop[3]+' - Amount: '+stop[4]+'\n') 
-   if len(research)> 1900:
+   if len(research)> 1850:
     print ("larger then 2048 breaking up")
     print (item+" Length:", len(research))
     embed = DiscordEmbed(title= item+' Field Research', description=research, color=16711931)
@@ -307,7 +307,7 @@ quest_mon("312","Minun",":sparkles:","0","00")
 quest_mon("315","Roselia",":sparkles:","0","00")
 quest_mon("317","Swalot","","0","00")
 quest_mon("325","Spoink",":sparkles:","0","00")
-quest_mon("327","Spinda Number 7",":sparkles:","0","17")
+quest_mon("327","Spinda Number 7",":sparkles:","0","00")
 quest_mon("335","Zangoose",":sparkles:","0","00")
 quest_mon("336","Seviper",":sparkles:","0","00")
 quest_mon("345","Lileep",":sparkles:","0","00")
@@ -342,7 +342,7 @@ quest_item_var('1102',"Kings Rock","https://raw.githubusercontent.com/ZeChrales/
 quest_item_var('1103',"Metal Coat","https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/Bag_Metal_Coat_Sprite.png")
 quest_item_var('1104',"Dragon Scale","https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/Bag_Dragon_Scale_Sprite.png")
 quest_item_var('1105',"Up-Grade","https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/Bag_Up-Grade_Sprite.png")
-quest_item_var('1106',"Sinnoh Stone","https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/Bag_Sinnoh_Stone_Sprite.png")
+quest_item_same('1106',"Sinnoh Stone","https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/Bag_Sinnoh_Stone_Sprite.png")
 quest_item_var('1107',"Unova Stone","https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/Bag_Unova_Stone_Sprite.png")
 quest_item_var('1201',"Fast TM","https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/Item_1201.png")
 quest_item_var('1202',"Charged TM","https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/Item_1202.png")
