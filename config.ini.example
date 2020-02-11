@@ -1,0 +1,12 @@
+[CONFIG]
+DiscordURL=URL_STRING_HERE
+Author=POSTING_AUTHOR_NAME
+
+#Coordinates string of area. First and last coordinate set must be equal. Format:Latitute and longitude separated by spaces and coordinate pairs separated by , symbol
+Area = COORDINATES_OF_AREA
+
+[DATABASE]
+MAD_db_host=HOST_ADRESS_HERE
+db_name=DB_NAME_HERE
+db_user=DB_USER_HERE
+db_pass=DB_PASS_HERE
