@@ -14,7 +14,7 @@ Author=POSTING_AUTHOR_NAME
 Areaname=NAME_OF_TEMP_AREA_FILE
 
 #Coordinates string of area. First and last coordinate set must be equal. Format:Latitute and longitude separated by spaces and coordinate pairs separated by , symbol
-Area = COORDINATES_OF_AREA '38.95971  -77.10273, 38.95971  -76.92077, 38.84281 -76.91545, 38.84268 -77.08299,38.95971  -77.10273' 
+Area = COORDINATES_OF_AREA 38.95971  -77.10273, 38.95971  -76.92077, 38.84281 -76.91545, 38.84268 -77.08299,38.95971  -77.10273
 
 [DATABASE]
 MAD_db_host=HOST_ADRESS_HERE
