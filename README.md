@@ -5,7 +5,7 @@ DO NOT INSTALL ON SAME ENVIRONMENT AS SCANNER.
 
 Will post all Pokemon encounters, Stardust over 1000 and Rare Items. 
 
-Please edit the top of the script
+Please edit the config.ini file
 
 ```
 area = '38.95971  -77.10273, 38.95971  -76.92077, 38.84281 -76.91545, 38.84268 -77.08299,38.95971  -77.10273' 
