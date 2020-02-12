@@ -8,21 +8,27 @@ Will post all Pokemon encounters, Stardust over 1000 and Rare Items.
 Please edit the config.ini file
 
 ```
-area = '38.95971  -77.10273, 38.95971  -76.92077, 38.84281 -76.91545, 38.84268 -77.08299,38.95971  -77.10273' 
-Cordinates of geofence for research, first and last corrdinates must be the same
+[CONFIG]
+DiscordURL=URL_STRING_HERE
+Author=POSTING_AUTHOR_NAME
+Areaname=NAME_OF_TEMP_AREA_FILE
 
-webhookurl = 'WEBHOOK URL'
+#Coordinates string of area. First and last coordinate set must be equal. Format:Latitute and longitude separated by spaces and coordinate pairs separated by , symbol
+Area = COORDINATES_OF_AREA '38.95971  -77.10273, 38.95971  -76.92077, 38.84281 -76.91545, 38.84268 -77.08299,38.95971  -77.10273' 
 
-user = 'Database username'
-
-passwd = 'Database password'
-
-database = 'Scanner Databse Name'
-
-host = 'Database IP address'
-
-author = 'Name that will appear in footer of embed, Research by __________'
+[DATABASE]
+MAD_db_host=HOST_ADRESS_HERE
+db_name=DB_NAME_HERE
+db_user=DB_USER_HERE
+db_pass=DB_PASS_HERE
 ```
+
+Optional Arguments
+
+-c, --check will check the area for the amount of pokestops vs amount of research tasks before psoting.
+
+-a, --area allows to pass optional area, webhook and areanames, if this is not used the config.ini defults will be used. questreport.py -a area.ini
+
 Example Pokemon, Items and Stradust reports 
 
 ![Iteam_pokemon_example](https://i.imgur.com/oia6W60.png)
