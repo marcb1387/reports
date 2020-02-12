@@ -1,0 +1,4 @@
+[CONFIG]
+#Coordinates string of area. First and last coordinate set must be equal. Format:Latitute and longitude separated by spaces and coordinate pairs separated by , symbol
+Area = 
+Areaname=
