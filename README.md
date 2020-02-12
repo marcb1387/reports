@@ -25,7 +25,7 @@ db_pass=DB_PASS_HERE
 
 Optional Arguments
 
--c, --check will check the area for the amount of pokestops vs amount of research tasks before psoting.
+-c, --check will check the area for the amount of pokestops vs amount of research tasks before posting.
 
 -a, --area allows to pass optional area, webhook and areanames, if this is not used the config.ini defults will be used. questreport.py -a area.ini
 
