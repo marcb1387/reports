@@ -23,7 +23,7 @@ db_user=DB_USER_HERE
 db_pass=DB_PASS_HERE
 ```
 
-Optional Arguments
+**Optional Arguments:**
 
 -c, --check will check the area for the amount of pokestops vs amount of research tasks before posting.
 
@@ -31,7 +31,7 @@ Optional Arguments
 
 -g, --gif will load Animated Gif Sprites for pokemon vs the standard images.
 
-Example Pokemon, Items and Stradust reports 
+**Example Pokemon, Items and Stradust reports:**
 
 ![Iteam_pokemon_example](https://i.imgur.com/oia6W60.png)
 
@@ -43,7 +43,7 @@ Example Pokemon, Items and Stradust reports
 
 Used to show where Team rocket leaders are located, Top Link to Counters guide for each leader as well.
 
-Example report
+**Example report**
 
 ![Iteam_rocket_example](https://i.imgur.com/uIH4JSV.png)
 
