@@ -29,6 +29,8 @@ Optional Arguments
 
 -a, --area allows to pass optional area, webhook and areanames, if this is not used the config.ini defults will be used. questreport.py -a area.ini
 
+-g, --gif will load Animated Gif Sprites for pokemon vs the standard images.
+
 Example Pokemon, Items and Stradust reports 
 
 ![Iteam_pokemon_example](https://i.imgur.com/oia6W60.png)
