@@ -10,6 +10,7 @@ import argparse
 parser = argparse.ArgumentParser()
 parser.add_argument("-a", "--area",default="config.ini", help="Area config file to use")
 parser.add_argument("-c", "--check",action="store_true", help="Check to make sure amount of stops and task is the same before posting")
+parser.add_argument("-g", "--gif",action="store_true", help="Use Animated Gif Pokemon Sprites")
 args = parser.parse_args()
 areafile = args.area
 
@@ -26,6 +27,13 @@ user = config.get('DATABASE', 'db_user')
 passwd = config.get('DATABASE', 'db_pass')
 # CONFIG END
 
+# SPRITES
+if args.gif:
+ img = 'https://raw.githubusercontent.com/marcb1387/assets/master/pokemon_icon_' #animated
+ ext = '.gif' #animated
+else:
+ img = 'https://raw.githubusercontent.com/whitewillem/PogoAssets/resized/no_border/pokemon_icon_' # Static
+ ext = '.png' #Static
 
 #Pokemon - Standard Task
 def quest_mon(monid,mon,shiny,typeid,formid):
@@ -49,7 +57,7 @@ def quest_mon(monid,mon,shiny,typeid,formid):
     print ("larger then 2048 breaking up")
     print (mon+" Length:", len(research))
     embed = DiscordEmbed(title= shiny+mon+' Field Research'+shiny, description=research, color=16777011)
-    embed.set_thumbnail(url='https://raw.githubusercontent.com/whitewillem/PogoAssets/resized/no_border/pokemon_icon_'+monid+'_'+formid+'.png')
+    embed.set_thumbnail(url=img+monid+'_'+formid+ext)
     embed.set_footer(text='Research by '+author)
     embed.set_author(name='Research Task: '+stop[3])
     #add embed object to webhook
@@ -61,7 +69,7 @@ def quest_mon(monid,mon,shiny,typeid,formid):
   
   print (mon+" Length:", len(research))
   embed = DiscordEmbed(title= shiny+mon+' Field Research'+shiny, description=research, color=16777011)
-  embed.set_thumbnail(url='https://raw.githubusercontent.com/whitewillem/PogoAssets/resized/no_border/pokemon_icon_'+monid+'_'+formid+'.png')
+  embed.set_thumbnail(url=img+monid+'_'+formid+ext)
   embed.set_footer(text='Research by '+author)
   embed.set_author(name='Research Task: '+stop[3])
   #add embed object to webhook
@@ -92,7 +100,7 @@ def quest_mon_var(monid,mon,shiny,typeid,formid):
     print ("larger then 2048 breaking up")
     print (mon+" Length:", len(research))
     embed = DiscordEmbed(title= shiny+mon+' Field Research'+shiny, description=research, color=16777011)
-    embed.set_thumbnail(url='https://raw.githubusercontent.com/whitewillem/PogoAssets/resized/no_border/pokemon_icon_'+monid+'_'+formid+'.png')
+    embed.set_thumbnail(url=img+monid+'_'+formid+ext)
     embed.set_footer(text='Research by '+author)
     #add embed object to webhook
     webhook.add_embed(embed)
@@ -103,7 +111,7 @@ def quest_mon_var(monid,mon,shiny,typeid,formid):
   
   print (mon+" Length:", len(research))
   embed = DiscordEmbed(title= shiny+mon+' Field Research'+shiny, description=research, color=16777011)
-  embed.set_thumbnail(url='https://raw.githubusercontent.com/whitewillem/PogoAssets/resized/no_border/pokemon_icon_'+monid+'_'+formid+'.png')
+  embed.set_thumbnail(url=img+monid+'_'+formid+ext)
   embed.set_footer(text='Research by '+author)
   #add embed object to webhook
   webhook.add_embed(embed)
