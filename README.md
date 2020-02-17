@@ -25,11 +25,13 @@ db_pass=DB_PASS_HERE
 
 **Optional Arguments:**
 
--c, --check will check the area for the amount of pokestops vs amount of research tasks before posting.
+-c, --check will check the area for the amount of pokestops vs amount of research tasks before posting and perform a filecheck to see if a report has already ran today. CRON use for running every X amount of minutes.
 
 -a, --area allows to pass optional area, webhook and areanames, if this is not used the config.ini defults will be used. questreport.py -a area.ini
 
 -g, --gif will load Animated Gif Sprites for pokemon vs the standard images.
+
+-s, --safe Will perform a file check only to see if a report has already ran today. CRON Use as a fail safe run at a specific time if all stops havent reported research. 
 
 **Example Pokemon, Items and Stradust reports:**
 
