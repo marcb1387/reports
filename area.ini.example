@@ -1,4 +1,6 @@
 [CONFIG]
 #Coordinates string of area. First and last coordinate set must be equal. Format:Latitute and longitude separated by spaces and coordinate pairs separated by , symbol
 Area = 
-Areaname=
+DiscordQ=WEBHOOK_URL_FIELD_RESEARCH
+DiscordR=WEBHOOK_URL_ROCKET_LEADERS
+Areaname=NAME_OF_TEMP_AREA_FILE
