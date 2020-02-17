@@ -52,7 +52,7 @@ Used to show where Team rocket leaders are located, Top Link to Counters guide f
 
 Running without any arguments will run the report with static images and no file/stops checks using the config.ini file information.
 
--a, --area allows to pass optional area, webhook, areanames or author. If this is not used the config.ini defults will be used.
+-a, --area allows to pass optional area, webhook, or author. If this is not used the config.ini defults will be used.
 
 **Example report**
 
