@@ -9,7 +9,8 @@ Please edit the config.ini file
 
 ```
 [CONFIG]
-DiscordURL=URL_STRING_HERE
+DiscordQ=WEBHOOK_URL_FIELD_RESEARCH
+DiscordR=WEBHOOK_URL_ROCKET_LEADERS
 Author=POSTING_AUTHOR_NAME
 Areaname=NAME_OF_TEMP_AREA_FILE
 
