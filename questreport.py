@@ -18,7 +18,7 @@ areafile = args.area
 # CONFIG
 config = configparser.ConfigParser()
 config.read(['config.ini',areafile])
-webhookurl = config.get('CONFIG', 'DiscordURL')
+webhookurl = config.get('CONFIG', 'DiscordQ')
 area = config.get('CONFIG', 'Area')
 areaname = config.get('CONFIG', 'Areaname')
 author = config.get('CONFIG', 'Author')
