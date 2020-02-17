@@ -5,7 +5,7 @@ import configparser
 import argparse
 
 parser = argparse.ArgumentParser()
-parser.add_argument("-a", "--area",default="rocket.ini", help="Area config file to use")
+parser.add_argument("-a", "--area",default="config.ini", help="Area config file to use")
 args = parser.parse_args()
 areafile = args.area
 
