@@ -48,11 +48,17 @@ Running without any arguments will run the report with static images and no file
 
 Used to show where Team rocket leaders are located, Top Link to Counters guide for each leader as well.
 
+**Optional Arguments:**
+
+Running without any arguments will run the report with static images and no file/stops checks using the config.ini file information.
+
+-a, --area allows to pass optional area, webhook, areanames or author. If this is not used the config.ini defults will be used.
+
 **Example report**
 
 ![Iteam_rocket_example](https://i.imgur.com/uIH4JSV.png)
 
-Requires the Python Modules below: 
+**Requires the Python Modules below:**
 
 https://pypi.org/project/discord-webhook/ 
 pip install discord-webhook
