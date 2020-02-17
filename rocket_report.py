@@ -1,19 +1,28 @@
 from discord_webhook import DiscordWebhook, DiscordEmbed
 import mysql.connector as mariadb
 import time
+import configparser
+import argparse
+
+parser = argparse.ArgumentParser()
+parser.add_argument("-a", "--area",default="rocket.ini", help="Area config file to use")
+args = parser.parse_args()
+areafile = args.area
+
+# CONFIG
+config = configparser.ConfigParser()
+config.read(['config.ini',areafile])
+webhookurlr = config.get('CONFIG', 'DiscordR')
+area = config.get('CONFIG', 'Area')
+author = config.get('CONFIG', 'Author')
+host = config.get('DATABASE', 'MAD_db_host')
+database = config.get('DATABASE', 'db_name')
+user = config.get('DATABASE', 'db_user')
+passwd = config.get('DATABASE', 'db_pass')
+# CONFIG END
 
 
-
-area = ''
-webhookurl = 'https://discordapp.com/api/'
-user = ''
-passwd = ''
-database = ''
-host = ''
-author = ''
-
-
-#Rocket Leaders - Standard
+#Pokemon - Standard Task
 def rocket(leader,lname,sprite,guide):
  mariadb_connection = mariadb.connect(user=user, password=passwd, database=database, host=host)
  cursor = mariadb_connection.cursor()
@@ -26,7 +35,7 @@ def rocket(leader,lname,sprite,guide):
  else:
   #convert data into string
   res =[tuple(str(ele) for ele in sub) for sub in name]
-  webhook = DiscordWebhook(url=webhookurl)
+  webhook = DiscordWebhook(url=webhookurlr)
   # create embed object for webhook 
   research = ''
   for stop in res: 
@@ -34,8 +43,6 @@ def rocket(leader,lname,sprite,guide):
    if len(research)> 1900:
     print ("larger then 2048 breaking up")
     print (lname+" Length:", len(research))
-    webhook.username = lname
-    webhook.avatar_url=sprite
     embed = DiscordEmbed(title= 'Leader: '+lname, description=research, color=3158064)
     embed.set_thumbnail(url=sprite)
     embed.set_footer(text='Leader Locations by: '+author)
@@ -48,8 +55,6 @@ def rocket(leader,lname,sprite,guide):
     time.sleep(2)
   
   print (lname+" Length:", len(research))
-  webhook.username = lname
-  webhook.avatar_url=sprite
   embed = DiscordEmbed(title= 'Leader: '+lname, description=research, color=3158064)
   embed.set_thumbnail(url=sprite)
   embed.set_footer(text='Leader Locations by: '+author)
