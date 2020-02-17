@@ -11,6 +11,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument("-a", "--area",default="config.ini", help="Area config file to use")
 parser.add_argument("-c", "--check",action="store_true", help="Check to make sure amount of stops and task is the same before posting")
 parser.add_argument("-g", "--gif",action="store_true", help="Use Animated Gif Pokemon Sprites")
+parser.add_argument("-s", "--safe",action="store_true", help="Dose no stop vs task check only a file check as a filesafe run")
 args = parser.parse_args()
 areafile = args.area
 
@@ -406,6 +407,17 @@ if args.check:
   print ("Quests Still Scanning")
   print ("Stop count: ",scount)
   print ("Quest count: ",qcount)
+elif args.safe:
+ if os.path.isfile(dir+areaname+'_'+today+'.temp'):
+  print("File exists, Report ran. EXITING")
+
+ else:
+  print("file dose not exist RUNNING REPORT")
+  x = open(dir+areaname+'_'+today+'.temp', 'w')
+  x.close()
+  stuff()
+  if os.path.isfile(dir+areaname+'_'+yesterday+'.temp'):
+   os.remove(dir+areaname+'_'+yesterday+'.temp')
 else:
  print("No checks running report")  
  stuff()
