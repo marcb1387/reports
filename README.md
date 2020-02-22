@@ -1,5 +1,5 @@
 # Field Research Report
-Discord Python Report that will post Reseach for Pokemon Go. For use with MAD Scanner. 
+Discord Python Report that will post Research for Pokemon Go. For use with MAD Scanner. 
 
 DO NOT INSTALL ON SAME ENVIRONMENT AS SCANNER.
 
@@ -30,11 +30,11 @@ Running without any arguments will run the report with static images and no file
 
 -c, --check will check the area for the amount of pokestops vs amount of research tasks before posting and perform a filecheck to see if a report has already ran today. CRON use for running every X amount of minutes to autopost after all stops have scanned for research. Do not use with -s.
 
--a, --area allows to pass optional area, webhook, areanames or author. If this is not used the config.ini defults will be used.
+-a, --area allows to pass optional area, webhook, areanames or author. If this is not used the config.ini defaults will be used.
 
 -g, --gif will load Animated Gif Sprites for pokemon vs the standard images.
 
--s, --safe Will perform a file check only to see if a report has already ran today. CRON Use as a fail safe run at a specific time if some stops havent reported research. Do no use with -c.
+-s, --safe Will perform a file check only to see if a report has already ran today. CRON Use as a fail safe run at a specific time if some stops haven’t reported research. Do no use with -c.
 
 **Example Pokemon, Items and Stradust reports:**
 
@@ -52,7 +52,7 @@ Used to show where Team rocket leaders are located, Top Link to Counters guide f
 
 Running without any arguments will run the report with static images and no file/stops checks using the config.ini file information.
 
--a, --area allows to pass optional area, webhook, or author. If this is not used the config.ini defults will be used.
+-a, --area allows to pass optional area, webhook, or author. If this is not used the config.ini defaults will be used.
 
 **Example report**
 
