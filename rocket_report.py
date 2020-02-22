@@ -39,7 +39,7 @@ def rocket(leader,lname,sprite,guide):
   # create embed object for webhook 
   research = ''
   for stop in res: 
-   research += ('['+stop[0]+'](''https://www.google.com/maps/search/?api=1&query='''+stop[1]+','+stop[2]+')'+'\n')
+   research += ('['+stop[0]+']('' https://maps.google.com/?q='''+stop[1]+','+stop[2]+')'+'\n')
    if len(research)> 1900:
     print ("larger then 2048 breaking up")
     print (lname+" Length:", len(research))
