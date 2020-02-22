@@ -53,7 +53,7 @@ def quest_mon(monid,mon,shiny,typeid,formid):
   # create embed object for webhook 
   research = ''
   for stop in res: 
-   research += ('['+stop[0]+'](''https://www.google.com/maps/search/?api=1&query='''+stop[1]+','+stop[2]+')'+'\n')
+   research += ('['+stop[0]+']('' https://maps.google.com/?q='''+stop[1]+','+stop[2]+')'+'\n')
    if len(research)> 1900:
     print ("larger then 2048 breaking up")
     print (mon+" Length:", len(research))
@@ -96,7 +96,7 @@ def quest_mon_var(monid,mon,shiny,typeid,formid):
   # create embed object for webhook 
   research = ''
   for stop in res: 
-   research += ('['+stop[0]+'](''https://www.google.com/maps/search/?api=1&query='''+stop[1]+','+stop[2]+')'+' '+stop[3]+'\n')
+   research += ('['+stop[0]+']('' https://maps.google.com/?q='''+stop[1]+','+stop[2]+')'+' '+stop[3]+'\n')
    if len(research)> 1900:
     print ("larger then 2048 breaking up")
     print (mon+" Length:", len(research))
@@ -138,7 +138,7 @@ def quest_item_same(itemid,item,sprite):
   # create embed object for webhook 
   research = ''
   for stop in res: 
-   research += ('['+stop[0]+'](''https://www.google.com/maps/search/?api=1&query='''+stop[1]+','+stop[2]+')'+'\n')
+   research += ('['+stop[0]+']('' https://maps.google.com/?q='''+stop[1]+','+stop[2]+')'+'\n')
    if len(research)> 1900:
     print ("larger then 2048 breaking up")
     print (item+" Length:", len(research))
@@ -181,7 +181,7 @@ def quest_item_var(itemid,item,sprite):
   # create embed object for webhook 
   research = ''
   for stop in res: 
-   research += ('['+stop[0]+'](''https://www.google.com/maps/search/?api=1&query='''+stop[1]+','+stop[2]+')'+' '+stop[3]+' - Amount: '+stop[4]+'\n')
+   research += ('['+stop[0]+']('' https://maps.google.com/?q='''+stop[1]+','+stop[2]+')'+' '+stop[3]+' - Amount: '+stop[4]+'\n')
    if len(research)> 1900:
     print ("larger then 2048 breaking up")
     print (item+" Length:", len(research))
@@ -221,7 +221,7 @@ def quest_stardust(itemid,item,sprite):
   # create embed object for webhook 
   research = ''
   for stop in res: 
-   research += ('['+stop[0]+'](''https://www.google.com/maps/search/?api=1&query='''+stop[1]+','+stop[2]+')'+' '+stop[3]+' - Amount: '+stop[4]+'\n') 
+   research += ('['+stop[0]+']('' https://maps.google.com/?q='''+stop[1]+','+stop[2]+')'+' '+stop[3]+' - Amount: '+stop[4]+'\n') 
    if len(research)> 1850:
     print ("larger then 2048 breaking up")
     print (item+" Length:", len(research))
