@@ -12,7 +12,7 @@ Please edit the config.ini file
 DiscordQ=WEBHOOK_URL_FIELD_RESEARCH
 DiscordR=WEBHOOK_URL_ROCKET_LEADERS
 Author=POSTING_AUTHOR_NAME
-Areaname=NAME_OF_TEMP_AREA_FILE
+Areaname=NAME_OF_TEMP_AREA_FILE (can be anything but i would suggest the name of the area)
 
 #Coordinates string of area. First and last coordinate set must be equal. Format:Latitute and longitude separated by spaces and coordinate pairs separated by , symbol
 Area = COORDINATES_OF_AREA 38.95971  -77.10273, 38.95971  -76.92077, 38.84281 -76.91545, 38.84268 -77.08299,38.95971  -77.10273
