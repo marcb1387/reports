@@ -22,7 +22,7 @@ MAD_db_host=HOST_ADRESS_HERE
 db_name=DB_NAME_HERE
 db_user=DB_USER_HERE
 db_pass=DB_PASS_HERE
-port=3306 (default but it can be chnaged)
+port=3306 (default but it can be changed)
 ```
 
 **Optional Arguments:**
