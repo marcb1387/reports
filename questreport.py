@@ -24,6 +24,7 @@ areaname = config.get('CONFIG', 'Areaname')
 author = config.get('CONFIG', 'Author')
 host = config.get('DATABASE', 'MAD_db_host')
 database = config.get('DATABASE', 'db_name')
+port = config.get('DATABASE', 'port')
 user = config.get('DATABASE', 'db_user')
 passwd = config.get('DATABASE', 'db_pass')
 # CONFIG END
@@ -38,7 +39,7 @@ else:
 
 #Pokemon - Standard Task
 def quest_mon(monid,mon,shiny,typeid,formid):
- mariadb_connection = mariadb.connect(user=user, password=passwd, database=database, host=host)
+ mariadb_connection = mariadb.connect(user=user, password=passwd, database=database, host=host, port=port)
  cursor = mariadb_connection.cursor()
  query = ("select CONVERT(pokestop.name USING UTF8MB4) as pokestopname,pokestop.latitude,pokestop.longitude,quest_task from pokestop inner join trs_quest on pokestop.pokestop_id = trs_quest.GUID where quest_pokemon_id ="+monid+" and quest_pokemon_form_id ="+typeid+" and ST_CONTAINS(ST_GEOMFROMTEXT('POLYGON(("+area+"))'), point(pokestop.latitude, pokestop.longitude))")
  cursor.execute(query)
@@ -81,7 +82,7 @@ def quest_mon(monid,mon,shiny,typeid,formid):
   
 #Pokemon - Variable Task
 def quest_mon_var(monid,mon,shiny,typeid,formid):
- mariadb_connection = mariadb.connect(user=user, password=passwd, database=database, host=host)
+ mariadb_connection = mariadb.connect(user=user, password=passwd, database=database, host=host, port=port)
  cursor = mariadb_connection.cursor()
  query = ("select CONVERT(pokestop.name USING UTF8MB4) as pokestopname,pokestop.latitude,pokestop.longitude,quest_task from pokestop inner join trs_quest on pokestop.pokestop_id = trs_quest.GUID where quest_pokemon_id ="+monid+" and quest_pokemon_form_id ="+typeid+" and ST_CONTAINS(ST_GEOMFROMTEXT('POLYGON(("+area+"))'), point(pokestop.latitude, pokestop.longitude))")
  cursor.execute(query)
@@ -122,7 +123,7 @@ def quest_mon_var(monid,mon,shiny,typeid,formid):
 
 #Items - Standard Task
 def quest_item_same(itemid,item,sprite):
- mariadb_connection = mariadb.connect(user=user, password=passwd, database=database, host=host)
+ mariadb_connection = mariadb.connect(user=user, password=passwd, database=database, host=host,port=port)
  cursor = mariadb_connection.cursor()
  query = ("select CONVERT(pokestop.name USING UTF8MB4) as pokestopname,pokestop.latitude,pokestop.longitude,trs_quest.quest_task,trs_quest.quest_item_amount from pokestop inner join trs_quest on pokestop.pokestop_id = trs_quest.GUID where quest_item_id = "+itemid+" and ST_CONTAINS(ST_GEOMFROMTEXT('POLYGON(("+area+"))'), point(pokestop.latitude, pokestop.longitude))")
  cursor.execute(query)
@@ -165,7 +166,7 @@ def quest_item_same(itemid,item,sprite):
 
 #Items - Variable Task 
 def quest_item_var(itemid,item,sprite):
- mariadb_connection = mariadb.connect(user=user, password=passwd, database=database, host=host)
+ mariadb_connection = mariadb.connect(user=user, password=passwd, database=database, host=host, port=port)
  cursor = mariadb_connection.cursor()
  query = ("select CONVERT(pokestop.name USING UTF8MB4) as pokestopname,pokestop.latitude,pokestop.longitude,trs_quest.quest_task,trs_quest.quest_item_amount from pokestop inner join trs_quest on pokestop.pokestop_id = trs_quest.GUID where quest_item_id = "+itemid+" and ST_CONTAINS(ST_GEOMFROMTEXT('POLYGON(("+area+"))'), point(pokestop.latitude, pokestop.longitude))")
  cursor.execute(query)
@@ -206,7 +207,7 @@ def quest_item_var(itemid,item,sprite):
 
 #Stardust
 def quest_stardust(itemid,item,sprite):
- mariadb_connection = mariadb.connect(user=user, password=passwd, database=database, host=host)
+ mariadb_connection = mariadb.connect(user=user, password=passwd, database=database, host=host, port=port)
  cursor = mariadb_connection.cursor()
  query = ("select CONVERT(pokestop.name USING UTF8MB4) as pokestopname,pokestop.latitude,pokestop.longitude,trs_quest.quest_task,if(trs_quest.quest_stardust>999,trs_quest.quest_stardust, null) from pokestop inner join trs_quest on pokestop.pokestop_id = trs_quest.GUID where quest_pokemon_id = "+itemid+" and DATE(FROM_UNIXTIME(trs_quest.quest_timestamp)) = CURDATE() and if(trs_quest.quest_stardust>999,trs_quest.quest_stardust, null) is not null and ST_CONTAINS(ST_GEOMFROMTEXT('POLYGON(("+area+"))'), point(pokestop.latitude, pokestop.longitude))")
  cursor.execute(query)
