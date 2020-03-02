@@ -367,7 +367,7 @@ def stuff():
  quest_mon("622","Golett","","0","00")
  quest_item_var('202',"Max Revive","https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/Item_0202.png")
  quest_item_var('502',"Glacial Lure","https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/TroyKey_glacial.png")
- quest_item_var('503',"Mossy Lure","https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/TroyKey_moss.png")
+ quest_item_same('503',"Mossy Lure","https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/TroyKey_moss.png")
  quest_item_var('504',"Magnetic Lure","https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/TroyKey_magnetic.png")
  quest_item_var('706',"Golden Razz","https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/Item_0706.png")
  quest_item_same('708',"Silver Pinap","https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/Item_0707.png")
