@@ -268,7 +268,7 @@ def stuff():
  quest_mon("044","Gloom","","0","00")
  quest_mon("050","Diglett",":sparkles:","0","00")
  quest_mon("052","Alolan Meowth",":sparkles:","64","64")
- quest_mon("056","Mankey",":sparkles:","0","00")
+ quest_mon_var("056","Mankey",":sparkles:","0","00")
  quest_mon("058","Growlithe",":sparkles:","0","00")
  quest_mon("059","Arcanine",":sparkles:","0","00")
  quest_mon("060","Poliwag",":sparkles:","0","00")
