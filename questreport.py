@@ -338,7 +338,7 @@ def stuff():
  quest_mon("315","Roselia",":sparkles:","0","00")
  quest_mon("317","Swalot","","0","00")
  quest_mon("325","Spoink",":sparkles:","0","00")
- quest_mon("327","Spinda Number 7",":sparkles:","0","00")
+ quest_mon("327","Spinda Number 6",":sparkles:","0","00")
  quest_mon("335","Zangoose",":sparkles:","0","00")
  quest_mon("336","Seviper",":sparkles:","0","00")
  quest_mon("345","Lileep",":sparkles:","0","00")
