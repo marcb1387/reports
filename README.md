@@ -13,7 +13,7 @@ Magnetic Lure Module | Dragon Scale
 Golden Razz Berry | Silver Pinap Berry
 Sinnoh Stone | Max Revive
 Unova Stone | King’s Rock
-Sun Stone |
+Sun Stone | Rare Candy
 
 Please edit the config.ini file
 
