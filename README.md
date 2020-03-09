@@ -3,7 +3,17 @@ Discord Python Report that will post Research for Pokemon Go. For use with MAD S
 
 DO NOT INSTALL ON SAME ENVIRONMENT AS SCANNER.
 
-Will post all Pokemon encounters, Stardust over 1000 and Rare Items. 
+Will post all Pokemon encounters, Stardust over 1000 and Rare Items listed below when found.
+
+Fast TM | Charge TM
+------------- | -------------
+Metal Coat | Upgrade
+Mossy Lure Module | Glacial Lure Module
+Magnetic Lure Module | Dragon Scale
+Golden Razz Berry | Silver Pinap Berry
+Sinnoh Stone | Max Revive
+Unova Stone | King’s Rock
+Sun Stone |
 
 Please edit the config.ini file
 
