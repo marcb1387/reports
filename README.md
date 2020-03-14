@@ -3,7 +3,7 @@ Discord Python Report that will post Research for Pokemon Go. For use with MAD S
 
 DO NOT INSTALL ON SAME ENVIRONMENT AS SCANNER.
 
-You can now edit the config.ini file to pick which items you would want in your report with true false statements. You can also adjust the stardust for research. Stardust amounts will show anything Greater then and equal to the amount you enter. 
+you can edit the config.ini file to pick which items you would want in your report with true/false statements. You can also adjust the stardust for research. Stardust amounts will show anything Greater then and equal to the amount you enter. 
 
 
 Please edit the config.ini file
