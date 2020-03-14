@@ -3,17 +3,8 @@ Discord Python Report that will post Research for Pokemon Go. For use with MAD S
 
 DO NOT INSTALL ON SAME ENVIRONMENT AS SCANNER.
 
-Will post all Pokemon encounters, Stardust over 1000 and Rare Items listed below when found.
+You can now edit the config.ini file to pick which items you would want in your report with true false statements. You can also adjust the stardust for research. Stardust amounts will show anything Greater then and equal to the amount you enter. 
 
-Fast TM | Charge TM
-------------- | -------------
-Metal Coat | Upgrade
-Mossy Lure Module | Glacial Lure Module
-Magnetic Lure Module | Dragon Scale
-Golden Razz Berry | Silver Pinap Berry
-Sinnoh Stone | Max Revive
-Unova Stone | King’s Rock
-Sun Stone | Rare Candy
 
 Please edit the config.ini file
 
@@ -33,6 +24,37 @@ db_name=DB_NAME_HERE
 db_user=DB_USER_HERE
 db_pass=DB_PASS_HERE
 port=3306 (default but it can be changed)
+
+[ITEMS]
+poke_ball=false
+great_ball=false
+ultra_ball=false
+potion=false
+super_potion=false
+hyper_potion=false
+max_potion=true
+revive=false
+max_revive=true
+razz_berry=false
+golden_razz_berry=true
+pinap_berry=false
+silver_pinap_berry=true
+nanab_berry=false
+dragon_scale=true
+kings_rock=true
+metal_coat=true
+sun_stone=true
+up_grade=true
+shinnoh_stone=true
+unova_stone=true
+fast_tm=true
+charged_tm=true
+rare_candy=true
+glacial_lure=true
+mossy_lure=true
+magnetic_lure=true
+stardust=1000
+encounters=true
 ```
 
 **Optional Arguments:**
