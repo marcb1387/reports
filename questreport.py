@@ -328,7 +328,7 @@ def stuff():
         quest_mon('113', 'Chansey', ':sparkles:', '0', '00')
         quest_mon('114', 'Tangela', '', '0', '00')
         quest_mon('121', 'Starmie', '', '0', '00')
-        quest_mon('124', 'Jynx', ':sparkles:', '0', '00')
+        quest_mon('124', 'Jynx', '', '0', '00')
         quest_mon('125', 'Electabuzz', ':sparkles:', '0', '00')
         quest_mon('126', 'Magmar', ':sparkles:', '0', '00')
         quest_mon('127', 'Pinsir', ':sparkles:', '0', '00')
