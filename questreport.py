@@ -6,6 +6,7 @@ import os
 from os import path
 import configparser
 import argparse
+import csv
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-a", "--area",default="config.ini", help="Area config file to use")
@@ -14,6 +15,7 @@ parser.add_argument("-g", "--gif",action="store_true", help="Use Animated Gif Po
 parser.add_argument("-s", "--safe",action="store_true", help="Dose no stop vs task check only a file check as a filesafe run")
 args = parser.parse_args()
 areafile = args.area
+
 
 # CONFIG
 config = configparser.ConfigParser()
@@ -66,91 +68,183 @@ if args.gif:
 else:
  img = 'https://raw.githubusercontent.com/whitewillem/PogoAssets/resized/no_border/pokemon_icon_' # Static
  ext = '.png' #Static
-
+ 
 #Pokemon - Standard Task
 def quest_mon(monid,mon,shiny,typeid,formid):
- mariadb_connection = mariadb.connect(user=user, password=passwd, database=database, host=host, port=port)
- cursor = mariadb_connection.cursor()
- query = ("select CONVERT(pokestop.name USING UTF8MB4) as pokestopname,pokestop.latitude,pokestop.longitude,quest_task from pokestop inner join trs_quest on pokestop.pokestop_id = trs_quest.GUID where quest_pokemon_id ="+monid+" and quest_pokemon_form_id ="+typeid+" and ST_CONTAINS(ST_GEOMFROMTEXT('POLYGON(("+area+"))'), point(pokestop.latitude, pokestop.longitude))")
- cursor.execute(query)
- name = cursor.fetchall()
- 
- if not name:
-  print ("no quests for "+mon)
+ if os.path.isfile('pokemon.csv'):
+  with open('pokemon.csv', 'rt') as p:
+      reader = csv.reader(p, delimiter=',')
+      for row in reader:
+           for field in row:
+               if field == monid:
+                 mariadb_connection = mariadb.connect(user=user, password=passwd, database=database, host=host, port=port)
+                 cursor = mariadb_connection.cursor()
+                 query = ("select CONVERT(pokestop.name USING UTF8MB4) as pokestopname,pokestop.latitude,pokestop.longitude,quest_task from pokestop inner join trs_quest on pokestop.pokestop_id = trs_quest.GUID where quest_pokemon_id ="+monid+" and quest_pokemon_form_id ="+typeid+" and ST_CONTAINS(ST_GEOMFROMTEXT('POLYGON(("+area+"))'), point(pokestop.latitude, pokestop.longitude))")
+                 cursor.execute(query)
+                 name = cursor.fetchall()
+                 
+                 if not name:
+                  print ("no quests for "+mon)
+                 else:
+                  #convert data into string
+                  res =[tuple(str(ele) for ele in sub) for sub in name]
+                  webhook = DiscordWebhook(url=webhookurl)
+                  # create embed object for webhook 
+                  research = ''
+                  for stop in res: 
+                   research += ('['+stop[0]+'](''https://maps.google.com/?q='''+stop[1]+','+stop[2]+')'+'\n')
+                   if len(research)> 1900:
+                    print ("larger then 2048 breaking up")
+                    print (mon+" Length:", len(research))
+                    embed = DiscordEmbed(title= shiny+mon+' Field Research'+shiny, description=research, color=16777011)
+                    embed.set_thumbnail(url=img+monid+'_'+formid+ext)
+                    embed.set_footer(text='Research by '+author, icon_url=footerimg)
+                    embed.set_author(name='Research Task: '+stop[3])
+                    #add embed object to webhook
+                    webhook.add_embed(embed)
+                    webhook.execute()
+                    research = ''
+                    webhook.remove_embed(0)
+                    time.sleep(2)
+                  
+                  print (mon+" Length:", len(research))
+                  embed = DiscordEmbed(title= shiny+mon+' Field Research'+shiny, description=research, color=16777011)
+                  embed.set_thumbnail(url=img+monid+'_'+formid+ext)
+                  embed.set_footer(text='Research by '+author, icon_url=footerimg)
+                  embed.set_author(name='Research Task: '+stop[3])
+                  #add embed object to webhook
+                  webhook.add_embed(embed)
+                  webhook.execute()
+                  research = ''
+                  time.sleep(2)
  else:
-  #convert data into string
-  res =[tuple(str(ele) for ele in sub) for sub in name]
-  webhook = DiscordWebhook(url=webhookurl)
-  # create embed object for webhook 
-  research = ''
-  for stop in res: 
-   research += ('['+stop[0]+'](''https://maps.google.com/?q='''+stop[1]+','+stop[2]+')'+'\n')
-   if len(research)> 1900:
-    print ("larger then 2048 breaking up")
-    print (mon+" Length:", len(research))
-    embed = DiscordEmbed(title= shiny+mon+' Field Research'+shiny, description=research, color=16777011)
-    embed.set_thumbnail(url=img+monid+'_'+formid+ext)
-    embed.set_footer(text='Research by '+author, icon_url=footerimg)
-    embed.set_author(name='Research Task: '+stop[3])
-    #add embed object to webhook
-    webhook.add_embed(embed)
-    webhook.execute()
-    research = ''
-    webhook.remove_embed(0)
-    time.sleep(2)
-  
-  print (mon+" Length:", len(research))
-  embed = DiscordEmbed(title= shiny+mon+' Field Research'+shiny, description=research, color=16777011)
-  embed.set_thumbnail(url=img+monid+'_'+formid+ext)
-  embed.set_footer(text='Research by '+author, icon_url=footerimg)
-  embed.set_author(name='Research Task: '+stop[3])
-  #add embed object to webhook
-  webhook.add_embed(embed)
-  webhook.execute()
-  research = ''
-  time.sleep(2)
+     mariadb_connection = mariadb.connect(user=user, password=passwd, database=database, host=host, port=port)
+     cursor = mariadb_connection.cursor()
+     query = ("select CONVERT(pokestop.name USING UTF8MB4) as pokestopname,pokestop.latitude,pokestop.longitude,quest_task from pokestop inner join trs_quest on pokestop.pokestop_id = trs_quest.GUID where quest_pokemon_id ="+monid+" and quest_pokemon_form_id ="+typeid+" and ST_CONTAINS(ST_GEOMFROMTEXT('POLYGON(("+area+"))'), point(pokestop.latitude, pokestop.longitude))")
+     cursor.execute(query)
+     name = cursor.fetchall()
+     
+     if not name:
+      print ("no quests for "+mon)
+     else:
+      #convert data into string
+      res =[tuple(str(ele) for ele in sub) for sub in name]
+      webhook = DiscordWebhook(url=webhookurl)
+      # create embed object for webhook 
+      research = ''
+      for stop in res: 
+       research += ('['+stop[0]+'](''https://maps.google.com/?q='''+stop[1]+','+stop[2]+')'+'\n')
+       if len(research)> 1900:
+        print ("larger then 2048 breaking up")
+        print (mon+" Length:", len(research))
+        embed = DiscordEmbed(title= shiny+mon+' Field Research'+shiny, description=research, color=16777011)
+        embed.set_thumbnail(url=img+monid+'_'+formid+ext)
+        embed.set_footer(text='Research by '+author, icon_url=footerimg)
+        embed.set_author(name='Research Task: '+stop[3])
+        #add embed object to webhook
+        webhook.add_embed(embed)
+        webhook.execute()
+        research = ''
+        webhook.remove_embed(0)
+        time.sleep(2)
+      
+      print (mon+" Length:", len(research))
+      embed = DiscordEmbed(title= shiny+mon+' Field Research'+shiny, description=research, color=16777011)
+      embed.set_thumbnail(url=img+monid+'_'+formid+ext)
+      embed.set_footer(text='Research by '+author, icon_url=footerimg)
+      embed.set_author(name='Research Task: '+stop[3])
+      #add embed object to webhook
+      webhook.add_embed(embed)
+      webhook.execute()
+      research = ''
+      time.sleep(2)
   
 #Pokemon - Variable Task
 def quest_mon_var(monid,mon,shiny,typeid,formid):
- mariadb_connection = mariadb.connect(user=user, password=passwd, database=database, host=host, port=port)
- cursor = mariadb_connection.cursor()
- query = ("select CONVERT(pokestop.name USING UTF8MB4) as pokestopname,pokestop.latitude,pokestop.longitude,quest_task from pokestop inner join trs_quest on pokestop.pokestop_id = trs_quest.GUID where quest_pokemon_id ="+monid+" and quest_pokemon_form_id ="+typeid+" and ST_CONTAINS(ST_GEOMFROMTEXT('POLYGON(("+area+"))'), point(pokestop.latitude, pokestop.longitude))")
- cursor.execute(query)
- name = cursor.fetchall()
- 
- if not name:
-  print ("no quests for "+mon)
+ if os.path.isfile('pokemon.csv'):
+  with open('pokemon.csv', 'rt') as p:
+      reader = csv.reader(p, delimiter=',')
+      for row in reader:
+           for field in row:
+               if field == monid:
+                 mariadb_connection = mariadb.connect(user=user, password=passwd, database=database, host=host, port=port)
+                 cursor = mariadb_connection.cursor()
+                 query = ("select CONVERT(pokestop.name USING UTF8MB4) as pokestopname,pokestop.latitude,pokestop.longitude,quest_task from pokestop inner join trs_quest on pokestop.pokestop_id = trs_quest.GUID where quest_pokemon_id ="+monid+" and quest_pokemon_form_id ="+typeid+" and ST_CONTAINS(ST_GEOMFROMTEXT('POLYGON(("+area+"))'), point(pokestop.latitude, pokestop.longitude))")
+                 cursor.execute(query)
+                 name = cursor.fetchall()
+                 
+                 if not name:
+                  print ("no quests for "+mon)
+                 else:
+                  #convert data into string
+                  res =[tuple(str(ele) for ele in sub) for sub in name]
+                  webhook = DiscordWebhook(url=webhookurl)
+                  # create embed object for webhook 
+                  research = ''
+                  for stop in res: 
+                   research += ('['+stop[0]+'](''https://maps.google.com/?q='''+stop[1]+','+stop[2]+')'+' '+stop[3]+'\n')
+                   if len(research)> 1900:
+                    print ("larger then 2048 breaking up")
+                    print (mon+" Length:", len(research))
+                    embed = DiscordEmbed(title= shiny+mon+' Field Research'+shiny, description=research, color=16777011)
+                    embed.set_thumbnail(url=img+monid+'_'+formid+ext)
+                    embed.set_footer(text='Research by '+author, icon_url=footerimg)
+                    #add embed object to webhook
+                    webhook.add_embed(embed)
+                    webhook.execute()
+                    research = ''
+                    webhook.remove_embed(0)
+                    time.sleep(2)
+                  
+                  print (mon+" Length:", len(research))
+                  embed = DiscordEmbed(title= shiny+mon+' Field Research'+shiny, description=research, color=16777011)
+                  embed.set_thumbnail(url=img+monid+'_'+formid+ext)
+                  embed.set_footer(text='Research by '+author, icon_url=footerimg)
+                  #add embed object to webhook
+                  webhook.add_embed(embed)
+                  webhook.execute()
+                  research = ''
+                  time.sleep(2)
  else:
-  #convert data into string
-  res =[tuple(str(ele) for ele in sub) for sub in name]
-  webhook = DiscordWebhook(url=webhookurl)
-  # create embed object for webhook 
-  research = ''
-  for stop in res: 
-   research += ('['+stop[0]+'](''https://maps.google.com/?q='''+stop[1]+','+stop[2]+')'+' '+stop[3]+'\n')
-   if len(research)> 1900:
-    print ("larger then 2048 breaking up")
-    print (mon+" Length:", len(research))
-    embed = DiscordEmbed(title= shiny+mon+' Field Research'+shiny, description=research, color=16777011)
-    embed.set_thumbnail(url=img+monid+'_'+formid+ext)
-    embed.set_footer(text='Research by '+author, icon_url=footerimg)
-    #add embed object to webhook
-    webhook.add_embed(embed)
-    webhook.execute()
-    research = ''
-    webhook.remove_embed(0)
-    time.sleep(2)
-  
-  print (mon+" Length:", len(research))
-  embed = DiscordEmbed(title= shiny+mon+' Field Research'+shiny, description=research, color=16777011)
-  embed.set_thumbnail(url=img+monid+'_'+formid+ext)
-  embed.set_footer(text='Research by '+author, icon_url=footerimg)
-  #add embed object to webhook
-  webhook.add_embed(embed)
-  webhook.execute()
-  research = ''
-  time.sleep(2)
-
+     mariadb_connection = mariadb.connect(user=user, password=passwd, database=database, host=host, port=port)
+     cursor = mariadb_connection.cursor()
+     query = ("select CONVERT(pokestop.name USING UTF8MB4) as pokestopname,pokestop.latitude,pokestop.longitude,quest_task from pokestop inner join trs_quest on pokestop.pokestop_id = trs_quest.GUID where quest_pokemon_id ="+monid+" and quest_pokemon_form_id ="+typeid+" and ST_CONTAINS(ST_GEOMFROMTEXT('POLYGON(("+area+"))'), point(pokestop.latitude, pokestop.longitude))")
+     cursor.execute(query)
+     name = cursor.fetchall()
+     
+     if not name:
+      print ("no quests for "+mon)
+     else:
+      #convert data into string
+      res =[tuple(str(ele) for ele in sub) for sub in name]
+      webhook = DiscordWebhook(url=webhookurl)
+      # create embed object for webhook 
+      research = ''
+      for stop in res: 
+       research += ('['+stop[0]+'](''https://maps.google.com/?q='''+stop[1]+','+stop[2]+')'+' '+stop[3]+'\n')
+       if len(research)> 1900:
+        print ("larger then 2048 breaking up")
+        print (mon+" Length:", len(research))
+        embed = DiscordEmbed(title= shiny+mon+' Field Research'+shiny, description=research, color=16777011)
+        embed.set_thumbnail(url=img+monid+'_'+formid+ext)
+        embed.set_footer(text='Research by '+author, icon_url=footerimg)
+        #add embed object to webhook
+        webhook.add_embed(embed)
+        webhook.execute()
+        research = ''
+        webhook.remove_embed(0)
+        time.sleep(2)
+      
+      print (mon+" Length:", len(research))
+      embed = DiscordEmbed(title= shiny+mon+' Field Research'+shiny, description=research, color=16777011)
+      embed.set_thumbnail(url=img+monid+'_'+formid+ext)
+      embed.set_footer(text='Research by '+author, icon_url=footerimg)
+      #add embed object to webhook
+      webhook.add_embed(embed)
+      webhook.execute()
+      research = ''
+      time.sleep(2)
+                 
 #Items - Standard Task
 def quest_item_same(itemid,item,sprite):
  mariadb_connection = mariadb.connect(user=user, password=passwd, database=database, host=host,port=port)
