@@ -3,10 +3,14 @@ Discord Python Report that will post Research for Pokemon Go. For use with MAD S
 
 DO NOT INSTALL ON SAME ENVIRONMENT AS SCANNER.
 
+
+**Optional pokemon.csv File**
+
+If this file is used the report will only show field research for the Pokémon listed in the file. if no file is detected all Field Research Encounter will be run. When entering Pokedex Number use 3 digits for the number. Example 001,025,125. Pokedex numbers can be entered in any order. 
+
+**config.ini File Edits**
+
 you can edit the config.ini file to pick which items you would want in your report with true/false statements. You can also adjust the stardust for research. Stardust amounts will show anything Greater then and equal to the amount you enter. 
-
-
-Please edit the config.ini file
 
 ```
 [CONFIG]
