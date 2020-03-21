@@ -44,10 +44,10 @@ def rocket(leader,lname,sprite,guide):
    if len(research)> 1900:
     print ("larger then 2048 breaking up")
     print (lname+" Length:", len(research))
-    embed = DiscordEmbed(title= 'Leader: '+lname, description=research, color=3158064)
+    embed = DiscordEmbed(title= 'Leader: '+lname, description=research, color=3158064, url=guide)
     embed.set_thumbnail(url=sprite)
     embed.set_footer(text='Leader Locations by: '+author)
-    embed.set_author(name=lname+' Counters Guide', url=guide)
+    embed.set_author(name=lname+' Counters Guide Link', url=guide)
     #add embed object to webhook
     webhook.add_embed(embed)
     webhook.execute()
@@ -56,10 +56,10 @@ def rocket(leader,lname,sprite,guide):
     time.sleep(2)
   
   print (lname+" Length:", len(research))
-  embed = DiscordEmbed(title= 'Leader: '+lname, description=research, color=3158064)
+  embed = DiscordEmbed(title= 'Leader: '+lname, description=research, color=3158064, url=guide)
   embed.set_thumbnail(url=sprite)
   embed.set_footer(text='Leader Locations by: '+author)
-  embed.set_author(name=lname+' Counters Guide', url=guide)
+  embed.set_author(name=lname+' Counters Guide Link', url=guide)
   #add embed object to webhook
   webhook.add_embed(embed)
   webhook.execute()
