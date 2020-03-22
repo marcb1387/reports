@@ -7,6 +7,7 @@ from os import path
 import configparser
 import argparse
 import csv
+import operator
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-a", "--area",default="config.ini", help="Area config file to use")
@@ -79,7 +80,7 @@ def quest_mon(monid,mon,shiny,typeid,formid):
                if field == monid:
                  mariadb_connection = mariadb.connect(user=user, password=passwd, database=database, host=host, port=port)
                  cursor = mariadb_connection.cursor()
-                 query = ("select CONVERT(pokestop.name USING UTF8MB4) as pokestopname,pokestop.latitude,pokestop.longitude,quest_task from pokestop inner join trs_quest on pokestop.pokestop_id = trs_quest.GUID where quest_pokemon_id ="+monid+" and quest_pokemon_form_id ="+typeid+" and ST_CONTAINS(ST_GEOMFROMTEXT('POLYGON(("+area+"))'), point(pokestop.latitude, pokestop.longitude))")
+                 query = ("select CONVERT(pokestop.name USING UTF8MB4) as pokestopname,pokestop.latitude,pokestop.longitude,quest_task from pokestop inner join trs_quest on pokestop.pokestop_id = trs_quest.GUID where quest_pokemon_id ="+monid+" and quest_pokemon_form_id ="+typeid+" ORDER BY pokestopname and ST_CONTAINS(ST_GEOMFROMTEXT('POLYGON(("+area+"))'), point(pokestop.latitude, pokestop.longitude))")
                  cursor.execute(query)
                  name = cursor.fetchall()
                  
@@ -88,6 +89,7 @@ def quest_mon(monid,mon,shiny,typeid,formid):
                  else:
                   #convert data into string
                   res =[tuple(str(ele) for ele in sub) for sub in name]
+                  res.sort()
                   webhook = DiscordWebhook(url=webhookurl)
                   # create embed object for webhook 
                   research = ''
@@ -120,7 +122,7 @@ def quest_mon(monid,mon,shiny,typeid,formid):
  else:
      mariadb_connection = mariadb.connect(user=user, password=passwd, database=database, host=host, port=port)
      cursor = mariadb_connection.cursor()
-     query = ("select CONVERT(pokestop.name USING UTF8MB4) as pokestopname,pokestop.latitude,pokestop.longitude,quest_task from pokestop inner join trs_quest on pokestop.pokestop_id = trs_quest.GUID where quest_pokemon_id ="+monid+" and quest_pokemon_form_id ="+typeid+" and ST_CONTAINS(ST_GEOMFROMTEXT('POLYGON(("+area+"))'), point(pokestop.latitude, pokestop.longitude))")
+     query = ("select CONVERT(pokestop.name USING UTF8MB4) as pokestopname,pokestop.latitude,pokestop.longitude,quest_task from pokestop inner join trs_quest on pokestop.pokestop_id = trs_quest.GUID where quest_pokemon_id ="+monid+" and quest_pokemon_form_id ="+typeid+" ORDER BY pokestopname and ST_CONTAINS(ST_GEOMFROMTEXT('POLYGON(("+area+"))'), point(pokestop.latitude, pokestop.longitude))")
      cursor.execute(query)
      name = cursor.fetchall()
      
@@ -129,6 +131,7 @@ def quest_mon(monid,mon,shiny,typeid,formid):
      else:
       #convert data into string
       res =[tuple(str(ele) for ele in sub) for sub in name]
+      res.sort()
       webhook = DiscordWebhook(url=webhookurl)
       # create embed object for webhook 
       research = ''
@@ -169,7 +172,7 @@ def quest_mon_var(monid,mon,shiny,typeid,formid):
                if field == monid:
                  mariadb_connection = mariadb.connect(user=user, password=passwd, database=database, host=host, port=port)
                  cursor = mariadb_connection.cursor()
-                 query = ("select CONVERT(pokestop.name USING UTF8MB4) as pokestopname,pokestop.latitude,pokestop.longitude,quest_task from pokestop inner join trs_quest on pokestop.pokestop_id = trs_quest.GUID where quest_pokemon_id ="+monid+" and quest_pokemon_form_id ="+typeid+" and ST_CONTAINS(ST_GEOMFROMTEXT('POLYGON(("+area+"))'), point(pokestop.latitude, pokestop.longitude))")
+                 query = ("select CONVERT(pokestop.name USING UTF8MB4) as pokestopname,pokestop.latitude,pokestop.longitude,quest_task from pokestop inner join trs_quest on pokestop.pokestop_id = trs_quest.GUID where quest_pokemon_id ="+monid+" and quest_pokemon_form_id ="+typeid+" ORDER BY quest_task,pokestopname and ST_CONTAINS(ST_GEOMFROMTEXT('POLYGON(("+area+"))'), point(pokestop.latitude, pokestop.longitude))")
                  cursor.execute(query)
                  name = cursor.fetchall()
                  
@@ -177,6 +180,7 @@ def quest_mon_var(monid,mon,shiny,typeid,formid):
                   print ("no quests for "+mon)
                  else:
                   #convert data into string
+                  name.sort(key = operator.itemgetter(3, 0))
                   res =[tuple(str(ele) for ele in sub) for sub in name]
                   webhook = DiscordWebhook(url=webhookurl)
                   # create embed object for webhook 
@@ -208,7 +212,7 @@ def quest_mon_var(monid,mon,shiny,typeid,formid):
  else:
      mariadb_connection = mariadb.connect(user=user, password=passwd, database=database, host=host, port=port)
      cursor = mariadb_connection.cursor()
-     query = ("select CONVERT(pokestop.name USING UTF8MB4) as pokestopname,pokestop.latitude,pokestop.longitude,quest_task from pokestop inner join trs_quest on pokestop.pokestop_id = trs_quest.GUID where quest_pokemon_id ="+monid+" and quest_pokemon_form_id ="+typeid+" and ST_CONTAINS(ST_GEOMFROMTEXT('POLYGON(("+area+"))'), point(pokestop.latitude, pokestop.longitude))")
+     query = ("select CONVERT(pokestop.name USING UTF8MB4) as pokestopname,pokestop.latitude,pokestop.longitude,quest_task from pokestop inner join trs_quest on pokestop.pokestop_id = trs_quest.GUID where quest_pokemon_id ="+monid+" and quest_pokemon_form_id ="+typeid+" ORDER BY quest_task,pokestopname and ST_CONTAINS(ST_GEOMFROMTEXT('POLYGON(("+area+"))'), point(pokestop.latitude, pokestop.longitude))")
      cursor.execute(query)
      name = cursor.fetchall()
      
@@ -216,6 +220,7 @@ def quest_mon_var(monid,mon,shiny,typeid,formid):
       print ("no quests for "+mon)
      else:
       #convert data into string
+      name.sort(key = operator.itemgetter(3, 0))
       res =[tuple(str(ele) for ele in sub) for sub in name]
       webhook = DiscordWebhook(url=webhookurl)
       # create embed object for webhook 
@@ -249,7 +254,7 @@ def quest_mon_var(monid,mon,shiny,typeid,formid):
 def quest_item_same(itemid,item,sprite):
  mariadb_connection = mariadb.connect(user=user, password=passwd, database=database, host=host,port=port)
  cursor = mariadb_connection.cursor()
- query = ("select CONVERT(pokestop.name USING UTF8MB4) as pokestopname,pokestop.latitude,pokestop.longitude,trs_quest.quest_task,trs_quest.quest_item_amount from pokestop inner join trs_quest on pokestop.pokestop_id = trs_quest.GUID where quest_item_id = "+itemid+" and ST_CONTAINS(ST_GEOMFROMTEXT('POLYGON(("+area+"))'), point(pokestop.latitude, pokestop.longitude))")
+ query = ("select CONVERT(pokestop.name USING UTF8MB4) as pokestopname,pokestop.latitude,pokestop.longitude,trs_quest.quest_task,trs_quest.quest_item_amount from pokestop inner join trs_quest on pokestop.pokestop_id = trs_quest.GUID where quest_item_id = "+itemid+" ORDER BY pokestopname and ST_CONTAINS(ST_GEOMFROMTEXT('POLYGON(("+area+"))'), point(pokestop.latitude, pokestop.longitude))")
  cursor.execute(query)
  name = cursor.fetchall()
  
@@ -259,6 +264,7 @@ def quest_item_same(itemid,item,sprite):
  else:
   #convert data into string
   res =[tuple(str(ele) for ele in sub) for sub in name]
+  res.sort()
   webhook = DiscordWebhook(url=webhookurl)
   # create embed object for webhook 
   research = ''
@@ -292,7 +298,7 @@ def quest_item_same(itemid,item,sprite):
 def quest_item_var(itemid,item,sprite):
  mariadb_connection = mariadb.connect(user=user, password=passwd, database=database, host=host, port=port)
  cursor = mariadb_connection.cursor()
- query = ("select CONVERT(pokestop.name USING UTF8MB4) as pokestopname,pokestop.latitude,pokestop.longitude,trs_quest.quest_task,trs_quest.quest_item_amount from pokestop inner join trs_quest on pokestop.pokestop_id = trs_quest.GUID where quest_item_id = "+itemid+" and ST_CONTAINS(ST_GEOMFROMTEXT('POLYGON(("+area+"))'), point(pokestop.latitude, pokestop.longitude))")
+ query = ("select CONVERT(pokestop.name USING UTF8MB4) as pokestopname,pokestop.latitude,pokestop.longitude,trs_quest.quest_task,trs_quest.quest_item_amount from pokestop inner join trs_quest on pokestop.pokestop_id = trs_quest.GUID where quest_item_id = "+itemid+" ORDER BY quest_task,pokestopname and ST_CONTAINS(ST_GEOMFROMTEXT('POLYGON(("+area+"))'), point(pokestop.latitude, pokestop.longitude))")
  cursor.execute(query)
  name = cursor.fetchall()
  
@@ -301,6 +307,7 @@ def quest_item_var(itemid,item,sprite):
   print ("no quests for "+item)
  else:
   #convert data into string
+  name.sort(key = operator.itemgetter(3, 0))
   res =[tuple(str(ele) for ele in sub) for sub in name]
   webhook = DiscordWebhook(url=webhookurl)
   # create embed object for webhook 
@@ -334,7 +341,7 @@ def quest_stardust(itemid,item,sprite):
  mariadb_connection = mariadb.connect(user=user, password=passwd, database=database, host=host, port=port)
  cursor = mariadb_connection.cursor()
  samount = (int(stardust) - 1)
- query = ("select CONVERT(pokestop.name USING UTF8MB4) as pokestopname,pokestop.latitude,pokestop.longitude,trs_quest.quest_task,if(trs_quest.quest_stardust>"+str(samount)+",trs_quest.quest_stardust, null) from pokestop inner join trs_quest on pokestop.pokestop_id = trs_quest.GUID where quest_pokemon_id = "+itemid+" and DATE(FROM_UNIXTIME(trs_quest.quest_timestamp)) = CURDATE() and if(trs_quest.quest_stardust>"+str(samount)+",trs_quest.quest_stardust, null) is not null and ST_CONTAINS(ST_GEOMFROMTEXT('POLYGON(("+area+"))'), point(pokestop.latitude, pokestop.longitude))")
+ query = ("select CONVERT(pokestop.name USING UTF8MB4) as pokestopname,pokestop.latitude,pokestop.longitude,trs_quest.quest_task,if(trs_quest.quest_stardust>"+str(samount)+",trs_quest.quest_stardust, null) from pokestop inner join trs_quest on pokestop.pokestop_id = trs_quest.GUID where quest_pokemon_id = "+itemid+" and DATE(FROM_UNIXTIME(trs_quest.quest_timestamp)) = CURDATE() and if(trs_quest.quest_stardust>"+str(samount)+",trs_quest.quest_stardust, null) is not null ORDER BY pokestopname and ST_CONTAINS(ST_GEOMFROMTEXT('POLYGON(("+area+"))'), point(pokestop.latitude, pokestop.longitude))")
  cursor.execute(query)
  name = cursor.fetchall()
  
@@ -342,6 +349,7 @@ def quest_stardust(itemid,item,sprite):
   print ("no quests for "+item)
  else:
   #convert data into string
+  name.sort(key = operator.itemgetter(4,3,0))
   res =[tuple(str(ele) for ele in sub) for sub in name]
   webhook = DiscordWebhook(url=webhookurl)
   # create embed object for webhook 
