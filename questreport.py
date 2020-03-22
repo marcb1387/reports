@@ -454,6 +454,7 @@ def stuff():
         quest_mon('280', 'Ralts', ':sparkles:', '292', '00')
         quest_mon('286', 'Breloom', '', '0', '00')
         quest_mon('287', 'Slakoth', ':sparkles:', '0', '00')
+        quest_mon('290', 'Nincada', ':sparkles:', '0', '00')
         quest_mon('294', 'Loudred', '', '0', '00')
         quest_mon('296', 'Makuhita', ':sparkles:', '0', '00')
         quest_mon('302', 'Sableye', ':sparkles:', '0', '00')
