@@ -2,7 +2,7 @@
 DiscordQ=WEBHOOK_URL_FIELD_RESEARCH
 DiscordR=WEBHOOK_URL_ROCKET_LEADERS
 Author=POSTING_AUTHOR_NAME
-AuthorIMG=URL_FOOTER_ICON
+AuthorIMG= URL of icon delete if not used but keep AuthorIMG= 
 Areaname=NAME_OF_TEMP_AREA_FILE
 
 #Coordinates string of area. First and last coordinate set must be equal. Format:Latitute and longitude separated by spaces and coordinate pairs separated by , symbol
