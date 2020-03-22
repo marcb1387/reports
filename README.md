@@ -17,7 +17,7 @@ you can edit the config.ini file to pick which items you would want in your repo
 DiscordQ=WEBHOOK_URL_FIELD_RESEARCH
 DiscordR=WEBHOOK_URL_ROCKET_LEADERS
 Author=POSTING_AUTHOR_NAME
-AuthorIMG=URL_FOOTER_ICON
+AuthorIMG=URL_FOOTER_ICON (is not required but if not used please delete URL_FOOTER_ICON)
 Areaname=NAME_OF_TEMP_AREA_FILE (can be anything but i would suggest the name of the area)
 
 #Coordinates string of area. First and last coordinate set must be equal/the same one. Format:Latitute and longitude separated by spaces and coordinate pairs separated by , symbol
