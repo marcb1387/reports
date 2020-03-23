@@ -23,7 +23,7 @@ passwd = config.get('DATABASE', 'db_pass')
 # CONFIG END
 
 
-#Pokemon - Standard Task
+#Rocket - Standard Leader
 def rocket(leader,lname,sprite,guide):
  mariadb_connection = mariadb.connect(user=user, password=passwd, database=database, host=host, port=port)
  cursor = mariadb_connection.cursor()
@@ -36,6 +36,7 @@ def rocket(leader,lname,sprite,guide):
  else:
   #convert data into string
   res =[tuple(str(ele) for ele in sub) for sub in name]
+  res.sort()
   webhook = DiscordWebhook(url=webhookurlr)
   # create embed object for webhook 
   research = ''
