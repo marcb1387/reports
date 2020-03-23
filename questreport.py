@@ -4,7 +4,7 @@ import time
 import datetime
 import os
 from os import path
-import configparserfrom discord_webhook import DiscordWebhook, DiscordEmbed
+import configparserfrom
 import mysql.connector as mariadb
 import time
 import datetime
