@@ -45,3 +45,6 @@ mossy_lure=true
 magnetic_lure=true
 stardust=1000
 encounters=true
+
+[POKEMON]
+dex_number= (delete this text if you want all pokemon) accepts 3 digit Pokedex numbers in any order
