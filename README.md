@@ -4,9 +4,9 @@ Discord Python Report that will post Research for Pokemon Go. For use with MAD S
 DO NOT INSTALL ON SAME ENVIRONMENT AS SCANNER.
 
 
-**Optional pokemon.csv File**
+**Optional Pokemon Filter**
 
-If this file is used the report will only show field research for the Pokémon listed in the file. if no file is detected all Field Research Encounter will be run. When entering Pokedex Number use 3 digits for the number. Example 001,025,125. Pokedex numbers can be entered in any order. 
+Pokemon filters can be in an area.ini file or config.ini file. Takes 3 digit pokedex numbers to display only those pokemon. If left empty all pokemon encounters will be displayed. An area.ini file will surpass the config.ini file for any settings including a blank dex_number list. if this is no needed it can be commented out in the area.ini file for the config.ini values to be used.
 
 **config.ini File Edits**
 
@@ -60,6 +60,9 @@ mossy_lure=true
 magnetic_lure=true
 stardust=1000
 encounters=true
+
+[POKEMON]
+dex_number= (delete this text if you want all pokemon) accepts 3 digit Pokedex numbers in any order seprated by a comma. example 001,025,125
 ```
 
 **Optional Arguments:**
