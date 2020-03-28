@@ -71,265 +71,268 @@ else:
  img = 'https://raw.githubusercontent.com/whitewillem/PogoAssets/resized/no_border/pokemon_icon_' # Static
  ext = '.png' #Static
  
-#Pokemon - Standard Task
+#Pokemon
 def quest_mon(monid,mon,shiny,typeid,formid):
- if mons:
-  for dex in mons.split(','):
-   if dex == monid:
-     mariadb_connection = mariadb.connect(user=user, password=passwd, database=database, host=host, port=port)
-     cursor = mariadb_connection.cursor()
-     query = ("select CONVERT(pokestop.name USING UTF8MB4) as pokestopname,pokestop.latitude,pokestop.longitude,quest_task from pokestop inner join trs_quest on pokestop.pokestop_id = trs_quest.GUID where quest_pokemon_id ="+monid+" and quest_pokemon_form_id like '%"+typeid+"%' and ST_CONTAINS(ST_GEOMFROMTEXT('POLYGON(("+area+"))'), point(pokestop.latitude, pokestop.longitude))")
-     cursor.execute(query)
-     name = cursor.fetchall()
-     
-     if not name:
-      print ("no quests for "+mon)
+ mariadb_connection = mariadb.connect(user=user, password=passwd, database=database, host=host, port=port)
+ cursor = mariadb_connection.cursor()
+ query = ("select CONVERT(pokestop.name USING UTF8MB4) as pokestopname,pokestop.latitude,pokestop.longitude,quest_task from pokestop inner join trs_quest on pokestop.pokestop_id = trs_quest.GUID where quest_pokemon_id ="+monid+" and quest_pokemon_form_id ="+typeid+" and ST_CONTAINS(ST_GEOMFROMTEXT('POLYGON(("+area+"))'), point(pokestop.latitude, pokestop.longitude))")
+ cursor.execute(query)
+ name = cursor.fetchall()
+ res =[tuple(str(ele) for ele in sub) for sub in name]
+ 
+ task3 =[]
+ for task in res:
+  task3 += [task[3]]
+ result = all(elem == task3[0] for elem in task3)
+ if result:
+     if mons:
+      for dex in mons.split(','):
+       if dex == monid:
+         mariadb_connection = mariadb.connect(user=user, password=passwd, database=database, host=host, port=port)
+         cursor = mariadb_connection.cursor()
+         query = ("select CONVERT(pokestop.name USING UTF8MB4) as pokestopname,pokestop.latitude,pokestop.longitude,quest_task from pokestop inner join trs_quest on pokestop.pokestop_id = trs_quest.GUID where quest_pokemon_id ="+monid+" and quest_pokemon_form_id ="+typeid+" and ST_CONTAINS(ST_GEOMFROMTEXT('POLYGON(("+area+"))'), point(pokestop.latitude, pokestop.longitude))")
+         cursor.execute(query)
+         name = cursor.fetchall()
+         
+         if not name:
+          print ("no quests for "+mon)
+         else:
+          print ("Research Task Is The Same "+mon)
+          #convert data into string
+          res =[tuple(str(ele) for ele in sub) for sub in name]
+          res.sort()
+          webhook = DiscordWebhook(url=webhookurl)
+          # create embed object for webhook 
+          research = ''
+          for stop in res: 
+           research += ('['+stop[0]+'](''https://maps.google.com/?q='''+stop[1]+','+stop[2]+')'+'\n')
+           if len(research)> 1900:
+            print ("larger then 2048 breaking up")
+            print (mon+" Length:", len(research))
+            embed = DiscordEmbed(title= shiny+mon+' Field Research'+shiny, description=research, color=16777011)
+            embed.set_thumbnail(url=img+monid+'_'+formid+ext)
+            embed.set_footer(text='Research by '+author, icon_url=footerimg)
+            embed.set_author(name='Research Task: '+stop[3])
+            #add embed object to webhook
+            webhook.add_embed(embed)
+            webhook.execute()
+            research = ''
+            webhook.remove_embed(0)
+            time.sleep(2)
+          
+          print (mon+" Length:", len(research))
+          embed = DiscordEmbed(title= shiny+mon+' Field Research'+shiny, description=research, color=16777011)
+          embed.set_thumbnail(url=img+monid+'_'+formid+ext)
+          embed.set_footer(text='Research by '+author, icon_url=footerimg)
+          embed.set_author(name='Research Task: '+stop[3])
+          #add embed object to webhook
+          webhook.add_embed(embed)
+          webhook.execute()
+          research = ''
+          time.sleep(2)
      else:
-      #convert data into string
-      res =[tuple(str(ele) for ele in sub) for sub in name]
-      res.sort()
-      webhook = DiscordWebhook(url=webhookurl)
-      # create embed object for webhook 
-      research = ''
-      for stop in res: 
-       research += ('['+stop[0]+'](''https://maps.google.com/?q='''+stop[1]+','+stop[2]+')'+'\n')
-       if len(research)> 1900:
-        print ("larger then 2048 breaking up")
-        print (mon+" Length:", len(research))
-        embed = DiscordEmbed(title= shiny+mon+' Field Research'+shiny, description=research, color=16777011)
-        embed.set_thumbnail(url=img+monid+'_'+formid+ext)
-        embed.set_footer(text='Research by '+author, icon_url=footerimg)
-        embed.set_author(name='Research Task: '+stop[3])
-        #add embed object to webhook
-        webhook.add_embed(embed)
-        webhook.execute()
-        research = ''
-        webhook.remove_embed(0)
-        time.sleep(2)
-      
-      print (mon+" Length:", len(research))
-      embed = DiscordEmbed(title= shiny+mon+' Field Research'+shiny, description=research, color=16777011)
-      embed.set_thumbnail(url=img+monid+'_'+formid+ext)
-      embed.set_footer(text='Research by '+author, icon_url=footerimg)
-      embed.set_author(name='Research Task: '+stop[3])
-      #add embed object to webhook
-      webhook.add_embed(embed)
-      webhook.execute()
-      research = ''
-      time.sleep(2)
+         mariadb_connection = mariadb.connect(user=user, password=passwd, database=database, host=host, port=port)
+         cursor = mariadb_connection.cursor()
+         query = ("select CONVERT(pokestop.name USING UTF8MB4) as pokestopname,pokestop.latitude,pokestop.longitude,quest_task from pokestop inner join trs_quest on pokestop.pokestop_id = trs_quest.GUID where quest_pokemon_id ="+monid+" and quest_pokemon_form_id ="+typeid+" and ST_CONTAINS(ST_GEOMFROMTEXT('POLYGON(("+area+"))'), point(pokestop.latitude, pokestop.longitude))")
+         cursor.execute(query)
+         name = cursor.fetchall()
+         
+         if not name:
+          print ("no quests for "+mon)
+         else:
+          print ("Research Task Is The Same "+mon)
+          #convert data into string
+          res =[tuple(str(ele) for ele in sub) for sub in name]
+          res.sort()
+          webhook = DiscordWebhook(url=webhookurl)
+          # create embed object for webhook 
+          research = ''
+          for stop in res: 
+           research += ('['+stop[0]+'](''https://maps.google.com/?q='''+stop[1]+','+stop[2]+')'+'\n')
+           if len(research)> 1900:
+            print ("larger then 2048 breaking up")
+            print (mon+" Length:", len(research))
+            embed = DiscordEmbed(title= shiny+mon+' Field Research'+shiny, description=research, color=16777011)
+            embed.set_thumbnail(url=img+monid+'_'+formid+ext)
+            embed.set_footer(text='Research by '+author, icon_url=footerimg)
+            embed.set_author(name='Research Task: '+stop[3])
+            #add embed object to webhook
+            webhook.add_embed(embed)
+            webhook.execute()
+            research = ''
+            webhook.remove_embed(0)
+            time.sleep(2)
+          
+          print (mon+" Length:", len(research))
+          embed = DiscordEmbed(title= shiny+mon+' Field Research'+shiny, description=research, color=16777011)
+          embed.set_thumbnail(url=img+monid+'_'+formid+ext)
+          embed.set_footer(text='Research by '+author, icon_url=footerimg)
+          embed.set_author(name='Research Task: '+stop[3])
+          #add embed object to webhook
+          webhook.add_embed(embed)
+          webhook.execute()
+          research = ''
+          time.sleep(2)
  else:
-     mariadb_connection = mariadb.connect(user=user, password=passwd, database=database, host=host, port=port)
-     cursor = mariadb_connection.cursor()
-     query = ("select CONVERT(pokestop.name USING UTF8MB4) as pokestopname,pokestop.latitude,pokestop.longitude,quest_task from pokestop inner join trs_quest on pokestop.pokestop_id = trs_quest.GUID where quest_pokemon_id ="+monid+" and quest_pokemon_form_id like '%"+typeid+"%' and ST_CONTAINS(ST_GEOMFROMTEXT('POLYGON(("+area+"))'), point(pokestop.latitude, pokestop.longitude))")
-     cursor.execute(query)
-     name = cursor.fetchall()
-     
-     if not name:
-      print ("no quests for "+mon)
+     if mons:
+      for dex in mons.split(','):
+       if dex == monid:
+         mariadb_connection = mariadb.connect(user=user, password=passwd, database=database, host=host, port=port)
+         cursor = mariadb_connection.cursor()
+         query = ("select CONVERT(pokestop.name USING UTF8MB4) as pokestopname,pokestop.latitude,pokestop.longitude,quest_task from pokestop inner join trs_quest on pokestop.pokestop_id = trs_quest.GUID where quest_pokemon_id ="+monid+" and quest_pokemon_form_id ="+typeid+" and ST_CONTAINS(ST_GEOMFROMTEXT('POLYGON(("+area+"))'), point(pokestop.latitude, pokestop.longitude))")
+         cursor.execute(query)
+         name = cursor.fetchall()
+         
+         if not name:
+          print ("no quests for "+mon)
+         else:
+          print ("Research Task Is The Different "+mon)
+          #convert data into string
+          name.sort(key = operator.itemgetter(3, 0))
+          res =[tuple(str(ele) for ele in sub) for sub in name]
+          webhook = DiscordWebhook(url=webhookurl)
+          # create embed object for webhook 
+          research = ''
+          for stop in res: 
+           research += ('['+stop[0]+'](''https://maps.google.com/?q='''+stop[1]+','+stop[2]+')'+' '+stop[3]+'\n')
+           if len(research)> 1900:
+            print ("larger then 2048 breaking up")
+            print (mon+" Length:", len(research))
+            embed = DiscordEmbed(title= shiny+mon+' Field Research'+shiny, description=research, color=16777011)
+            embed.set_thumbnail(url=img+monid+'_'+formid+ext)
+            embed.set_footer(text='Research by '+author, icon_url=footerimg)
+            #add embed object to webhook
+            webhook.add_embed(embed)
+            webhook.execute()
+            research = ''
+            webhook.remove_embed(0)
+            time.sleep(2)
+          
+          print (mon+" Length:", len(research))
+          embed = DiscordEmbed(title= shiny+mon+' Field Research'+shiny, description=research, color=16777011)
+          embed.set_thumbnail(url=img+monid+'_'+formid+ext)
+          embed.set_footer(text='Research by '+author, icon_url=footerimg)
+          #add embed object to webhook
+          webhook.add_embed(embed)
+          webhook.execute()
+          research = ''
+          time.sleep(2)
      else:
-      #convert data into string
-      res =[tuple(str(ele) for ele in sub) for sub in name]
-      res.sort()
-      webhook = DiscordWebhook(url=webhookurl)
-      # create embed object for webhook 
-      research = ''
-      for stop in res: 
-       research += ('['+stop[0]+'](''https://maps.google.com/?q='''+stop[1]+','+stop[2]+')'+'\n')
-       if len(research)> 1900:
-        print ("larger then 2048 breaking up")
-        print (mon+" Length:", len(research))
-        embed = DiscordEmbed(title= shiny+mon+' Field Research'+shiny, description=research, color=16777011)
-        embed.set_thumbnail(url=img+monid+'_'+formid+ext)
-        embed.set_footer(text='Research by '+author, icon_url=footerimg)
-        embed.set_author(name='Research Task: '+stop[3])
-        #add embed object to webhook
-        webhook.add_embed(embed)
-        webhook.execute()
-        research = ''
-        webhook.remove_embed(0)
-        time.sleep(2)
-      
-      print (mon+" Length:", len(research))
-      embed = DiscordEmbed(title= shiny+mon+' Field Research'+shiny, description=research, color=16777011)
-      embed.set_thumbnail(url=img+monid+'_'+formid+ext)
-      embed.set_footer(text='Research by '+author, icon_url=footerimg)
-      embed.set_author(name='Research Task: '+stop[3])
-      #add embed object to webhook
-      webhook.add_embed(embed)
-      webhook.execute()
-      research = ''
-      time.sleep(2)
-  
-#Pokemon - Variable Task
-def quest_mon_var(monid,mon,shiny,typeid,formid):
- if mons:
-  for dex in mons.split(','):
-   if dex == monid:
-     mariadb_connection = mariadb.connect(user=user, password=passwd, database=database, host=host, port=port)
-     cursor = mariadb_connection.cursor()
-     query = ("select CONVERT(pokestop.name USING UTF8MB4) as pokestopname,pokestop.latitude,pokestop.longitude,quest_task from pokestop inner join trs_quest on pokestop.pokestop_id = trs_quest.GUID where quest_pokemon_id ="+monid+" and quest_pokemon_form_id like '%"+typeid+"%' and ST_CONTAINS(ST_GEOMFROMTEXT('POLYGON(("+area+"))'), point(pokestop.latitude, pokestop.longitude))")
-     cursor.execute(query)
-     name = cursor.fetchall()
-     
-     if not name:
-      print ("no quests for "+mon)
-     else:
-      #convert data into string
-      name.sort(key = operator.itemgetter(3, 0))
-      res =[tuple(str(ele) for ele in sub) for sub in name]
-      webhook = DiscordWebhook(url=webhookurl)
-      # create embed object for webhook 
-      research = ''
-      for stop in res: 
-       research += ('['+stop[0]+'](''https://maps.google.com/?q='''+stop[1]+','+stop[2]+')'+' '+stop[3]+'\n')
-       if len(research)> 1900:
-        print ("larger then 2048 breaking up")
-        print (mon+" Length:", len(research))
-        embed = DiscordEmbed(title= shiny+mon+' Field Research'+shiny, description=research, color=16777011)
-        embed.set_thumbnail(url=img+monid+'_'+formid+ext)
-        embed.set_footer(text='Research by '+author, icon_url=footerimg)
-        #add embed object to webhook
-        webhook.add_embed(embed)
-        webhook.execute()
-        research = ''
-        webhook.remove_embed(0)
-        time.sleep(2)
-      
-      print (mon+" Length:", len(research))
-      embed = DiscordEmbed(title= shiny+mon+' Field Research'+shiny, description=research, color=16777011)
-      embed.set_thumbnail(url=img+monid+'_'+formid+ext)
-      embed.set_footer(text='Research by '+author, icon_url=footerimg)
-      #add embed object to webhook
-      webhook.add_embed(embed)
-      webhook.execute()
-      research = ''
-      time.sleep(2)
- else:
-     mariadb_connection = mariadb.connect(user=user, password=passwd, database=database, host=host, port=port)
-     cursor = mariadb_connection.cursor()
-     query = ("select CONVERT(pokestop.name USING UTF8MB4) as pokestopname,pokestop.latitude,pokestop.longitude,quest_task from pokestop inner join trs_quest on pokestop.pokestop_id = trs_quest.GUID where quest_pokemon_id ="+monid+" and quest_pokemon_form_id like '%"+typeid+"%' and ST_CONTAINS(ST_GEOMFROMTEXT('POLYGON(("+area+"))'), point(pokestop.latitude, pokestop.longitude))")
-     cursor.execute(query)
-     name = cursor.fetchall()
-     
-     if not name:
-      print ("no quests for "+mon)
-     else:
-      #convert data into string
-      name.sort(key = operator.itemgetter(3, 0))
-      res =[tuple(str(ele) for ele in sub) for sub in name]
-      webhook = DiscordWebhook(url=webhookurl)
-      # create embed object for webhook 
-      research = ''
-      for stop in res: 
-       research += ('['+stop[0]+'](''https://maps.google.com/?q='''+stop[1]+','+stop[2]+')'+' '+stop[3]+'\n')
-       if len(research)> 1900:
-        print ("larger then 2048 breaking up")
-        print (mon+" Length:", len(research))
-        embed = DiscordEmbed(title= shiny+mon+' Field Research'+shiny, description=research, color=16777011)
-        embed.set_thumbnail(url=img+monid+'_'+formid+ext)
-        embed.set_footer(text='Research by '+author, icon_url=footerimg)
-        #add embed object to webhook
-        webhook.add_embed(embed)
-        webhook.execute()
-        research = ''
-        webhook.remove_embed(0)
-        time.sleep(2)
-      
-      print (mon+" Length:", len(research))
-      embed = DiscordEmbed(title= shiny+mon+' Field Research'+shiny, description=research, color=16777011)
-      embed.set_thumbnail(url=img+monid+'_'+formid+ext)
-      embed.set_footer(text='Research by '+author, icon_url=footerimg)
-      #add embed object to webhook
-      webhook.add_embed(embed)
-      webhook.execute()
-      research = ''
-      time.sleep(2)
-                 
-#Items - Standard Task
-def quest_item_same(itemid,item,sprite):
+         mariadb_connection = mariadb.connect(user=user, password=passwd, database=database, host=host, port=port)
+         cursor = mariadb_connection.cursor()
+         query = ("select CONVERT(pokestop.name USING UTF8MB4) as pokestopname,pokestop.latitude,pokestop.longitude,quest_task from pokestop inner join trs_quest on pokestop.pokestop_id = trs_quest.GUID where quest_pokemon_id ="+monid+" and quest_pokemon_form_id ="+typeid+" and ST_CONTAINS(ST_GEOMFROMTEXT('POLYGON(("+area+"))'), point(pokestop.latitude, pokestop.longitude))")
+         cursor.execute(query)
+         name = cursor.fetchall()
+         
+         if not name:
+          print ("no quests for "+mon)
+         else:
+          print ("Research Task Is The Different "+mon)
+          #convert data into string
+          name.sort(key = operator.itemgetter(3, 0))
+          res =[tuple(str(ele) for ele in sub) for sub in name]
+          webhook = DiscordWebhook(url=webhookurl)
+          # create embed object for webhook 
+          research = ''
+          for stop in res: 
+           research += ('['+stop[0]+'](''https://maps.google.com/?q='''+stop[1]+','+stop[2]+')'+' '+stop[3]+'\n')
+           if len(research)> 1900:
+            print ("larger then 2048 breaking up")
+            print (mon+" Length:", len(research))
+            embed = DiscordEmbed(title= shiny+mon+' Field Research'+shiny, description=research, color=16777011)
+            embed.set_thumbnail(url=img+monid+'_'+formid+ext)
+            embed.set_footer(text='Research by '+author, icon_url=footerimg)
+            #add embed object to webhook
+            webhook.add_embed(embed)
+            webhook.execute()
+            research = ''
+            webhook.remove_embed(0)
+            time.sleep(2)
+          
+          print (mon+" Length:", len(research))
+          embed = DiscordEmbed(title= shiny+mon+' Field Research'+shiny, description=research, color=16777011)
+          embed.set_thumbnail(url=img+monid+'_'+formid+ext)
+          embed.set_footer(text='Research by '+author, icon_url=footerimg)
+          #add embed object to webhook
+          webhook.add_embed(embed)
+          webhook.execute()
+          research = ''
+          time.sleep(2)   
+#Items
+def quest_item(itemid,item,sprite):
  mariadb_connection = mariadb.connect(user=user, password=passwd, database=database, host=host,port=port)
  cursor = mariadb_connection.cursor()
  query = ("select CONVERT(pokestop.name USING UTF8MB4) as pokestopname,pokestop.latitude,pokestop.longitude,trs_quest.quest_task,trs_quest.quest_item_amount from pokestop inner join trs_quest on pokestop.pokestop_id = trs_quest.GUID where quest_item_id = "+itemid+" and ST_CONTAINS(ST_GEOMFROMTEXT('POLYGON(("+area+"))'), point(pokestop.latitude, pokestop.longitude))")
  cursor.execute(query)
  name = cursor.fetchall()
  
- 
  if not name:
   print ("no quests for "+item)
  else:
   #convert data into string
   res =[tuple(str(ele) for ele in sub) for sub in name]
+  
   res.sort()
   webhook = DiscordWebhook(url=webhookurl)
-  # create embed object for webhook 
+  # create embed object for webhook
   research = ''
-  for stop in res: 
-   research += ('['+stop[0]+'](''https://maps.google.com/?q='''+stop[1]+','+stop[2]+')'+'\n')
-   if len(research)> 1900:
-    print ("larger then 2048 breaking up")
-    print (item+" Length:", len(research))
-    embed = DiscordEmbed(title= item+' Field Research', description=research, color=4390656)
-    embed.set_author(name='Research Task: '+stop[3])
-    embed.set_footer(text='Research by '+author, icon_url=footerimg)
-    embed.set_thumbnail(url=sprite) 
-    #add embed object to webhook
-    webhook.add_embed(embed)
-    webhook.execute()
-    research = ''
-    webhook.remove_embed(0)
-    time.sleep(2)
-  print (item+" Length:", len(research))
-  embed = DiscordEmbed(title= item+' Field Research', description=research, color=4390656)
-  embed.set_author(name='Research Task: '+stop[3])
-  embed.set_footer(text='Research by '+author, icon_url=footerimg)
-  embed.set_thumbnail(url=sprite) 
-  #add embed object to webhook
-  webhook.add_embed(embed)
-  webhook.execute()
-  research = ''
-  time.sleep(2)
-
-#Items - Variable Task 
-def quest_item_var(itemid,item,sprite):
- mariadb_connection = mariadb.connect(user=user, password=passwd, database=database, host=host, port=port)
- cursor = mariadb_connection.cursor()
- query = ("select CONVERT(pokestop.name USING UTF8MB4) as pokestopname,pokestop.latitude,pokestop.longitude,trs_quest.quest_task,trs_quest.quest_item_amount from pokestop inner join trs_quest on pokestop.pokestop_id = trs_quest.GUID where quest_item_id = "+itemid+" and ST_CONTAINS(ST_GEOMFROMTEXT('POLYGON(("+area+"))'), point(pokestop.latitude, pokestop.longitude))")
- cursor.execute(query)
- name = cursor.fetchall()
+  task3 =[]
+  for task in res:
+   task3 += [task[3]]
+  result = all(elem == task3[0] for elem in task3)
+  if result:
+      print ("Research Task Is The Same "+item)
+      for stop in res: 
+       research += ('['+stop[0]+'](''https://maps.google.com/?q='''+stop[1]+','+stop[2]+')'+'\n')
+       if len(research)> 1900:
+        print ("larger then 2048 breaking up")
+        print (item+" Length:", len(research))
+        embed = DiscordEmbed(title= item+' Field Research', description=research, color=4390656)
+        embed.set_author(name='Research Task: '+stop[3])
+        embed.set_footer(text='Research by '+author, icon_url=footerimg)
+        embed.set_thumbnail(url=sprite) 
+        #add embed object to webhook
+        webhook.add_embed(embed)
+        webhook.execute()
+        research = ''
+        webhook.remove_embed(0)
+        time.sleep(2)
+      print (item+" Length:", len(research))
+      embed = DiscordEmbed(title= item+' Field Research', description=research, color=4390656)
+      embed.set_author(name='Research Task: '+stop[3])
+      embed.set_footer(text='Research by '+author, icon_url=footerimg)
+      embed.set_thumbnail(url=sprite) 
+      #add embed object to webhook
+      webhook.add_embed(embed)
+      webhook.execute()
+      research = ''
+      time.sleep(2)
+  else:
+      print ("Research Task Is Different "+item)
+      for stop in res: 
+       research += ('['+stop[0]+'](''https://maps.google.com/?q='''+stop[1]+','+stop[2]+')'+' '+stop[3]+' - Amount: '+stop[4]+'\n')
+       if len(research)> 1900:
+        print ("larger then 2048 breaking up")
+        print (item+" Length:", len(research))
+        embed = DiscordEmbed(title= item+' Field Research', description=research, color=4390656)
+        embed.set_footer(text='Research by '+author, icon_url=footerimg)
+        embed.set_thumbnail(url=sprite) 
+        #add embed object to webhook
+        webhook.add_embed(embed)
+        webhook.execute()
+        research = ''
+        webhook.remove_embed(0)
+        time.sleep(2)
+      print (item+" Length:", len(research))
+      embed = DiscordEmbed(title= item+' Field Research', description=research, color=4390656)
+      embed.set_footer(text='Research by '+author, icon_url=footerimg)
+      embed.set_thumbnail(url=sprite) 
+      #add embed object to webhook
+      webhook.add_embed(embed)
+      webhook.execute()
+      research = ''
+      time.sleep(2)
  
- 
- if not name:
-  print ("no quests for "+item)
- else:
-  #convert data into string
-  name.sort(key = operator.itemgetter(3, 0))
-  res =[tuple(str(ele) for ele in sub) for sub in name]
-  webhook = DiscordWebhook(url=webhookurl)
-  # create embed object for webhook 
-  research = ''
-  for stop in res: 
-   research += ('['+stop[0]+'](''https://maps.google.com/?q='''+stop[1]+','+stop[2]+')'+' '+stop[3]+' - Amount: '+stop[4]+'\n')
-   if len(research)> 1900:
-    print ("larger then 2048 breaking up")
-    print (item+" Length:", len(research))
-    embed = DiscordEmbed(title= item+' Field Research', description=research, color=4390656)
-    embed.set_footer(text='Research by '+author, icon_url=footerimg)
-    embed.set_thumbnail(url=sprite) 
-    #add embed object to webhook
-    webhook.add_embed(embed)
-    webhook.execute()
-    research = ''
-    webhook.remove_embed(0)
-    time.sleep(2)
-  print (item+" Length:", len(research))
-  embed = DiscordEmbed(title= item+' Field Research', description=research, color=4390656)
-  embed.set_footer(text='Research by '+author, icon_url=footerimg)
-  embed.set_thumbnail(url=sprite) 
-  #add embed object to webhook
-  webhook.add_embed(embed)
-  webhook.execute()
-  research = ''
-  time.sleep(2)
 
 #Stardust
 def quest_stardust(itemid,item,sprite):
@@ -376,182 +379,179 @@ def quest_stardust(itemid,item,sprite):
 #Pokeomon, Items, Stardust
 def stuff():
     if encounters:
-        quest_mon_var('001', 'Bulbasaur', ':sparkles:', '', '00')
-        quest_mon_var('004', 'Charmander', ':sparkles:', '', '00')
-        quest_mon_var('007', 'Squirtle', ':sparkles:', '', '00')
-        quest_mon('009', 'Blastoise', ':sparkles:', '', '00')
-        quest_mon('016', 'Pidgey', ':sparkles:', '', '00')
-        quest_mon('025', 'Pikachu', ':sparkles:', '', '00')
-        quest_mon('027', 'Sandshrew', ':sparkles:', '', '00')
-        quest_mon('029', 'Nidoran', ':sparkles:', '', '00')
-        quest_mon('030', 'Nidorina', ':sparkles:', '', '00')
-        quest_mon('031', 'Nidoqueen', ':sparkles:', '', '00')
-        quest_mon('032', 'Nidoran', ':sparkles:', '', '00')
-        quest_mon('033', 'Nidorino', ':sparkles:', '', '00')
-        quest_mon('034', 'Nidoking', ':sparkles:', '', '00')
-        quest_mon('035', 'Clefairy', '', '', '00')
+        quest_mon('001', 'Bulbasaur', ':sparkles:', '0', '00')
+        quest_mon('004', 'Charmander', ':sparkles:', '0', '00')
+        quest_mon('007', 'Squirtle', ':sparkles:', '0', '00')
+        quest_mon('009', 'Blastoise', ':sparkles:', '0', '00')
+        quest_mon('016', 'Pidgey', ':sparkles:', '0', '00')
+        quest_mon('025', 'Pikachu', ':sparkles:', '598', '00')
+        quest_mon('027', 'Sandshrew', ':sparkles:', '0', '00')
+        quest_mon('029', 'Nidoran', ':sparkles:', '0', '00')
+        quest_mon('030', 'Nidorina', ':sparkles:', '0', '00')
+        quest_mon('031', 'Nidoqueen', ':sparkles:', '0', '00')
+        quest_mon('032', 'Nidoran', ':sparkles:', '0', '00')
+        quest_mon('033', 'Nidorino', ':sparkles:', '0', '00')
+        quest_mon('034', 'Nidoking', ':sparkles:', '0', '00')
+        quest_mon('035', 'Clefairy', '', '0', '00')
         quest_mon('037', 'Vulpix', '', '0', '00')
         quest_mon('037', 'Alolan Vulpix', ':sparkles:', '56', '56')
-        quest_mon('039', 'Jigglypuff', '', '', '00')
-        quest_mon('041', 'Zubat', ':sparkles:', '', '00')
-        quest_mon('044', 'Gloom', '', '', '00')
-        quest_mon('050', 'Diglett', ':sparkles:', '', '00')
+        quest_mon('039', 'Jigglypuff', '', '0', '00')
+        quest_mon('041', 'Zubat', ':sparkles:', '157', '00')
+        quest_mon('044', 'Gloom', '', '0', '00')
+        quest_mon('050', 'Diglett', ':sparkles:', '0', '00')
         quest_mon('052', 'Alolan Meowth', ':sparkles:', '64', '64')
-        quest_mon_var('056', 'Mankey', ':sparkles:', '', '00')
-        quest_mon('058', 'Growlithe', ':sparkles:', '', '00')
-        quest_mon('059', 'Arcanine', ':sparkles:', '', '00')
-        quest_mon('060', 'Poliwag', ':sparkles:', '', '00')
-        quest_mon('066', 'Machop', ':sparkles:', '', '00')
-        quest_mon('070', 'Weepinbell', '', '', '00')
-        quest_mon('072', 'Tentacool', ':sparkles:', '', '00')
-        quest_mon('073', 'Tentacruel', ':sparkles:', '', '00')
-        quest_mon('074', 'Geodude', ':sparkles:', '', '00')
-        quest_mon('077', 'Ponyta', ':sparkles:', '', '00')
-        quest_mon('080', 'Slowbro', '', '', '00')
-        quest_mon('081', 'Magnemite', ':sparkles:', '', '00')
-        quest_mon('084', 'Doduo', '', '', '00')
-        quest_mon('085', 'Dodrio', '', '', '00')
-        quest_mon('086', 'Seel', ':sparkles:', '', '00')
-        quest_mon('087', 'Dewgong', ':sparkles:', '', '00')
-        quest_mon('088', 'Grimer', ':sparkles:', '', '00')
-        quest_mon('090', 'Shellder', ':sparkles:', '', '00')
-        quest_mon('092', 'Gastly', ':sparkles:', '', '00')
-        quest_mon('095', 'Onix', ':sparkles:', '', '00')
-        quest_mon('096', 'Drowzee', ':sparkles:', '', '00')
-        quest_mon('100', 'Voltorb', '', '', '00')
-        quest_mon('102', 'Exeggcute', '', '', '00')
-        quest_mon('103', 'Exeggutor', '', '', '00')
-        quest_mon('104', 'Cubone', ':sparkles:', '', '00')
-        quest_mon('108', 'Lickitung', '', '', '00')
-        quest_mon('113', 'Chansey', ':sparkles:', '', '00')
-        quest_mon('114', 'Tangela', '', '', '00')
-        quest_mon('121', 'Starmie', '', '', '00')
-        quest_mon('124', 'Jynx', '', '', '00')
-        quest_mon('125', 'Electabuzz', ':sparkles:', '', '00')
-        quest_mon('126', 'Magmar', ':sparkles:', '', '00')
-        quest_mon('127', 'Pinsir', ':sparkles:', '', '00')
-        quest_mon('129', 'Magikarp', ':sparkles:', '', '00')
-        quest_mon('131', 'Lapras', ':sparkles:', '', '00')
-        quest_mon('133', 'Eevee', ':sparkles:', '', '00')
-        quest_mon('138', 'Omanyte', ':sparkles:', '', '00')
-        quest_mon('140', 'Kabuto', ':sparkles:', '', '00')
-        quest_mon('142', 'Aerodactyl', ':sparkles:', '', '00')
-        quest_mon('147', 'Dratini', ':sparkles:', '', '00')
-        quest_mon('183', 'Marill', '', '', '00')
-        quest_mon('187', 'Hoppip', '', '', '00')
-        quest_mon('191', 'Sunkern', ':sparkles:', '', '00')
-        quest_mon('196', 'Espeon', '', '', '00')
-        quest_mon('197', 'Umbreon', '', '', '00')
-        quest_mon('202', 'Wobbuffet', '', '', '00')
-        quest_mon('207', 'Gligar', ':sparkles:', '', '00')
-        quest_mon('209', 'Snubbull', ':sparkles:', '', '00')
-        quest_mon('215', 'Sneasel', ':sparkles:', '', '00')
-        quest_mon('216', 'Teddiursa', '', '', '00')
-        quest_mon('220', 'Swinub', ':sparkles:', '', '00')
-        quest_mon('227', 'Skarmory', ':sparkles:', '', '00')
-        quest_mon('228', 'Houndour', ':sparkles:', '', '00')
-        quest_mon('234', 'Stantler', ':sparkles:', '', '00')
-        quest_mon('246', 'Larvitar', ':sparkles:', '', '00')
-        quest_mon('255', 'Torchic', ':sparkles:', '', '00')
-        quest_mon('252', 'Treecko', ':sparkles:', '', '00')
-        quest_mon('261', 'Poochyena', ':sparkles:', '', '00')
-        quest_mon('270', 'Lotad', ':sparkles:', '', '00')
-        quest_mon('280', 'Ralts', ':sparkles:', '', '00')
-        quest_mon('286', 'Breloom', '', '', '00')
-        quest_mon('287', 'Slakoth', ':sparkles:', '', '00')
-        quest_mon('290', 'Nincada', ':sparkles:', '', '00')
-        quest_mon('294', 'Loudred', '', '', '00')
-        quest_mon('296', 'Makuhita', ':sparkles:', '', '00')
-        quest_mon('302', 'Sableye', ':sparkles:', '', '00')
-        quest_mon('307', 'Meditite', ':sparkles:', '', '00')
-        quest_mon('310', 'Manectric', ':sparkles:', '', '00')
-        quest_mon('311', 'Plusle', ':sparkles:', '', '00')
-        quest_mon('312', 'Minun', ':sparkles:', '', '00')
-        quest_mon('315', 'Roselia', ':sparkles:', '', '00')
-        quest_mon('317', 'Swalot', '', '', '00')
-        quest_mon('325', 'Spoink', ':sparkles:', '', '00')
-        quest_mon('327', 'Spinda Number 7', ':sparkles:', '', '00')
-        quest_mon('335', 'Zangoose', ':sparkles:', '', '00')
-        quest_mon('336', 'Seviper', ':sparkles:', '', '00')
-        quest_mon('343', 'Baltoy', ':sparkles:', '', '00')
-        quest_mon('345', 'Lileep', ':sparkles:', '', '00')
-        quest_mon('347', 'Anorith', ':sparkles:', '', '00')
-        quest_mon('349', 'Feebas', ':sparkles:', '', '00')
-        quest_mon('353', 'Shuppet', ':sparkles:', '', '00')
-        quest_mon('359', 'Absol', ':sparkles:', '', '00')
-        quest_mon('361', 'Snorunt', ':sparkles:', '', '00')
-        quest_mon('362', 'Glalie', '', '', '00')
-        quest_mon('366', 'Clamperl', ':sparkles:', '', '00')
-        quest_mon('399', 'Bidoof', '', '', '00')
-        quest_mon('408', 'Cranidos', '', '', '00')
-        quest_mon('410', 'Shieldon', '', '', '00')
-        quest_mon('415', 'Combee', '', '', '00')
-        quest_mon('420', 'Cherubi', '', '', '00')
-        quest_mon('421', 'Cherrim', '', '', '00')
-        quest_mon('425', 'Drifloon', ':sparkles:', '', '00')
-        quest_mon('427', 'Buneary', ':sparkles:', '', '00')
-        quest_mon('436', 'Bronzor', ':sparkles:', '', '00')
-        quest_mon('449', 'Hippopotas', ':sparkles:', '', '00')
-        quest_mon('459', 'Snover', ':sparkles:', '', '00')
-        quest_mon('562', 'Yamask', ':sparkles:', '', '00')
-        quest_mon('594', 'Alomomola', '', '', '00')
-        quest_mon('607', 'Litwick', '', '', '00')
-        quest_mon('613', 'Cubchoo', '', '', '00')
-        quest_mon('622', 'Golett', '', '', '00')
+        quest_mon('056', 'Mankey', ':sparkles:', '0', '00')
+        quest_mon('058', 'Growlithe', ':sparkles:', '0', '00')
+        quest_mon('059', 'Arcanine', ':sparkles:', '0', '00')
+        quest_mon('060', 'Poliwag', ':sparkles:', '0', '00')
+        quest_mon('066', 'Machop', ':sparkles:', '0', '00')
+        quest_mon('070', 'Weepinbell', '', '0', '00')
+        quest_mon('072', 'Tentacool', ':sparkles:', '0', '00')
+        quest_mon('073', 'Tentacruel', ':sparkles:', '0', '00')
+        quest_mon('074', 'Geodude', ':sparkles:', '0', '00')
+        quest_mon('077', 'Ponyta', ':sparkles:', '0', '00')
+        quest_mon('081', 'Magnemite', ':sparkles:', '0', '00')
+        quest_mon('084', 'Doduo', '', '0', '00')
+        quest_mon('085', 'Dodrio', '', '0', '00')
+        quest_mon('086', 'Seel', ':sparkles:', '0', '00')
+        quest_mon('087', 'Dewgong', ':sparkles:', '0', '00')
+        quest_mon('088', 'Grimer', ':sparkles:', '0', '00')
+        quest_mon('090', 'Shellder', ':sparkles:', '0', '00')
+        quest_mon('092', 'Gastly', ':sparkles:', '0', '00')
+        quest_mon('095', 'Onix', ':sparkles:', '0', '00')
+        quest_mon('096', 'Drowzee', ':sparkles:', '0', '00')
+        quest_mon('100', 'Voltorb', '', '0', '00')
+        quest_mon('102', 'Exeggcute', '', '0', '00')
+        quest_mon('103', 'Exeggutor', '', '0', '00')
+        quest_mon('104', 'Cubone', ':sparkles:', '0', '00')
+        quest_mon('108', 'Lickitung', '', '0', '00')
+        quest_mon('113', 'Chansey', ':sparkles:', '0', '00')
+        quest_mon('114', 'Tangela', '', '0', '00')
+        quest_mon('121', 'Starmie', '', '0', '00')
+        quest_mon('124', 'Jynx', '', '0', '00')
+        quest_mon('125', 'Electabuzz', ':sparkles:', '0', '00')
+        quest_mon('126', 'Magmar', ':sparkles:', '0', '00')
+        quest_mon('127', 'Pinsir', ':sparkles:', '0', '00')
+        quest_mon('129', 'Magikarp', ':sparkles:', '0', '00')
+        quest_mon('131', 'Lapras', ':sparkles:', '0', '00')
+        quest_mon('133', 'Eevee', ':sparkles:', '0', '00')
+        quest_mon('138', 'Omanyte', ':sparkles:', '0', '00')
+        quest_mon('140', 'Kabuto', ':sparkles:', '0', '00')
+        quest_mon('142', 'Aerodactyl', ':sparkles:', '0', '00')
+        quest_mon('147', 'Dratini', ':sparkles:', '0', '00')
+        quest_mon('183', 'Marill', '', '0', '00')
+        quest_mon('187', 'Hoppip', '', '0', '00')
+        quest_mon('191', 'Sunkern', ':sparkles:', '0', '00')
+        quest_mon('196', 'Espeon', '', '0', '00')
+        quest_mon('197', 'Umbreon', '', '0', '00')
+        quest_mon('207', 'Gligar', ':sparkles:', '0', '00')
+        quest_mon('209', 'Snubbull', ':sparkles:', '0', '00')
+        quest_mon('215', 'Sneasel', ':sparkles:', '797', '00')
+        quest_mon('216', 'Teddiursa', '', '0', '00')
+        quest_mon('220', 'Swinub', ':sparkles:', '0', '00')
+        quest_mon('227', 'Skarmory', ':sparkles:', '0', '00')
+        quest_mon('228', 'Houndour', ':sparkles:', '0', '00')
+        quest_mon('234', 'Stantler', ':sparkles:', '0', '00')
+        quest_mon('246', 'Larvitar', ':sparkles:', '0', '00')
+        quest_mon('255', 'Torchic', ':sparkles:', '0', '00')
+        quest_mon('252', 'Treecko', ':sparkles:', '0', '00')
+        quest_mon('261', 'Poochyena', ':sparkles:', '0', '00')
+        quest_mon('270', 'Lotad', ':sparkles:', '0', '00')
+        quest_mon('280', 'Ralts', ':sparkles:', '292', '00')
+        quest_mon('286', 'Breloom', '', '0', '00')
+        quest_mon('287', 'Slakoth', ':sparkles:', '0', '00')
+        quest_mon('290', 'Nincada', ':sparkles:', '0', '00')
+        quest_mon('294', 'Loudred', '', '0', '00')
+        quest_mon('296', 'Makuhita', ':sparkles:', '0', '00')
+        quest_mon('302', 'Sableye', ':sparkles:', '0', '00')
+        quest_mon('307', 'Meditite', ':sparkles:', '0', '00')
+        quest_mon('310', 'Manectric', ':sparkles:', '0', '00')
+        quest_mon('311', 'Plusle', ':sparkles:', '0', '00')
+        quest_mon('312', 'Minun', ':sparkles:', '0', '00')
+        quest_mon('315', 'Roselia', ':sparkles:', '0', '00')
+        quest_mon('317', 'Swalot', '', '0', '00')
+        quest_mon('325', 'Spoink', ':sparkles:', '0', '00')
+        quest_mon('327', 'Spinda Number 7', ':sparkles:', '0', '00')
+        quest_mon('335', 'Zangoose', ':sparkles:', '0', '00')
+        quest_mon('336', 'Seviper', ':sparkles:', '0', '00')
+        quest_mon('345', 'Lileep', ':sparkles:', '0', '00')
+        quest_mon('347', 'Anorith', ':sparkles:', '0', '00')
+        quest_mon('349', 'Feebas', ':sparkles:', '0', '00')
+        quest_mon('353', 'Shuppet', ':sparkles:', '0', '00')
+        quest_mon('359', 'Absol', ':sparkles:', '0', '00')
+        quest_mon('361', 'Snorunt', ':sparkles:', '0', '00')
+        quest_mon('362', 'Glalie', '', '0', '00')
+        quest_mon('366', 'Clamperl', ':sparkles:', '0', '00')
+        quest_mon('399', 'Bidoof', '', '0', '00')
+        quest_mon('408', 'Cranidos', '', '0', '00')
+        quest_mon('410', 'Shieldon', '', '0', '00')
+        quest_mon('415', 'Combee', '', '0', '00')
+        quest_mon('420', 'Cherubi', '', '0', '00')
+        quest_mon('421', 'Cherrim', '', '95', '00')
+        quest_mon('425', 'Drifloon', ':sparkles:', '0', '00')
+        quest_mon('427', 'Buneary', ':sparkles:', '0', '00')
+        quest_mon('436', 'Bronzor', ':sparkles:', '0', '00')
+        quest_mon('449', 'Hippopotas', ':sparkles:', '0', '00')
+        quest_mon('459', 'Snover', ':sparkles:', '0', '00')
+        quest_mon('562', 'Yamask', ':sparkles:', '0', '00')
+        quest_mon('594', 'Alomomola', '', '0', '00')
+        quest_mon('607', 'Litwick', '', '0', '00')
+        quest_mon('613', 'Cubchoo', '', '0', '00')
+        quest_mon('622', 'Golett', '', '0', '00')
     if max_revive:
-        quest_item_var('202', 'Max Revive','https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/Item_0202.png')
+        quest_item('202', 'Max Revive','https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/Item_0202.png')
     if glacial_lure:
-        quest_item_var('502', 'Glacial Lure','https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/TroyKey_glacial.png')
+        quest_item('502', 'Glacial Lure','https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/TroyKey_glacial.png')
     if mossy_lure:
-        quest_item_same('503', 'Mossy Lure','https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/TroyKey_moss.png')
+        quest_item('503', 'Mossy Lure','https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/TroyKey_moss.png')
     if magnetic_lure:
-        quest_item_var('504', 'Magnetic Lure','https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/TroyKey_magnetic.png')
+        quest_item('504', 'Magnetic Lure','https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/TroyKey_magnetic.png')
     if golden_razz_berry:
-        quest_item_var('706', 'Golden Razz','https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/Item_0706.png')
+        quest_item('706', 'Golden Razz','https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/Item_0706.png')
     if silver_pinap_berry:
-        quest_item_same('708', 'Silver Pinap','https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/Item_0707.png')
+        quest_item('708', 'Silver Pinap','https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/Item_0707.png')
     if sun_stone:
-        quest_item_var('1101', 'Sun Stone','https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/Bag_Sun_Stone_Sprite.png')
+        quest_item('1101', 'Sun Stone','https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/Bag_Sun_Stone_Sprite.png')
     if kings_rock:
-        quest_item_var('1102', 'Kings Rock',"https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/Bag_King's_Rock_Sprite.png")
+        quest_item('1102', 'Kings Rock',"https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/Bag_King's_Rock_Sprite.png")
     if metal_coat:
-        quest_item_var('1103', 'Metal Coat','https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/Bag_Metal_Coat_Sprite.png')
+        quest_item('1103', 'Metal Coat','https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/Bag_Metal_Coat_Sprite.png')
     if dragon_scale:
-        quest_item_var('1104', 'Dragon Scale','https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/Bag_Dragon_Scale_Sprite.png')
+        quest_item('1104', 'Dragon Scale','https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/Bag_Dragon_Scale_Sprite.png')
     if up_grade:
-        quest_item_var('1105', 'Up-Grade','https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/Bag_Up-Grade_Sprite.png')
+        quest_item('1105', 'Up-Grade','https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/Bag_Up-Grade_Sprite.png')
     if shinnoh_stone:
-        quest_item_same('1106', 'Sinnoh Stone','https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/Bag_Sinnoh_Stone_Sprite.png')
+        quest_item('1106', 'Sinnoh Stone','https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/Bag_Sinnoh_Stone_Sprite.png')
     if unova_stone:
-        quest_item_var('1107', 'Unova Stone','https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/Bag_Unova_Stone_Sprite.png')
+        quest_item('1107', 'Unova Stone','https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/Bag_Unova_Stone_Sprite.png')
     if fast_tm:
-        quest_item_var('1201', 'Fast TM','https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/Item_1201.png')
+        quest_item('1201', 'Fast TM','https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/Item_1201.png')
     if charged_tm:
-        quest_item_var('1202', 'Charged TM','https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/Item_1202.png')
+        quest_item('1202', 'Charged TM','https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/Item_1202.png')
     if rare_candy:
-        quest_item_var('1301', 'Rare Candy','https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/Item_1301.png')
+        quest_item('1301', 'Rare Candy','https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/Item_1301.png')
     if poke_ball:
-        quest_item_var('1', 'Poke Ball','https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/Item_0001.png')
+        quest_item('1', 'Poke Ball','https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/Item_0001.png')
     if great_ball:
-        quest_item_var('2', 'Great Ball','https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/Item_0002.png')
+        quest_item('2', 'Great Ball','https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/Item_0002.png')
     if ultra_ball:
-        quest_item_var('3', 'Ultra Ball','https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/Item_0003.png')
+        quest_item('3', 'Ultra Ball','https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/Item_0003.png')
     if potion:
-        quest_item_var('101', 'Potion','https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/Item_0101.png')
+        quest_item('101', 'Potion','https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/Item_0101.png')
     if super_potion:
-        quest_item_var('102', 'Super Potion','https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/Item_0102.png')
+        quest_item('102', 'Super Potion','https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/Item_0102.png')
     if hyper_potion:
-        quest_item_var('103', 'Hyper Potion','https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/Item_0103.png')
+        quest_item('103', 'Hyper Potion','https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/Item_0103.png')
     if max_potion:
-        quest_item_var('104', 'Max Potion','https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/Item_0104.png')
+        quest_item('104', 'Max Potion','https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/Item_0104.png')
     if revive:
-        quest_item_var('201', 'Revive','https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/Item_0201.png')
+        quest_item('201', 'Revive','https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/Item_0201.png')
     if razz_berry:
-        quest_item_var('701', 'Razz Berry','https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/Item_0701.png')
+        quest_item('701', 'Razz Berry','https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/Item_0701.png')
     if pinap_berry:
-        quest_item_var('705', 'Pinap Berry','https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/Item_0705.png')
+        quest_item('705', 'Pinap Berry','https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/Item_0705.png')
     if nanab_berry:
-        quest_item_var('703', 'Nanab Berry','https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/Item_0703.png')
+        quest_item('703', 'Nanab Berry','https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/Item_0703.png')
     if int(stardust) > 199:
         quest_stardust('0', 'Stardust Over ' + stardust + '','https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/stardust_painted.png')
 
