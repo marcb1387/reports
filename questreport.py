@@ -439,7 +439,7 @@ def stuff():
         quest_mon('142', 'Aerodactyl', ':sparkles:', '0', '00')
         quest_mon('147', 'Dratini', ':sparkles:', '0', '00')
         quest_mon('183', 'Marill', '', '0', '00')
-        quest_mon('185', 'Sudowoodo', '', '0', '00')
+        quest_mon('185', 'Sudowoodo', ':sparkles:', '0', '00')
         quest_mon('187', 'Hoppip', '', '0', '00')
         quest_mon('191', 'Sunkern', ':sparkles:', '0', '00')
         quest_mon('196', 'Espeon', '', '0', '00')
