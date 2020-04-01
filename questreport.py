@@ -332,7 +332,6 @@ def quest_item(itemid,item,sprite):
       webhook.execute()
       research = ''
       time.sleep(2)
- 
 
 #Stardust
 def quest_stardust(itemid,item,sprite):
@@ -440,6 +439,7 @@ def stuff():
         quest_mon('142', 'Aerodactyl', ':sparkles:', '0', '00')
         quest_mon('147', 'Dratini', ':sparkles:', '0', '00')
         quest_mon('183', 'Marill', '', '0', '00')
+        quest_mon('185', 'Sudowoodo', '', '0', '00')
         quest_mon('187', 'Hoppip', '', '0', '00')
         quest_mon('191', 'Sunkern', ':sparkles:', '0', '00')
         quest_mon('196', 'Espeon', '', '0', '00')
@@ -492,11 +492,13 @@ def stuff():
         quest_mon('427', 'Buneary', ':sparkles:', '0', '00')
         quest_mon('436', 'Bronzor', ':sparkles:', '0', '00')
         quest_mon('449', 'Hippopotas', ':sparkles:', '0', '00')
+        quest_mon('453', 'Croagunk', ':sparkles:', '0', '00')
         quest_mon('459', 'Snover', ':sparkles:', '0', '00')
         quest_mon('562', 'Yamask', ':sparkles:', '0', '00')
         quest_mon('594', 'Alomomola', '', '0', '00')
         quest_mon('607', 'Litwick', '', '0', '00')
         quest_mon('613', 'Cubchoo', '', '0', '00')
+        quest_mon('618', 'Stunfisk', '', '0', '00')
         quest_mon('622', 'Golett', '', '0', '00')
     if max_revive:
         quest_item('202', 'Max Revive','https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/Item_0202.png')
