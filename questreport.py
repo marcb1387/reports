@@ -378,7 +378,7 @@ def quest_stardust(itemid,item,sprite):
 #Pokeomon, Items, Stardust
 def stuff():
     if encounters:
-       quest_mon('001', 'Bulbasaur', ':sparkles:', '', '00')
+        quest_mon('001', 'Bulbasaur', ':sparkles:', '', '00')
         quest_mon('004', 'Charmander', ':sparkles:', '', '00')
         quest_mon('007', 'Squirtle', ':sparkles:', '', '00')
         quest_mon('009', 'Blastoise', ':sparkles:', '', '00')
