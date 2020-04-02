@@ -378,7 +378,7 @@ def quest_stardust(itemid,item,sprite):
 #Pokeomon, Items, Stardust
 def stuff():
     if encounters:
-        quest_mon('001', 'Bulbasaur', ':sparkles:', '', '00')
+       quest_mon('001', 'Bulbasaur', ':sparkles:', '', '00')
         quest_mon('004', 'Charmander', ':sparkles:', '', '00')
         quest_mon('007', 'Squirtle', ':sparkles:', '', '00')
         quest_mon('009', 'Blastoise', ':sparkles:', '', '00')
@@ -397,6 +397,7 @@ def stuff():
         quest_mon('039', 'Jigglypuff', '', '', '00')
         quest_mon('041', 'Zubat', ':sparkles:', '', '00')
         quest_mon('044', 'Gloom', '', '', '00')
+        quest_mon('047', 'Parasect', '', '', '00')
         quest_mon('050', 'Diglett', ':sparkles:', '', '00')
         quest_mon('052', 'Alolan Meowth', ':sparkles:', '64', '64')
         quest_mon('056', 'Mankey', ':sparkles:', '', '00')
@@ -438,6 +439,8 @@ def stuff():
         quest_mon('140', 'Kabuto', ':sparkles:', '', '00')
         quest_mon('142', 'Aerodactyl', ':sparkles:', '', '00')
         quest_mon('147', 'Dratini', ':sparkles:', '', '00')
+        quest_mon('153', 'Bayleef', '', '', '00')
+        quest_mon('182', 'Bellossom', '', '', '00')
         quest_mon('183', 'Marill', '', '', '00')
         quest_mon('185', 'Sudowoodo', '', '', '00')
         quest_mon('187', 'Hoppip', '', '', '00')
@@ -485,6 +488,7 @@ def stuff():
         quest_mon('399', 'Bidoof', '', '', '00')
         quest_mon('408', 'Cranidos', '', '', '00')
         quest_mon('410', 'Shieldon', '', '', '00')
+        quest_mon('412', 'Burmy', ':sparkles:', '', '00')
         quest_mon('415', 'Combee', '', '', '00')
         quest_mon('420', 'Cherubi', '', '', '00')
         quest_mon('421', 'Cherrim', '', '', '00')
