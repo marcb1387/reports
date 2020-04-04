@@ -398,7 +398,7 @@ def stuff():
         quest_mon('041', 'Zubat', ':sparkles:', '', '00')
         quest_mon('044', 'Gloom', '', '', '00')
         quest_mon('047', 'Parasect', '', '', '00')
-        quest_mon('050', 'Diglett', ':sparkles:', '', '00')
+        quest_mon('050', 'Diglett', ':sparkles:', '0', '00')
         quest_mon('050', 'Alolan Diglett', ':sparkles:', '60', '60')
         quest_mon('052', 'Alolan Meowth', ':sparkles:', '64', '64')
         quest_mon('056', 'Mankey', ':sparkles:', '', '00')
