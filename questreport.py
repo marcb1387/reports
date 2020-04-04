@@ -423,7 +423,7 @@ def stuff():
         quest_mon('096', 'Drowzee', ':sparkles:', '', '00')
         quest_mon('100', 'Voltorb', '', '', '00')
         quest_mon('102', 'Exeggcute', '', '', '00')
-        quest_mon('103', 'Exeggutor', '', '', '00')
+        quest_mon('103', 'Exeggutor', '', '0', '00')
         quest_mon('103', 'Alolan Exeggutor', '', '68', '68')
         quest_mon('104', 'Cubone', ':sparkles:', '', '00')
         quest_mon('108', 'Lickitung', '', '', '00')
