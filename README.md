@@ -3,6 +3,7 @@ Discord Python Report that will post Research for Pokemon Go. For use with MAD S
 
 DO NOT INSTALL ON SAME ENVIRONMENT AS SCANNER.
 
+Discord support channel https://discord.gg/bbvqeBQ
 
 **Optional Pokemon Filter**
 
