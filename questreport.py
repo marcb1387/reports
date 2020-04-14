@@ -61,6 +61,9 @@ magnetic_lure = config.getboolean('ITEMS','magnetic_lure')
 stardust = config.get('ITEMS','stardust')
 encounters = config.getboolean('ITEMS','encounters')
 mons = config.get('POKEMON','dex_number')
+adtitle = config.get('AD','Ad_Title')
+adbody = config.get('AD','Ad_Body')
+adthumb = config.get('AD','Ad_Thumbnail')
 # CONFIG END
 
 # SPRITES
@@ -298,6 +301,7 @@ def quest_item(itemid,item,sprite):
         webhook.remove_embed(0)
         time.sleep(2)
       print (item+" Length:", len(research))
+      
       embed = DiscordEmbed(title= item+' Field Research', description=research, color=4390656)
       embed.set_author(name='Research Task: '+stop[3])
       embed.set_footer(text='Research by '+author, icon_url=footerimg)
@@ -324,6 +328,7 @@ def quest_item(itemid,item,sprite):
         webhook.remove_embed(0)
         time.sleep(2)
       print (item+" Length:", len(research))
+      
       embed = DiscordEmbed(title= item+' Field Research', description=research, color=4390656)
       embed.set_footer(text='Research by '+author, icon_url=footerimg)
       embed.set_thumbnail(url=sprite) 
@@ -374,7 +379,26 @@ def quest_stardust(itemid,item,sprite):
   webhook.execute()
   research = ''
   time.sleep(2)
+  
+  
 
+def ad():
+ if not adbody:
+  print ("no Ad to Display")
+ else:
+  print ("Ad found")
+  webhook = DiscordWebhook(url=webhookurl)
+  # create embed object for webhook 
+  embed = DiscordEmbed(title=adtitle, description=adbody, color=16711931)
+  embed.set_footer(text='Research by '+author, icon_url=footerimg)
+  embed.set_thumbnail(url=adthumb) 
+  #add embed object to webhook
+  webhook.add_embed(embed)
+  webhook.execute()
+  research = ''
+  webhook.remove_embed(0)
+  time.sleep(2)
+ 
 #Pokeomon, Items, Stardust
 def stuff():
     if encounters:
@@ -598,6 +622,7 @@ if args.check:
    x = open(dir+areaname+'_'+today+'.temp', 'w')
    x.close()
    stuff()
+   ad()
    if os.path.isfile(dir+areaname+'_'+yesterday+'.temp'):
     os.remove(dir+areaname+'_'+yesterday+'.temp')
  else:
@@ -613,8 +638,10 @@ elif args.safe:
   x = open(dir+areaname+'_'+today+'.temp', 'w')
   x.close()
   stuff()
+  ad()
   if os.path.isfile(dir+areaname+'_'+yesterday+'.temp'):
    os.remove(dir+areaname+'_'+yesterday+'.temp')
 else:
  print("No checks running report")  
  stuff()
+ ad()
