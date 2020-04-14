@@ -13,7 +13,7 @@ Pokemon filters can be in an area.ini file or config.ini file. Takes 3 digit pok
 
 You can edit the config.ini file to pick which items you would want in your report with true/false statements. You can also adjust the stardust for research. Stardust amounts will show anything Greater then and equal to the amount you enter.
 
-A Community Ad can be added to the end of the report see below for example. This will accept any text and Discord markdown for links/formatting for up to 2048 characters. If you do not wish you have an ad you can leave the ```Ad_Body``` blank and none will be added. This is effective in both Quest and Rocker leaders reports. 
+A Community Ad can be added to the end of the report see below for example. This will accept any text and Discord markdown for links/formatting for up to 2048 characters. If you do not wish you have an ad you can leave the ```Ad_Body``` blank and none will be added. This is effective in both Quest and Rocker leaders reports. If you have different Areas you can enter seprate Ad's for each area by entering the [AD] config into you area.ini file.
 
 ```
 [CONFIG]
