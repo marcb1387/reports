@@ -11,7 +11,9 @@ Pokemon filters can be in an area.ini file or config.ini file. Takes 3 digit pok
 
 **config.ini File Edits**
 
-You can edit the config.ini file to pick which items you would want in your report with true/false statements. You can also adjust the stardust for research. Stardust amounts will show anything Greater then and equal to the amount you enter. 
+You can edit the config.ini file to pick which items you would want in your report with true/false statements. You can also adjust the stardust for research. Stardust amounts will show anything Greater then and equal to the amount you enter.
+
+A Community Ad can be added to the end of the report see below for example. This will accept any text and Discord markdown for links/formatting for up to 2048 characters. If you do not wish you have an ad you can leave the ```Ad_Body``` blank and none will be added. 
 
 ```
 [CONFIG]
@@ -64,6 +66,11 @@ encounters=true
 
 [POKEMON]
 dex_number= (delete this text if you want all pokemon) accepts 3 digit Pokedex numbers in any order seprated by a comma. example 001,025,125
+
+[AD]
+Ad_Title = Pokemon Master
+Ad_Body = These Quests Brought to you by the Pomemon Masters [Please donate to get cool stuff](http://example.com)
+Ad_Thumbnail = https://i.imgur.com/DDZEOj7.png Temporary URL for thumbnail can be removed 
 ```
 
 **Optional Arguments:**
@@ -78,13 +85,15 @@ Running without any arguments will run the report with static images and no file
 
 -s, --safe Will perform a file check only to see if a report has already ran today. CRON Use as a fail safe run at a specific time if some stops haven’t reported research. Do no use with -c.
 
-**Example Pokemon, Items and Stradust reports:**
+**Example Pokemon, Items, Stradust reports, and Community Ad:**
 
 ![Iteam_pokemon_example](https://i.imgur.com/oia6W60.png)
 
 ![Iteam_item_example](https://i.imgur.com/A3I8L47.png)
 
 ![Iteam_stardust_example](https://i.imgur.com/8t9UAMp.png)
+
+![Community Ad_example](https://i.imgur.com/xZnJk6h.png)
 
 # Rocket Report
 
