@@ -21,6 +21,9 @@ database = config.get('DATABASE', 'db_name')
 port = config.get('DATABASE', 'port')
 user = config.get('DATABASE', 'db_user')
 passwd = config.get('DATABASE', 'db_pass')
+adtitle = config.get('AD','Ad_Title')
+adbody = config.get('AD','Ad_Body')
+adthumb = config.get('AD','Ad_Thumbnail')
 # CONFIG END
 
 
@@ -68,9 +71,25 @@ def rocket(leader,lname,sprite,guide):
   research = ''
   time.sleep(2)
   
-
+def ad():
+ if not adbody:
+  print ("no Ad to Display")
+ else:
+  print ("Ad found")
+  webhook = DiscordWebhook(url=webhookurl)
+  # create embed object for webhook 
+  embed = DiscordEmbed(title=adtitle, description=adbody, color=16711931)
+  embed.set_footer(text='Research by '+author, icon_url=footerimg)
+  embed.set_thumbnail(url=adthumb) 
+  #add embed object to webhook
+  webhook.add_embed(embed)
+  webhook.execute()
+  research = ''
+  webhook.remove_embed(0)
+  time.sleep(2)
 
 rocket("41","Cliff","https://i.imgur.com/foAB0mG.png","https://pokemongohub.net/post/guide/rocket-leader-cliff-counters/")
 rocket("42","Arlo","https://i.imgur.com/T7YOeVe.png","https://pokemongohub.net/post/guide/rocket-leader-arlo-counters/")
 rocket("43","Sierra","https://i.imgur.com/skMP1PB.png","https://pokemongohub.net/post/guide/rocket-leader-sierra-counters/")
 rocket("44","Giovanni","https://i.imgur.com/uUNF3ST.png","https://pokemongohub.net/post/guide/rocket-boss-giovanni-counters/")
+ad()
