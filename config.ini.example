@@ -48,3 +48,8 @@ encounters=true
 
 [POKEMON]
 dex_number= (delete this text if you want all pokemon) accepts 3 digit Pokedex numbers in any order seprated by a comma. example 001,025,125
+
+[AD]
+Ad_Title = Pokemon Master
+Ad_Body = These Quests Brought to you by the Pomemon Masters [Please donate to get cool stuff](http://example.com)
+Ad_Thumbnail = https://i.imgur.com/DDZEOj7.png
