@@ -26,6 +26,9 @@ area = config.get('CONFIG', 'Area')
 areaname = config.get('CONFIG', 'Areaname')
 author = config.get('CONFIG', 'Author')
 footerimg = config.get ('CONFIG', 'AuthorIMG')
+use_emoji = config.getboolean('CONFIG','use_emoji')
+use_webhook_emoji = config.getboolean('CONFIG','use_webhook_emoji')
+use_webhook_name = config.getboolean('CONFIG','use_webhook_name')
 host = config.get('DATABASE', 'MAD_db_host')
 database = config.get('DATABASE', 'db_name')
 port = config.get('DATABASE', 'port')
@@ -113,11 +116,13 @@ def quest_mon(monid,mon,shiny,typeid,formid):
             print ("larger then 2048 breaking up")
             print (mon+" Length:", len(research))
             embed = DiscordEmbed(title= shiny+mon+' Field Research'+shiny, description=research, color=16777011)
-            embed.set_thumbnail(url=img+monid+'_'+formid+ext)
+            if use_emoji: embed.set_thumbnail(url=img+monid+'_'+formid+ext)
             embed.set_footer(text='Research by '+author, icon_url=footerimg)
             embed.set_author(name='Research Task: '+stop[3])
             #add embed object to webhook
             webhook.add_embed(embed)
+            if use_webhook_emoji: webhook.avatar_url = img+monid+'_'+formid+ext
+            if use_webhook_name: webhook.username = mon+' Field Research'
             webhook.execute()
             research = ''
             webhook.remove_embed(0)
@@ -125,11 +130,13 @@ def quest_mon(monid,mon,shiny,typeid,formid):
           
           print (mon+" Length:", len(research))
           embed = DiscordEmbed(title= shiny+mon+' Field Research'+shiny, description=research, color=16777011)
-          embed.set_thumbnail(url=img+monid+'_'+formid+ext)
+          if use_emoji: embed.set_thumbnail(url=img+monid+'_'+formid+ext)
           embed.set_footer(text='Research by '+author, icon_url=footerimg)
           embed.set_author(name='Research Task: '+stop[3])
           #add embed object to webhook
           webhook.add_embed(embed)
+          if use_webhook_emoji: webhook.avatar_url = img+monid+'_'+formid+ext
+          if use_webhook_name: webhook.username = mon+' Field Research'
           webhook.execute()
           research = ''
           time.sleep(2)
@@ -156,11 +163,13 @@ def quest_mon(monid,mon,shiny,typeid,formid):
             print ("larger then 2048 breaking up")
             print (mon+" Length:", len(research))
             embed = DiscordEmbed(title= shiny+mon+' Field Research'+shiny, description=research, color=16777011)
-            embed.set_thumbnail(url=img+monid+'_'+formid+ext)
+            if use_emoji: embed.set_thumbnail(url=img+monid+'_'+formid+ext)
             embed.set_footer(text='Research by '+author, icon_url=footerimg)
             embed.set_author(name='Research Task: '+stop[3])
             #add embed object to webhook
             webhook.add_embed(embed)
+            if use_webhook_emoji: webhook.avatar_url = img+monid+'_'+formid+ext
+            if use_webhook_name: webhook.username = mon+' Field Research'
             webhook.execute()
             research = ''
             webhook.remove_embed(0)
@@ -168,11 +177,13 @@ def quest_mon(monid,mon,shiny,typeid,formid):
           
           print (mon+" Length:", len(research))
           embed = DiscordEmbed(title= shiny+mon+' Field Research'+shiny, description=research, color=16777011)
-          embed.set_thumbnail(url=img+monid+'_'+formid+ext)
+          if use_emoji: embed.set_thumbnail(url=img+monid+'_'+formid+ext)
           embed.set_footer(text='Research by '+author, icon_url=footerimg)
           embed.set_author(name='Research Task: '+stop[3])
           #add embed object to webhook
           webhook.add_embed(embed)
+          if use_webhook_emoji: webhook.avatar_url = img+monid+'_'+formid+ext
+          if use_webhook_name: webhook.username = mon+' Field Research'
           webhook.execute()
           research = ''
           time.sleep(2)
@@ -202,10 +213,12 @@ def quest_mon(monid,mon,shiny,typeid,formid):
             print ("larger then 2048 breaking up")
             print (mon+" Length:", len(research))
             embed = DiscordEmbed(title= shiny+mon+' Field Research'+shiny, description=research, color=16777011)
-            embed.set_thumbnail(url=img+monid+'_'+formid+ext)
+            if use_emoji: embed.set_thumbnail(url=img+monid+'_'+formid+ext)
             embed.set_footer(text='Research by '+author, icon_url=footerimg)
             #add embed object to webhook
             webhook.add_embed(embed)
+            if use_webhook_emoji: webhook.avatar_url = img+monid+'_'+formid+ext
+            if use_webhook_name: webhook.username = mon+' Field Research'
             webhook.execute()
             research = ''
             webhook.remove_embed(0)
@@ -213,10 +226,12 @@ def quest_mon(monid,mon,shiny,typeid,formid):
           
           print (mon+" Length:", len(research))
           embed = DiscordEmbed(title= shiny+mon+' Field Research'+shiny, description=research, color=16777011)
-          embed.set_thumbnail(url=img+monid+'_'+formid+ext)
+          if use_emoji: embed.set_thumbnail(url=img+monid+'_'+formid+ext)
           embed.set_footer(text='Research by '+author, icon_url=footerimg)
           #add embed object to webhook
           webhook.add_embed(embed)
+          if use_webhook_emoji: webhook.avatar_url = img+monid+'_'+formid+ext
+          if use_webhook_name: webhook.username = mon+' Field Research'
           webhook.execute()
           research = ''
           time.sleep(2)
@@ -243,10 +258,12 @@ def quest_mon(monid,mon,shiny,typeid,formid):
             print ("larger then 2048 breaking up")
             print (mon+" Length:", len(research))
             embed = DiscordEmbed(title= shiny+mon+' Field Research'+shiny, description=research, color=16777011)
-            embed.set_thumbnail(url=img+monid+'_'+formid+ext)
+            if use_emoji: embed.set_thumbnail(url=img+monid+'_'+formid+ext)
             embed.set_footer(text='Research by '+author, icon_url=footerimg)
             #add embed object to webhook
             webhook.add_embed(embed)
+            if use_webhook_emoji: webhook.avatar_url = img+monid+'_'+formid+ext
+            if use_webhook_name: webhook.username = mon+' Field Research'
             webhook.execute()
             research = ''
             webhook.remove_embed(0)
@@ -254,10 +271,12 @@ def quest_mon(monid,mon,shiny,typeid,formid):
           
           print (mon+" Length:", len(research))
           embed = DiscordEmbed(title= shiny+mon+' Field Research'+shiny, description=research, color=16777011)
-          embed.set_thumbnail(url=img+monid+'_'+formid+ext)
+          if use_emoji: embed.set_thumbnail(url=img+monid+'_'+formid+ext)
           embed.set_footer(text='Research by '+author, icon_url=footerimg)
           #add embed object to webhook
           webhook.add_embed(embed)
+          if use_webhook_emoji: webhook.avatar_url = img+monid+'_'+formid+ext
+          if use_webhook_name: webhook.username = mon+' Field Research'
           webhook.execute()
           research = ''
           time.sleep(2)   
@@ -293,9 +312,11 @@ def quest_item(itemid,item,sprite):
         embed = DiscordEmbed(title= item+' Field Research', description=research, color=4390656)
         embed.set_author(name='Research Task: '+stop[3])
         embed.set_footer(text='Research by '+author, icon_url=footerimg)
-        embed.set_thumbnail(url=sprite) 
+        if use_emoji: embed.set_thumbnail(url=sprite) 
         #add embed object to webhook
         webhook.add_embed(embed)
+        if use_webhook_emoji: webhook.avatar_url = sprite
+        if use_webhook_name: webhook.username = item+' Field Research'
         webhook.execute()
         research = ''
         webhook.remove_embed(0)
@@ -305,9 +326,11 @@ def quest_item(itemid,item,sprite):
       embed = DiscordEmbed(title= item+' Field Research', description=research, color=4390656)
       embed.set_author(name='Research Task: '+stop[3])
       embed.set_footer(text='Research by '+author, icon_url=footerimg)
-      embed.set_thumbnail(url=sprite) 
+      if use_emoji: embed.set_thumbnail(url=sprite) 
       #add embed object to webhook
       webhook.add_embed(embed)
+      if use_webhook_emoji: webhook.avatar_url = sprite
+      if use_webhook_name: webhook.username = item+' Field Research'
       webhook.execute()
       research = ''
       time.sleep(2)
@@ -320,9 +343,11 @@ def quest_item(itemid,item,sprite):
         print (item+" Length:", len(research))
         embed = DiscordEmbed(title= item+' Field Research', description=research, color=4390656)
         embed.set_footer(text='Research by '+author, icon_url=footerimg)
-        embed.set_thumbnail(url=sprite) 
+        if use_emoji: embed.set_thumbnail(url=sprite) 
         #add embed object to webhook
         webhook.add_embed(embed)
+        if use_webhook_emoji: webhook.avatar_url = sprite
+        if use_webhook_name: webhook.username = item+' Field Research'
         webhook.execute()
         research = ''
         webhook.remove_embed(0)
@@ -331,9 +356,11 @@ def quest_item(itemid,item,sprite):
       
       embed = DiscordEmbed(title= item+' Field Research', description=research, color=4390656)
       embed.set_footer(text='Research by '+author, icon_url=footerimg)
-      embed.set_thumbnail(url=sprite) 
+      if use_emoji: embed.set_thumbnail(url=sprite) 
       #add embed object to webhook
       webhook.add_embed(embed)
+      if use_webhook_emoji: webhook.avatar_url = sprite
+      if use_webhook_name: webhook.username = item+' Field Research'
       webhook.execute()
       research = ''
       time.sleep(2)
@@ -363,9 +390,11 @@ def quest_stardust(itemid,item,sprite):
     print (item+" Length:", len(research))
     embed = DiscordEmbed(title= item+' Field Research', description=research, color=16711931)
     embed.set_footer(text='Research by '+author, icon_url=footerimg)
-    embed.set_thumbnail(url=sprite) 
+    if use_emoji: embed.set_thumbnail(url=sprite) 
     #add embed object to webhook
     webhook.add_embed(embed)
+    if use_webhook_emoji: webhook.avatar_url = sprite
+    if use_webhook_name: webhook.username = item+' Field Research'
     webhook.execute()
     research = ''
     webhook.remove_embed(0)
@@ -373,9 +402,11 @@ def quest_stardust(itemid,item,sprite):
   print (item+" Length:", len(research))
   embed = DiscordEmbed(title= item+' Field Research', description=research, color=16711931)
   embed.set_footer(text='Research by '+author, icon_url=footerimg)
-  embed.set_thumbnail(url=sprite) 
+  if use_emoji: embed.set_thumbnail(url=sprite) 
   #add embed object to webhook
   webhook.add_embed(embed)
+  if use_webhook_emoji: webhook.avatar_url = sprite
+  if use_webhook_name: webhook.username = item+' Field Research'
   webhook.execute()
   research = ''
   time.sleep(2)
