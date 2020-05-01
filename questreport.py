@@ -401,7 +401,6 @@ def quest_item(itemid,item,sprite):
       print (item+" Length:", len(research))
       
       #add embed object to webhook
-      webhook.add_embed(embed)
       if use_webhook_name:
        embed = DiscordEmbed(description=research, color=4390656)        
        webhook.username = item+' Field Research'
@@ -410,6 +409,7 @@ def quest_item(itemid,item,sprite):
        embed = DiscordEmbed(title= item+' Field Research', description=research, color=4390656)
       embed.set_footer(text='Research by '+author, icon_url=footerimg)
       if use_emoji: embed.set_thumbnail(url=sprite) 
+      webhook.add_embed(embed)
       webhook.execute()
       research = ''
       time.sleep(2)
