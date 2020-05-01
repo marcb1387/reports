@@ -5,7 +5,7 @@ Author=POSTING_AUTHOR_NAME
 AuthorIMG=https://i.imgur.com/DDZEOj7.png
 Areaname=NAME_OF_TEMP_AREA_FILE
 
-#emojis: default = emoji within the post, however, you can choose to overwrite the webhook emoji and name and turn regular emoji off
+#Emojis and formatting of the post
 use_emoji=true
 use_slim_name=false
 use_webhook_name=false
