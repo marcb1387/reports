@@ -23,6 +23,11 @@ Author=POSTING_AUTHOR_NAME
 AuthorIMG=https://i.imgur.com/DDZEOj7.png Temporary URL for Icon can be changed  
 Areaname=NAME_OF_TEMP_AREA_FILE (can be anything but i would suggest the name of the area)
 
+#emojis: default = emoji and formatting of the post
+use_emoji=true
+use_slim_name=false
+use_webhook_name=false
+
 #Coordinates string of area. First and last coordinate set must be equal/the same one. Format:Latitute and longitude separated by spaces and coordinate pairs separated by , symbol
 Area = COORDINATES_OF_AREA 38.95971  -77.10273, 38.95971  -76.92077, 38.84281 -76.91545, 38.84268 -77.08299,38.95971  -77.10273
 
@@ -72,6 +77,21 @@ Ad_Title = Pokemon Master
 Ad_Body = These Quests Brought to you by the Pomemon Masters [Please donate to get cool stuff](http://example.com)
 Ad_Thumbnail = https://i.imgur.com/DDZEOj7.png Temporary URL for thumbnail can be removed 
 ```
+**Formatting Examples**
+
+First image - Emoji and all option turned off
+
+Second image - emoji turned on
+
+Third image - emoji and webhook name turned on
+
+Fourth image - emoji and slim name turned on
+
+Webhook name will override slim name if turned on
+
+![Format_example](https://i.imgur.com/wCnA3BC.png)
+
+
 
 **Optional Arguments:**
 
