@@ -23,7 +23,7 @@ Author=POSTING_AUTHOR_NAME
 AuthorIMG=https://i.imgur.com/DDZEOj7.png Temporary URL for Icon can be changed  
 Areaname=NAME_OF_TEMP_AREA_FILE (can be anything but i would suggest the name of the area)
 
-#emojis: default = emoji and formatting of the post
+#Emojis and formatting of the post
 use_emoji=true
 use_slim_name=false
 use_webhook_name=false
