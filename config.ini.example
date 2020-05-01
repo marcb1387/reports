@@ -7,7 +7,6 @@ Areaname=NAME_OF_TEMP_AREA_FILE
 
 #emojis: default = emoji within the post, however, you can choose to overwrite the webhook emoji and name and turn regular emoji off
 use_emoji=true
-use_webhook_emoji=false
 use_webhook_name=false
 
 #Coordinates string of area. First and last coordinate set must be equal. Format:Latitute and longitude separated by spaces and coordinate pairs separated by , symbol
