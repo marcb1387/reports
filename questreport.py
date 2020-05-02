@@ -535,7 +535,7 @@ def stuff():
         quest_mon('070', 'Weepinbell', '', '', '00')
         quest_mon('072', 'Tentacool', ':sparkles:', '', '00')
         quest_mon('073', 'Tentacruel', ':sparkles:', '', '00')
-        quest_mon('074', 'Geodude', ':sparkles:', '', '00')
+        quest_mon('074', 'Geodude', ':sparkles:', '00', '00')
         quest_mon('074', 'Alolan Geodude', ':sparkles:', '68', '68')
         quest_mon('077', 'Ponyta', ':sparkles:', '', '00')
         quest_mon('081', 'Magnemite', ':sparkles:', '', '00')
