@@ -1,4 +1,4 @@
-# Field Research Report
+# Field Research/Team Rocket Leaders Report
 Discord Python Report that will post Research for Pokemon Go. For use with MAD Scanner. 
 
 DO NOT INSTALL ON SAME ENVIRONMENT AS SCANNER.
