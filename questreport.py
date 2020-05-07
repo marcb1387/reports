@@ -128,7 +128,7 @@ def quest_mon(monid,mon,shiny,typeid,formid):
              embed = DiscordEmbed(title= shiny+mon+' Field Research'+shiny, description=research, color=16777011)
              embed.set_author(name='Research Task: '+stop[3])
             if use_emoji:embed.set_thumbnail(url=img+monid+'_'+formid+ext)
-            embed.set_footer(text='Research by '+author, icon_url=footerimg)
+            if author: embed.set_footer(text='Research by '+author, icon_url=footerimg)
             #add embed object to webhook
             webhook.add_embed(embed)
             webhook.execute()
@@ -146,7 +146,7 @@ def quest_mon(monid,mon,shiny,typeid,formid):
            embed = DiscordEmbed(title= shiny+mon+' Field Research'+shiny, description=research, color=16777011)
            embed.set_author(name='Research Task: '+stop[3])
           if use_emoji:embed.set_thumbnail(url=img+monid+'_'+formid+ext)
-          embed.set_footer(text='Research by '+author, icon_url=footerimg)
+          if author: embed.set_footer(text='Research by '+author, icon_url=footerimg)
           #add embed object to webhook
           webhook.add_embed(embed)
           webhook.execute()
@@ -185,7 +185,7 @@ def quest_mon(monid,mon,shiny,typeid,formid):
              embed = DiscordEmbed(title= shiny+mon+' Field Research'+shiny, description=research, color=16777011)
              embed.set_author(name='Research Task: '+stop[3])
             if use_emoji: embed.set_thumbnail(url=img+monid+'_'+formid+ext)
-            embed.set_footer(text='Research by '+author, icon_url=footerimg)
+            if author: embed.set_footer(text='Research by '+author, icon_url=footerimg)
             #add embed object to webhook
             webhook.add_embed(embed)
 
@@ -205,7 +205,7 @@ def quest_mon(monid,mon,shiny,typeid,formid):
            embed = DiscordEmbed(title= shiny+mon+' Field Research'+shiny, description=research, color=16777011)
            embed.set_author(name='Research Task: '+stop[3])
           if use_emoji: embed.set_thumbnail(url=img+monid+'_'+formid+ext)
-          embed.set_footer(text='Research by '+author, icon_url=footerimg)
+          if author: embed.set_footer(text='Research by '+author, icon_url=footerimg)
           #add embed object to webhook
           webhook.add_embed(embed)
           
@@ -243,7 +243,7 @@ def quest_mon(monid,mon,shiny,typeid,formid):
             else:
              embed = DiscordEmbed(title= shiny+mon+' Field Research'+shiny, description=research, color=16777011)
             if use_emoji: embed.set_thumbnail(url=img+monid+'_'+formid+ext)
-            embed.set_footer(text='Research by '+author, icon_url=footerimg)
+            if author: embed.set_footer(text='Research by '+author, icon_url=footerimg)
             #add embed object to webhook
             webhook.add_embed(embed)
             if use_webhook_emoji: 
@@ -263,7 +263,7 @@ def quest_mon(monid,mon,shiny,typeid,formid):
           else:
            embed = DiscordEmbed(title= shiny+mon+' Field Research'+shiny, description=research, color=16777011)
           if use_emoji: embed.set_thumbnail(url=img+monid+'_'+formid+ext)
-          embed.set_footer(text='Research by '+author, icon_url=footerimg)
+          if author: embed.set_footer(text='Research by '+author, icon_url=footerimg)
           #add embed object to webhook
           webhook.add_embed(embed)
           webhook.execute()
@@ -298,7 +298,7 @@ def quest_mon(monid,mon,shiny,typeid,formid):
             else:
              embed = DiscordEmbed(title= shiny+mon+' Field Research'+shiny, description=research, color=16777011)
             if use_emoji: embed.set_thumbnail(url=img+monid+'_'+formid+ext)
-            embed.set_footer(text='Research by '+author, icon_url=footerimg)
+            if author: embed.set_footer(text='Research by '+author, icon_url=footerimg)
             #add embed object to webhook
             webhook.add_embed(embed)
 
@@ -315,7 +315,7 @@ def quest_mon(monid,mon,shiny,typeid,formid):
           else:
            embed = DiscordEmbed(title= shiny+mon+' Field Research'+shiny, description=research, color=16777011)
           if use_emoji: embed.set_thumbnail(url=img+monid+'_'+formid+ext)
-          embed.set_footer(text='Research by '+author, icon_url=footerimg)
+          if author: embed.set_footer(text='Research by '+author, icon_url=footerimg)
           #add embed object to webhook
           webhook.add_embed(embed)
 
@@ -361,7 +361,7 @@ def quest_item(itemid,item,sprite):
         else:
          embed = DiscordEmbed(title= item+' Field Research', description=research, color=4390656)
          embed.set_author(name='Research Task: '+stop[3])
-        embed.set_footer(text='Research by '+author, icon_url=footerimg)
+        if author: embed.set_footer(text='Research by '+author, icon_url=footerimg)
         if use_emoji: embed.set_thumbnail(url=sprite) 
         webhook.add_embed(embed)
         webhook.execute()
@@ -379,7 +379,7 @@ def quest_item(itemid,item,sprite):
       else:
        embed = DiscordEmbed(title= item+' Field Research', description=research, color=4390656)
        embed.set_author(name='Research Task: '+stop[3])
-      embed.set_footer(text='Research by '+author, icon_url=footerimg)
+      if author: embed.set_footer(text='Research by '+author, icon_url=footerimg)
       if use_emoji: embed.set_thumbnail(url=sprite) 
       webhook.add_embed(embed)
       webhook.execute()
@@ -399,7 +399,7 @@ def quest_item(itemid,item,sprite):
          webhook.avatar_url = sprite
         else:
          embed = DiscordEmbed(title= item+' Field Research', description=research, color=4390656)
-        embed.set_footer(text='Research by '+author, icon_url=footerimg)
+        if author: embed.set_footer(text='Research by '+author, icon_url=footerimg)
         if use_emoji: embed.set_thumbnail(url=sprite)
         webhook.add_embed(embed)
         webhook.execute()
@@ -415,7 +415,7 @@ def quest_item(itemid,item,sprite):
        webhook.avatar_url = sprite
       else:
        embed = DiscordEmbed(title= item+' Field Research', description=research, color=4390656)
-      embed.set_footer(text='Research by '+author, icon_url=footerimg)
+      if author: embed.set_footer(text='Research by '+author, icon_url=footerimg)
       if use_emoji: embed.set_thumbnail(url=sprite) 
       webhook.add_embed(embed)
       webhook.execute()
@@ -451,7 +451,7 @@ def quest_stardust(itemid,item,sprite):
      webhook.avatar_url = sprite
     else:
      embed = DiscordEmbed(title= item+' Field Research', description=research, color=16711931)
-     embed.set_footer(text='Research by '+author, icon_url=footerimg)
+     if author: embed.set_footer(text='Research by '+author, icon_url=footerimg)
     if use_emoji:  embed.set_thumbnail(url=sprite)
     #add embed object to webhook
     webhook.add_embed(embed)
@@ -466,7 +466,7 @@ def quest_stardust(itemid,item,sprite):
    webhook.avatar_url = sprite
   else:
    embed = DiscordEmbed(title= item+' Field Research', description=research, color=16711931)
-  embed.set_footer(text='Research by '+author, icon_url=footerimg)
+  if author: embed.set_footer(text='Research by '+author, icon_url=footerimg)
   if use_emoji:  embed.set_thumbnail(url=sprite)
   #add embed object to webhook
   webhook.add_embed(embed)
@@ -484,7 +484,7 @@ def ad():
   webhook = DiscordWebhook(url=webhookurl)
   # create embed object for webhook 
   embed = DiscordEmbed(title=adtitle, description=adbody, color=16711931)
-  embed.set_footer(text='Research by '+author, icon_url=footerimg)
+  if author: embed.set_footer(text='Research by '+author, icon_url=footerimg)
   embed.set_thumbnail(url=adthumb) 
   #add embed object to webhook
   webhook.add_embed(embed)
