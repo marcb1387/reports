@@ -131,31 +131,28 @@ def quest_mon(monid,mon,shiny,typeid,formid):
             embed.set_footer(text='Research by '+author, icon_url=footerimg)
             #add embed object to webhook
             webhook.add_embed(embed)
-
             webhook.execute()
             research = ''
             webhook.remove_embed(0)
             time.sleep(2)
-          
-           print (mon+" Length:", len(research))
-           if use_webhook_name: 
-            embed = DiscordEmbed(title=shiny+' Research Task: '+stop[3]+shiny, description=research, color=16777011)
-            webhook.username = mon+' Field Research'
-            webhook.avatar_url = imgs+monid+'_'+formid+exts
-           elif use_slim_name:
-            embed = DiscordEmbed(title= shiny+mon+': '+stop[3]+shiny, description=research, color=16777011)
-           else:
-            embed = DiscordEmbed(title= shiny+mon+' Field Research'+shiny, description=research, color=16777011)
-            embed.set_author(name='Research Task: '+stop[3])
-           if use_emoji:embed.set_thumbnail(url=img+monid+'_'+formid+ext)
-           embed.set_footer(text='Research by '+author, icon_url=footerimg)
-           #add embed object to webhook
-           webhook.add_embed(embed)
-
-           webhook.execute()
-           research = ''
-           webhook.remove_embed(0)
-           time.sleep(2)
+          print (mon+" Length:", len(research))
+          if use_webhook_name: 
+           embed = DiscordEmbed(title=shiny+' Research Task: '+stop[3]+shiny, description=research, color=16777011)
+           webhook.username = mon+' Field Research'
+           webhook.avatar_url = imgs+monid+'_'+formid+exts
+          elif use_slim_name:
+           embed = DiscordEmbed(title= shiny+mon+': '+stop[3]+shiny, description=research, color=16777011)
+          else:
+           embed = DiscordEmbed(title= shiny+mon+' Field Research'+shiny, description=research, color=16777011)
+           embed.set_author(name='Research Task: '+stop[3])
+          if use_emoji:embed.set_thumbnail(url=img+monid+'_'+formid+ext)
+          embed.set_footer(text='Research by '+author, icon_url=footerimg)
+          #add embed object to webhook
+          webhook.add_embed(embed)
+          webhook.execute()
+          research = ''
+          webhook.remove_embed(0)
+          time.sleep(2)
      else:
          mariadb_connection = mariadb.connect(user=user, password=passwd, database=database, host=host, port=port)
          cursor = mariadb_connection.cursor()
@@ -258,7 +255,6 @@ def quest_mon(monid,mon,shiny,typeid,formid):
             research = ''
             webhook.remove_embed(0)
             time.sleep(2)
-          
           print (mon+" Length:", len(research))
           if use_webhook_name: 
            webhook.username = shiny+mon+' Field Research'+shiny
@@ -270,7 +266,6 @@ def quest_mon(monid,mon,shiny,typeid,formid):
           embed.set_footer(text='Research by '+author, icon_url=footerimg)
           #add embed object to webhook
           webhook.add_embed(embed)
-
           webhook.execute()
           research = ''
           time.sleep(2)
