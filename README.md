@@ -19,7 +19,7 @@ A Community Ad can be added to the end of the report see below for example. This
 [CONFIG]
 DiscordQ=WEBHOOK_URL_FIELD_RESEARCH
 DiscordR=WEBHOOK_URL_ROCKET_LEADERS
-Author=POSTING_AUTHOR_NAME
+Author=POSTING_AUTHOR_NAME (optional Research BY:_______ footer) leave empty for no footer
 AuthorIMG=https://i.imgur.com/DDZEOj7.png Temporary URL for Icon can be changed  
 Areaname=NAME_OF_TEMP_AREA_FILE (can be anything but i would suggest the name of the area)
 
