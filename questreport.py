@@ -474,7 +474,6 @@ def quest_stardust(itemid,item,sprite):
   research = ''
   time.sleep(2)
   
-  
 
 def ad():
  if not adbody:
@@ -577,6 +576,7 @@ def stuff():
         quest_mon('184', 'Azumarill', '', '', '00')
         quest_mon('185', 'Sudowoodo', '', '', '00')
         quest_mon('187', 'Hoppip', '', '', '00')
+        quest_mon('190', 'Aipom', ':sparkles:', '', '00')
         quest_mon('191', 'Sunkern', ':sparkles:', '', '00')
         quest_mon('196', 'Espeon', '', '', '00')
         quest_mon('197', 'Umbreon', '', '', '00')
@@ -584,6 +584,7 @@ def stuff():
         quest_mon('204', 'Pineco', ':sparkles:', '', '00')
         quest_mon('207', 'Gligar', ':sparkles:', '', '00')
         quest_mon('209', 'Snubbull', ':sparkles:', '', '00')
+        quest_mon('213', 'Shuckle', ':sparkles:', '', '00')
         quest_mon('215', 'Sneasel', ':sparkles:', '', '00')
         quest_mon('216', 'Teddiursa', '', '', '00')
         quest_mon('219', 'Magcargo', '', '', '00')
