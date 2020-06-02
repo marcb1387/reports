@@ -1,4 +1,5 @@
 from discord_webhook import DiscordWebhook, DiscordEmbed
+from discord_webhook import DiscordWebhook, DiscordEmbed
 import mysql.connector as mariadb
 import time
 import datetime
@@ -504,6 +505,7 @@ def stuff():
         quest_mon('025', 'Pikachu', ':sparkles:', '', '00')
         quest_mon('026', 'Raichu', '', '', '00')
         quest_mon('027', 'Sandshrew', ':sparkles:', '', '00')
+        quest_mon('028', 'Sandslash', '', '', '00')
         quest_mon('029', 'Nidoran', ':sparkles:', '', '00')
         quest_mon('030', 'Nidorina', ':sparkles:', '', '00')
         quest_mon('031', 'Nidoqueen', ':sparkles:', '', '00')
@@ -550,6 +552,7 @@ def stuff():
         quest_mon('103', 'Alolan Exeggutor', '', '78', '78')
         quest_mon('104', 'Cubone', ':sparkles:', '', '00')
         quest_mon('108', 'Lickitung', '', '', '00')
+        quest_mon('111', 'Rhyhorn', '', '', '00')
         quest_mon('113', 'Chansey', ':sparkles:', '', '00')
         quest_mon('114', 'Tangela', '', '', '00')
         quest_mon('121', 'Starmie', '', '', '00')
@@ -578,6 +581,7 @@ def stuff():
         quest_mon('187', 'Hoppip', '', '', '00')
         quest_mon('190', 'Aipom', ':sparkles:', '', '00')
         quest_mon('191', 'Sunkern', ':sparkles:', '', '00')
+        quest_mon('194', 'Wooper', '', '', '00')
         quest_mon('196', 'Espeon', '', '', '00')
         quest_mon('197', 'Umbreon', '', '', '00')
         quest_mon('206', 'Dunsparce', ':sparkles:', '', '00')
@@ -619,11 +623,13 @@ def stuff():
         quest_mon('314', 'Illumise', ':sparkles:', '', '00')
         quest_mon('315', 'Roselia', ':sparkles:', '', '00')
         quest_mon('317', 'Swalot', '', '', '00')
+        quest_mon('322', 'Numel', '', '', '00')
         quest_mon('325', 'Spoink', ':sparkles:', '', '00')
         quest_mon('327', 'Spinda Number 5', ':sparkles:', '', '00')
         quest_mon('331', 'Cacnea', '', '', '00')
         quest_mon('335', 'Zangoose', ':sparkles:', '', '00')
         quest_mon('336', 'Seviper', ':sparkles:', '', '00')
+        quest_mon('339', 'Barboach', ':sparkles:', '', '00')
         quest_mon('341', 'Corphish', '', '', '00')
         quest_mon('345', 'Lileep', ':sparkles:', '', '00')
         quest_mon('347', 'Anorith', ':sparkles:', '', '00')
@@ -653,6 +659,7 @@ def stuff():
         quest_mon('459', 'Snover', ':sparkles:', '', '00')
         quest_mon('522', 'Blitzle', '', '', '00')
         quest_mon('527', 'Woobat', '', '', '00')
+        quest_mon('536', 'Palpitoad', '', '', '00')
         quest_mon('531', 'Audino', '', '', '00')
         quest_mon('562', 'Yamask', ':sparkles:', '', '00')
         quest_mon('594', 'Alomomola', '', '', '00')
