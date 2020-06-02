@@ -80,7 +80,7 @@ else:
  
 imgs = 'https://raw.githubusercontent.com/whitewillem/PogoAssets/resized/no_border/pokemon_icon_' # Static
 exts = '.png' #Static
- 
+
 #Pokemon
 def quest_mon(monid,mon,shiny,typeid,formid):
  mariadb_connection = mariadb.connect(user=user, password=passwd, database=database, host=host, port=port)
@@ -123,6 +123,7 @@ def quest_mon(monid,mon,shiny,typeid,formid):
              embed = DiscordEmbed(title=shiny+' Research Task: '+stop[3]+shiny, description=research, color=16777011)
              webhook.username = mon+' Field Research'
              webhook.avatar_url = imgs+monid+'_'+formid+exts
+             
             elif use_slim_name:
              embed = DiscordEmbed(title= shiny+mon+': '+stop[3]+shiny, description=research, color=16777011)
             else:
@@ -141,6 +142,7 @@ def quest_mon(monid,mon,shiny,typeid,formid):
            embed = DiscordEmbed(title=shiny+' Research Task: '+stop[3]+shiny, description=research, color=16777011)
            webhook.username = mon+' Field Research'
            webhook.avatar_url = imgs+monid+'_'+formid+exts
+           
           elif use_slim_name:
            embed = DiscordEmbed(title= shiny+mon+': '+stop[3]+shiny, description=research, color=16777011)
           else:
@@ -180,6 +182,7 @@ def quest_mon(monid,mon,shiny,typeid,formid):
              webhook.username = mon+' Field Research'
              embed = DiscordEmbed(title=shiny+' Research Task: '+stop[3]+shiny, description=research, color=16777011)
              webhook.avatar_url = imgs+monid+'_'+formid+exts
+             
             elif use_slim_name:
              embed = DiscordEmbed(title= shiny+mon+': '+stop[3]+shiny, description=research, color=16777011)
             else:
@@ -200,6 +203,7 @@ def quest_mon(monid,mon,shiny,typeid,formid):
            webhook.username = mon+' Field Research'
            embed = DiscordEmbed(title=shiny+' Research Task: '+stop[3]+shiny, description=research, color=16777011)
            webhook.avatar_url = imgs+monid+'_'+formid+exts
+           
           elif use_slim_name:
            embed = DiscordEmbed(title= shiny+mon+': '+stop[3]+shiny, description=research, color=16777011)
           else:
@@ -249,8 +253,10 @@ def quest_mon(monid,mon,shiny,typeid,formid):
             webhook.add_embed(embed)
             if use_webhook_emoji: 
              webhook.avatar_url = imgs+monid+'_'+formid+exts
+             
             else:
              webhook.avatar_url = img+monid+'_'+formid+ext
+             
             if use_webhook_name: webhook.username = mon+' Field Research'
             webhook.execute()
             research = ''
@@ -261,6 +267,7 @@ def quest_mon(monid,mon,shiny,typeid,formid):
            webhook.username = shiny+mon+' Field Research'+shiny
            embed = DiscordEmbed( description=research, color=16777011)
            webhook.avatar_url = imgs+monid+'_'+formid+exts
+           
           else:
            embed = DiscordEmbed(title= shiny+mon+' Field Research'+shiny, description=research, color=16777011)
           if use_emoji: embed.set_thumbnail(url=img+monid+'_'+formid+ext)
@@ -296,6 +303,7 @@ def quest_mon(monid,mon,shiny,typeid,formid):
              webhook.username = shiny+mon+' Field Research'+shiny
              embed = DiscordEmbed( description=research, color=16777011)
              webhook.avatar_url = imgs+monid+'_'+formid+exts
+             
             else:
              embed = DiscordEmbed(title= shiny+mon+' Field Research'+shiny, description=research, color=16777011)
             if use_emoji: embed.set_thumbnail(url=img+monid+'_'+formid+ext)
@@ -313,6 +321,7 @@ def quest_mon(monid,mon,shiny,typeid,formid):
            webhook.username = shiny+mon+' Field Research'+shiny
            embed = DiscordEmbed( description=research, color=16777011)
            webhook.avatar_url = imgs+monid+'_'+formid+exts
+           
           else:
            embed = DiscordEmbed(title= shiny+mon+' Field Research'+shiny, description=research, color=16777011)
           if use_emoji: embed.set_thumbnail(url=img+monid+'_'+formid+ext)
@@ -520,7 +529,7 @@ def stuff():
         quest_mon('044', 'Gloom', '', '', '00')
         quest_mon('047', 'Parasect', '', '', '00')
         quest_mon('048', 'Venonat', ':sparkles:', '', '00')
-        quest_mon('050', 'Diglett', ':sparkles:', '00', '00')
+        quest_mon('050', 'Diglett', ':sparkles:', '59', '00')
         quest_mon('050', 'Alolan Diglett', ':sparkles:', '60', '60')
         quest_mon('052', 'Alolan Meowth', ':sparkles:', '64', '64')
         quest_mon('056', 'Mankey', ':sparkles:', '', '00')
