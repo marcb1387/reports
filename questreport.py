@@ -1,5 +1,4 @@
 from discord_webhook import DiscordWebhook, DiscordEmbed
-from discord_webhook import DiscordWebhook, DiscordEmbed
 import mysql.connector as mariadb
 import time
 import datetime
