@@ -668,6 +668,7 @@ def stuff():
         quest_mon('459', 'Snover', ':sparkles:', '', '00')
         quest_mon('522', 'Blitzle', '', '', '00')
         quest_mon('527', 'Woobat', '', '', '00')
+        quest_mon('529', 'Drilbur', '', '', '00')
         quest_mon('536', 'Palpitoad', '', '', '00')
         quest_mon('531', 'Audino', '', '', '00')
         quest_mon('562', 'Yamask', ':sparkles:', '', '00')
