@@ -76,7 +76,7 @@ def ad():
   print ("no Ad to Display")
  else:
   print ("Ad found")
-  webhook = DiscordWebhook(url=webhookurl)
+  webhook = DiscordWebhook(url=webhookurlr)
   # create embed object for webhook 
   embed = DiscordEmbed(title=adtitle, description=adbody, color=16711931)
   embed.set_footer(text='Research by '+author, icon_url=footerimg)
