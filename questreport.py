@@ -637,6 +637,8 @@ def stuff():
         quest_mon('331', 'Cacnea', '', '', '00')
         quest_mon('335', 'Zangoose', ':sparkles:', '', '00')
         quest_mon('336', 'Seviper', ':sparkles:', '', '00')
+        quest_mon('337', 'Lunatone', ':sparkles:', '', '00')
+        quest_mon('338', 'Solrock', ':sparkles:', '', '00')
         quest_mon('339', 'Barboach', ':sparkles:', '', '00')
         quest_mon('341', 'Corphish', '', '', '00')
         quest_mon('345', 'Lileep', ':sparkles:', '', '00')
