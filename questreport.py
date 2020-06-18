@@ -520,7 +520,7 @@ def stuff():
         quest_mon('032', 'Nidoran', ':sparkles:', '', '00')
         quest_mon('033', 'Nidorino', ':sparkles:', '', '00')
         quest_mon('034', 'Nidoking', ':sparkles:', '', '00')
-        quest_mon('035', 'Clefairy', '', '', '00')
+        quest_mon('035', 'Clefairy', ':sparkles:', '', '00')
         quest_mon('037', 'Vulpix', '', '0', '00')
         quest_mon('037', 'Alolan Vulpix', ':sparkles:', '56', '56')
         quest_mon('039', 'Jigglypuff', '', '', '00')
