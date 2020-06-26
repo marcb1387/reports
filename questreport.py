@@ -657,7 +657,7 @@ def stuff():
         quest_mon('399', 'Bidoof', '', '', '00')
         quest_mon('408', 'Cranidos', '', '', '00')
         quest_mon('410', 'Shieldon', '', '', '00')
-        quest_mon('412', 'Burmy', ':sparkles:', '118', '118')
+        quest_mon('412', 'Burmy', ':sparkles:', '', '00')
         quest_mon('415', 'Combee', '', '', '00')
         quest_mon('420', 'Cherubi', '', '', '00')
         quest_mon('421', 'Cherrim', '', '95', '95')
