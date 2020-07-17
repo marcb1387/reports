@@ -430,7 +430,6 @@ def quest_item(itemid,item,sprite):
       webhook.execute()
       research = ''
       time.sleep(2)
-
 #Stardust
 def quest_stardust(itemid,item,sprite):
  mariadb_connection = mariadb.connect(user=user, password=passwd, database=database, host=host, port=port)
@@ -482,7 +481,6 @@ def quest_stardust(itemid,item,sprite):
   webhook.execute()
   research = ''
   time.sleep(2)
-  
 
 def ad():
  if not adbody:
@@ -536,6 +534,7 @@ def stuff():
         quest_mon('059', 'Arcanine', ':sparkles:', '', '00')
         quest_mon('060', 'Poliwag', ':sparkles:', '', '00')
         quest_mon('066', 'Machop', ':sparkles:', '', '00')
+        quest_mon('069', 'Bellsprout', ':sparkles:', '', '00')
         quest_mon('070', 'Weepinbell', '', '', '00')
         quest_mon('072', 'Tentacool', ':sparkles:', '', '00')
         quest_mon('073', 'Tentacruel', ':sparkles:', '', '00')
@@ -543,6 +542,7 @@ def stuff():
         quest_mon('075', 'Graveler', '', '00', '00')
         quest_mon('074', 'Alolan Geodude', ':sparkles:', '68', '68')
         quest_mon('077', 'Ponyta', ':sparkles:', '', '00')
+        quest_mon('079', 'Slowpoke', '', '00', '00')
         quest_mon('081', 'Magnemite', ':sparkles:', '', '00')
         quest_mon('084', 'Doduo', '', '', '00')
         quest_mon('085', 'Dodrio', '', '', '00')
@@ -578,6 +578,7 @@ def stuff():
         quest_mon('138', 'Omanyte', ':sparkles:', '', '00')
         quest_mon('140', 'Kabuto', ':sparkles:', '', '00')
         quest_mon('142', 'Aerodactyl', ':sparkles:', '', '00')
+        quest_mon('143', 'Snorlax', '', '', '00')
         quest_mon('147', 'Dratini', ':sparkles:', '', '00')
         quest_mon('156', 'Quilava', '', '', '00')
         quest_mon('153', 'Bayleef', '', '', '00')
@@ -681,6 +682,7 @@ def stuff():
         quest_mon('529', 'Drilbur', '', '', '00')
         quest_mon('536', 'Palpitoad', '', '', '00')
         quest_mon('531', 'Audino', '', '', '00')
+        quest_mon('548', 'Petilil', '', '', '00')
         quest_mon('557', 'Dwebble', ':sparkles:', '', '00')
         quest_mon('562', 'Yamask', ':sparkles:', '', '00')
         quest_mon('588', 'Karrablast', '', '', '00')
