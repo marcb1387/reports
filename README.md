@@ -136,3 +136,7 @@ pip install discord-webhook
 
 https://pypi.org/project/mysql-connector-python/
 pip install mysql-connector-python
+
+**If you appreciate this tool please consider buying me a Coffee/Beer/Pizza :D **
+
+<a href="https://www.buymeacoffee.com/harambe1387" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" style="height: 51px !important;width: 217px !important;" ></a>
