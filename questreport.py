@@ -658,6 +658,7 @@ def stuff():
         quest_mon('361', 'Snorunt', ':sparkles:', '', '00')
         quest_mon('362', 'Glalie', '', '', '00')
         quest_mon('366', 'Clamperl', ':sparkles:', '', '00')
+        quest_mon('371', 'Bagon', ':sparkles:', '', '00')
         quest_mon('387', 'Turtwig', ':sparkles:', '', '00')
         quest_mon('390', 'Chimchar', ':sparkles:', '', '00')
         quest_mon('393', 'Piplup', ':sparkles:', '', '00')
