@@ -488,8 +488,9 @@ def ad():
  else:
   print ("Ad found")
   webhook = DiscordWebhook(url=webhookurl)
-  # create embed object for webhook 
-  embed = DiscordEmbed(title=adtitle, description=adbody, color=16711931)
+  # create embed object for webhook
+  adbodydecode = bytes(adbody, "utf-8").decode("unicode_escape")
+  embed = DiscordEmbed(title=adtitle, description=adbodydecode, color=16711931)
   if author: embed.set_footer(text='Research by '+author, icon_url=footerimg)
   embed.set_thumbnail(url=adthumb) 
   #add embed object to webhook
