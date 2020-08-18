@@ -777,7 +777,8 @@ cursor.execute(quests)
 qcount = cursor.fetchall()
 cursor.execute(stops)
 scount = cursor.fetchall()
-dir = os.path.expanduser('~/reports/temp/')
+my_path = os.path.abspath(os.path.dirname(__file__))
+dir = os.path.join(my_path, "../reports/temp/")
 
 if args.check:
  print("Checking Stop and Research Count")
