@@ -431,7 +431,6 @@ def quest_item(itemid,item,sprite):
       webhook.execute()
       research = ''
       time.sleep(2)
-      
 #mega energy (hopefully just a temp)
 def mega_item(itemid,item,sprite):
  mariadb_connection = mariadb.connect(user=user, password=passwd, database=database, host=host,port=port)
@@ -636,6 +635,7 @@ def stuff():
         quest_mon('059', 'Arcanine', ':sparkles:', '', '00')
         quest_mon('060', 'Poliwag', ':sparkles:', '', '00')
         quest_mon('061', 'Poliwhirl', '', '', '00')
+        quest_mon('063', 'Abra', ':sparkles:', '', '00')
         quest_mon('066', 'Machop', ':sparkles:', '', '00')
         quest_mon('069', 'Bellsprout', ':sparkles:', '', '00')
         quest_mon('070', 'Weepinbell', '', '', '00')
@@ -704,6 +704,7 @@ def stuff():
         quest_mon('196', 'Espeon', '', '', '00')
         quest_mon('197', 'Umbreon', '', '', '00')
         quest_mon('198', 'Murkrow', ':sparkles:', '', '00')
+        quest_mon('202', 'Wobbuffet', ':sparkles:', '', '00')
         quest_mon('206', 'Dunsparce', ':sparkles:', '', '00')
         quest_mon('204', 'Pineco', ':sparkles:', '', '00')
         quest_mon('207', 'Gligar', ':sparkles:', '', '00')
@@ -766,6 +767,7 @@ def stuff():
         quest_mon('362', 'Glalie', '', '', '00')
         quest_mon('366', 'Clamperl', ':sparkles:', '', '00')
         quest_mon('371', 'Bagon', ':sparkles:', '', '00')
+        quest_mon('374', 'Beldum', ':sparkles:', '', '00')
         quest_mon('387', 'Turtwig', ':sparkles:', '', '00')
         quest_mon('390', 'Chimchar', ':sparkles:', '', '00')
         quest_mon('391', 'Monferno', '', '', '00')
