@@ -61,6 +61,7 @@ rare_candy = config.getboolean('ITEMS','rare_candy')
 glacial_lure = config.getboolean('ITEMS','glacial_lure')
 mossy_lure = config.getboolean('ITEMS','mossy_lure')
 magnetic_lure = config.getboolean('ITEMS','magnetic_lure')
+mega_energy = config.getboolean('ITEMS','mega_energy')
 stardust = config.get('ITEMS','stardust')
 encounters = config.getboolean('ITEMS','encounters')
 mons = config.get('POKEMON','dex_number')
@@ -336,6 +337,106 @@ def quest_item(itemid,item,sprite):
  mariadb_connection = mariadb.connect(user=user, password=passwd, database=database, host=host,port=port)
  cursor = mariadb_connection.cursor()
  query = ("select CONVERT(pokestop.name USING UTF8MB4) as pokestopname,pokestop.latitude,pokestop.longitude,trs_quest.quest_task,trs_quest.quest_item_amount from pokestop inner join trs_quest on pokestop.pokestop_id = trs_quest.GUID where DATE(FROM_UNIXTIME(trs_quest.quest_timestamp)) = CURDATE() and quest_item_id = "+itemid+" and ST_CONTAINS(ST_GEOMFROMTEXT('POLYGON(("+area+"))'), point(pokestop.latitude, pokestop.longitude))")
+ cursor.execute(query)
+ name = cursor.fetchall()
+ 
+ if not name:
+  print ("no quests for "+item)
+ else:
+  #convert data into string
+  res =[tuple(str(ele) for ele in sub) for sub in name]
+  
+  res.sort()
+  webhook = DiscordWebhook(url=webhookurl)
+  # create embed object for webhook
+  research = ''
+  task3 =[]
+  for task in res:
+   task3 += [task[3]]
+  result = all(elem == task3[0] for elem in task3)
+  if result:
+      print ("Research Task Is The Same "+item)
+      for stop in res: 
+       research += ('['+stop[0]+'](''https://maps.google.com/?q='''+stop[1]+','+stop[2]+')'+'\n')
+       if len(research)> 1900:
+        print ("larger then 2048 breaking up")
+        print (item+" Length:", len(research))
+        if use_webhook_name:
+         embed = DiscordEmbed(description=research, color=4390656)        
+         webhook.username = item+' Field Research'
+         webhook.avatar_url = sprite
+         embed.set_author(name='Research Task: '+stop[3])
+        elif use_slim_name:
+         embed = DiscordEmbed(title= item+': '+stop[3], description=research, color=16777011)
+        else:
+         embed = DiscordEmbed(title= item+' Field Research', description=research, color=4390656)
+         embed.set_author(name='Research Task: '+stop[3])
+        if author: embed.set_footer(text='Research by '+author, icon_url=footerimg)
+        if use_emoji: embed.set_thumbnail(url=sprite) 
+        webhook.add_embed(embed)
+        webhook.execute()
+        research = ''
+        webhook.remove_embed(0)
+        time.sleep(2)
+      print (item+" Length:", len(research))    
+      if use_webhook_name:
+       embed = DiscordEmbed(description=research, color=4390656)        
+       webhook.username = item+' Field Research'
+       webhook.avatar_url = sprite
+       embed.set_author(name='Research Task: '+stop[3])
+      elif use_slim_name:
+       embed = DiscordEmbed(title= item+': '+stop[3], description=research, color=16777011)
+      else:
+       embed = DiscordEmbed(title= item+' Field Research', description=research, color=4390656)
+       embed.set_author(name='Research Task: '+stop[3])
+      if author: embed.set_footer(text='Research by '+author, icon_url=footerimg)
+      if use_emoji: embed.set_thumbnail(url=sprite) 
+      webhook.add_embed(embed)
+      webhook.execute()
+      research = ''
+      time.sleep(2)
+  else:
+      print ("Research Task Is Different "+item)
+      for stop in res: 
+       research += ('['+stop[0]+'](''https://maps.google.com/?q='''+stop[1]+','+stop[2]+')'+' '+stop[3]+' - Amount: '+stop[4]+'\n')
+       if len(research)> 1900:
+        print ("larger then 2048 breaking up")
+        print (item+" Length:", len(research))
+        #add embed object to webhook
+        if use_webhook_name:
+         embed = DiscordEmbed(description=research, color=4390656)        
+         webhook.username = item+' Field Research'
+         webhook.avatar_url = sprite
+        else:
+         embed = DiscordEmbed(title= item+' Field Research', description=research, color=4390656)
+        if author: embed.set_footer(text='Research by '+author, icon_url=footerimg)
+        if use_emoji: embed.set_thumbnail(url=sprite)
+        webhook.add_embed(embed)
+        webhook.execute()
+        research = ''
+        webhook.remove_embed(0)
+        time.sleep(2)
+      print (item+" Length:", len(research))
+      
+      #add embed object to webhook
+      if use_webhook_name:
+       embed = DiscordEmbed(description=research, color=4390656)        
+       webhook.username = item+' Field Research'
+       webhook.avatar_url = sprite
+      else:
+       embed = DiscordEmbed(title= item+' Field Research', description=research, color=4390656)
+      if author: embed.set_footer(text='Research by '+author, icon_url=footerimg)
+      if use_emoji: embed.set_thumbnail(url=sprite) 
+      webhook.add_embed(embed)
+      webhook.execute()
+      research = ''
+      time.sleep(2)
+      
+#mega energy (hopefully just a temp)
+def mega_item(itemid,item,sprite):
+ mariadb_connection = mariadb.connect(user=user, password=passwd, database=database, host=host,port=port)
+ cursor = mariadb_connection.cursor()
+ query = ("select CONVERT(pokestop.name USING UTF8MB4) as pokestopname,pokestop.latitude,pokestop.longitude,trs_quest.quest_task,trs_quest.quest_item_amount,trs_quest.quest_reward_type from pokestop inner join trs_quest on pokestop.pokestop_id = trs_quest.GUID where DATE(FROM_UNIXTIME(trs_quest.quest_timestamp)) = CURDATE() and quest_reward_type = "+itemid+" and ST_CONTAINS(ST_GEOMFROMTEXT('POLYGON(("+area+"))'), point(pokestop.latitude, pokestop.longitude))")
  cursor.execute(query)
  name = cursor.fetchall()
  
@@ -759,6 +860,8 @@ def stuff():
         quest_item('705', 'Pinap Berry','https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/Item_0705.png')
     if nanab_berry:
         quest_item('703', 'Nanab Berry','https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/Item_0703.png')
+    if mega_energy:
+        mega_item('12', 'Mega Energy','https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/pokemon_details_mega_candy.png')
     if int(stardust) > 199:
         quest_stardust('0', 'Stardust Over ' + stardust + '','https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/stardust_painted.png')
 
