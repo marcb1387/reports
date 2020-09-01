@@ -251,7 +251,7 @@ def quest_mon(monid,mon,shiny,typeid,formid):
             if author: embed.set_footer(text='Research by '+author, icon_url=footerimg)
             #add embed object to webhook
             webhook.add_embed(embed)
-            if use_webhook_emoji: 
+            if use_webhook_name: 
              webhook.avatar_url = imgs+monid+'_'+formid+exts
              
             else:
