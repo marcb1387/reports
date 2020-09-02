@@ -357,7 +357,7 @@ def quest_item(itemid,item,sprite):
   if result:
       print ("Research Task Is The Same "+item)
       for stop in res: 
-       research += ('['+stop[0]+'](''https://maps.google.com/?q='''+stop[1]+','+stop[2]+')'+'\n')
+       research += ('['+stop[0]+'](''https://maps.google.com/?q='''+stop[1]+','+stop[2]+')'+ '- Amount: '+stop[4]+'\n')
        if len(research)> 1900:
         print ("larger then 2048 breaking up")
         print (item+" Length:", len(research))
@@ -431,11 +431,11 @@ def quest_item(itemid,item,sprite):
       webhook.execute()
       research = ''
       time.sleep(2)
-#mega energy (hopefully just a temp)
+#mega energy
 def mega_item(itemid,item,sprite):
  mariadb_connection = mariadb.connect(user=user, password=passwd, database=database, host=host,port=port)
  cursor = mariadb_connection.cursor()
- query = ("select CONVERT(pokestop.name USING UTF8MB4) as pokestopname,pokestop.latitude,pokestop.longitude,trs_quest.quest_task,trs_quest.quest_item_amount,trs_quest.quest_reward_type from pokestop inner join trs_quest on pokestop.pokestop_id = trs_quest.GUID where DATE(FROM_UNIXTIME(trs_quest.quest_timestamp)) = CURDATE() and quest_reward_type = "+itemid+" and ST_CONTAINS(ST_GEOMFROMTEXT('POLYGON(("+area+"))'), point(pokestop.latitude, pokestop.longitude))")
+ query = ("select CONVERT(pokestop.name USING UTF8MB4) as pokestopname,pokestop.latitude,pokestop.longitude,trs_quest.quest_task,trs_quest.quest_item_amount,trs_quest.quest_pokemon_id from pokestop inner join trs_quest on pokestop.pokestop_id = trs_quest.GUID where DATE(FROM_UNIXTIME(trs_quest.quest_timestamp)) = CURDATE() and quest_reward_type = 12 and quest_pokemon_id = "+itemid+" and ST_CONTAINS(ST_GEOMFROMTEXT('POLYGON(("+area+"))'), point(pokestop.latitude, pokestop.longitude))")
  cursor.execute(query)
  name = cursor.fetchall()
  
@@ -456,7 +456,7 @@ def mega_item(itemid,item,sprite):
   if result:
       print ("Research Task Is The Same "+item)
       for stop in res: 
-       research += ('['+stop[0]+'](''https://maps.google.com/?q='''+stop[1]+','+stop[2]+')'+'\n')
+       research += ('['+stop[0]+'](''https://maps.google.com/?q='''+stop[1]+','+stop[2]+')'+' - Amount: '+stop[4]+'\n')
        if len(research)> 1900:
         print ("larger then 2048 breaking up")
         print (item+" Length:", len(research))
@@ -863,7 +863,9 @@ def stuff():
     if nanab_berry:
         quest_item('703', 'Nanab Berry','https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/Item_0703.png')
     if mega_energy:
-        mega_item('12', 'Mega Energy','https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/pokemon_details_mega_candy.png')
+        mega_item('3','Venusaur Mega Energy','https://raw.githubusercontent.com/marcb1387/assets/master/energy.png')
+        mega_item('6','Blastoise Mega Energy','https://raw.githubusercontent.com/marcb1387/assets/master/energy.png')
+        mega_item('9','Charizard Mega Energy','https://raw.githubusercontent.com/marcb1387/assets/master/energy.png')
     if int(stardust) > 199:
         quest_stardust('0', 'Stardust Over ' + stardust + '','https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/stardust_painted.png')
 
