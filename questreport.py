@@ -85,7 +85,7 @@ exts = '.png' #Static
 def quest_mon(monid,mon,shiny,typeid,formid):
  mariadb_connection = mariadb.connect(user=user, password=passwd, database=database, host=host, port=port)
  cursor = mariadb_connection.cursor()
- query = ("select CONVERT(pokestop.name USING UTF8MB4) as pokestopname,pokestop.latitude,pokestop.longitude,quest_task from pokestop inner join trs_quest on pokestop.pokestop_id = trs_quest.GUID where DATE(FROM_UNIXTIME(trs_quest.quest_timestamp)) = CURDATE() and quest_pokemon_id ="+monid+" and quest_pokemon_form_id like '%"+typeid+"%' and ST_CONTAINS(ST_GEOMFROMTEXT('POLYGON(("+area+"))'), point(pokestop.latitude, pokestop.longitude))")
+ query = ("select CONVERT(pokestop.name USING UTF8MB4) as pokestopname,pokestop.latitude,pokestop.longitude,quest_task from pokestop inner join trs_quest on pokestop.pokestop_id = trs_quest.GUID where DATE(FROM_UNIXTIME(trs_quest.quest_timestamp)) = CURDATE() and quest_pokemon_id = 7 and quest_pokemon_id ="+monid+" and quest_pokemon_form_id like '%"+typeid+"%' and ST_CONTAINS(ST_GEOMFROMTEXT('POLYGON(("+area+"))'), point(pokestop.latitude, pokestop.longitude))")
  cursor.execute(query)
  name = cursor.fetchall()
  res =[tuple(str(ele) for ele in sub) for sub in name]
@@ -100,7 +100,7 @@ def quest_mon(monid,mon,shiny,typeid,formid):
        if dex == monid:
          mariadb_connection = mariadb.connect(user=user, password=passwd, database=database, host=host, port=port)
          cursor = mariadb_connection.cursor()
-         query = ("select CONVERT(pokestop.name USING UTF8MB4) as pokestopname,pokestop.latitude,pokestop.longitude,quest_task from pokestop inner join trs_quest on pokestop.pokestop_id = trs_quest.GUID where DATE(FROM_UNIXTIME(trs_quest.quest_timestamp)) = CURDATE() and quest_pokemon_id ="+monid+" and quest_pokemon_form_id like '%"+typeid+"%' and ST_CONTAINS(ST_GEOMFROMTEXT('POLYGON(("+area+"))'), point(pokestop.latitude, pokestop.longitude))")
+         query = ("select CONVERT(pokestop.name USING UTF8MB4) as pokestopname,pokestop.latitude,pokestop.longitude,quest_task from pokestop inner join trs_quest on pokestop.pokestop_id = trs_quest.GUID where DATE(FROM_UNIXTIME(trs_quest.quest_timestamp)) = CURDATE() and quest_pokemon_id = 7 and quest_pokemon_id ="+monid+" and quest_pokemon_form_id like '%"+typeid+"%' and ST_CONTAINS(ST_GEOMFROMTEXT('POLYGON(("+area+"))'), point(pokestop.latitude, pokestop.longitude))")
          cursor.execute(query)
          name = cursor.fetchall()
          
@@ -159,7 +159,7 @@ def quest_mon(monid,mon,shiny,typeid,formid):
      else:
          mariadb_connection = mariadb.connect(user=user, password=passwd, database=database, host=host, port=port)
          cursor = mariadb_connection.cursor()
-         query = ("select CONVERT(pokestop.name USING UTF8MB4) as pokestopname,pokestop.latitude,pokestop.longitude,quest_task from pokestop inner join trs_quest on pokestop.pokestop_id = trs_quest.GUID where DATE(FROM_UNIXTIME(trs_quest.quest_timestamp)) = CURDATE() and quest_pokemon_id ="+monid+" and quest_pokemon_form_id like '%"+typeid+"%' and ST_CONTAINS(ST_GEOMFROMTEXT('POLYGON(("+area+"))'), point(pokestop.latitude, pokestop.longitude))")
+         query = ("select CONVERT(pokestop.name USING UTF8MB4) as pokestopname,pokestop.latitude,pokestop.longitude,quest_task from pokestop inner join trs_quest on pokestop.pokestop_id = trs_quest.GUID where DATE(FROM_UNIXTIME(trs_quest.quest_timestamp)) = CURDATE() and quest_pokemon_id = 7 and quest_pokemon_id ="+monid+" and quest_pokemon_form_id like '%"+typeid+"%' and ST_CONTAINS(ST_GEOMFROMTEXT('POLYGON(("+area+"))'), point(pokestop.latitude, pokestop.longitude))")
          cursor.execute(query)
          name = cursor.fetchall()
          
@@ -223,7 +223,7 @@ def quest_mon(monid,mon,shiny,typeid,formid):
        if dex == monid:
          mariadb_connection = mariadb.connect(user=user, password=passwd, database=database, host=host, port=port)
          cursor = mariadb_connection.cursor()
-         query = ("select CONVERT(pokestop.name USING UTF8MB4) as pokestopname,pokestop.latitude,pokestop.longitude,quest_task from pokestop inner join trs_quest on pokestop.pokestop_id = trs_quest.GUID where DATE(FROM_UNIXTIME(trs_quest.quest_timestamp)) = CURDATE() and quest_pokemon_id ="+monid+" and quest_pokemon_form_id like '%"+typeid+"%' and ST_CONTAINS(ST_GEOMFROMTEXT('POLYGON(("+area+"))'), point(pokestop.latitude, pokestop.longitude))")
+         query = ("select CONVERT(pokestop.name USING UTF8MB4) as pokestopname,pokestop.latitude,pokestop.longitude,quest_task from pokestop inner join trs_quest on pokestop.pokestop_id = trs_quest.GUID where DATE(FROM_UNIXTIME(trs_quest.quest_timestamp)) = CURDATE() and quest_pokemon_id = 7 and quest_pokemon_id ="+monid+" and quest_pokemon_form_id like '%"+typeid+"%' and ST_CONTAINS(ST_GEOMFROMTEXT('POLYGON(("+area+"))'), point(pokestop.latitude, pokestop.longitude))")
          cursor.execute(query)
          name = cursor.fetchall()
          
@@ -280,7 +280,7 @@ def quest_mon(monid,mon,shiny,typeid,formid):
      else:
          mariadb_connection = mariadb.connect(user=user, password=passwd, database=database, host=host, port=port)
          cursor = mariadb_connection.cursor()
-         query = ("select CONVERT(pokestop.name USING UTF8MB4) as pokestopname,pokestop.latitude,pokestop.longitude,quest_task from pokestop inner join trs_quest on pokestop.pokestop_id = trs_quest.GUID where DATE(FROM_UNIXTIME(trs_quest.quest_timestamp)) = CURDATE() and quest_pokemon_id ="+monid+" and quest_pokemon_form_id like '%"+typeid+"%' and ST_CONTAINS(ST_GEOMFROMTEXT('POLYGON(("+area+"))'), point(pokestop.latitude, pokestop.longitude))")
+         query = ("select CONVERT(pokestop.name USING UTF8MB4) as pokestopname,pokestop.latitude,pokestop.longitude,quest_task from pokestop inner join trs_quest on pokestop.pokestop_id = trs_quest.GUID where DATE(FROM_UNIXTIME(trs_quest.quest_timestamp)) = CURDATE() and quest_pokemon_id = 7 and quest_pokemon_id ="+monid+" and quest_pokemon_form_id like '%"+typeid+"%' and ST_CONTAINS(ST_GEOMFROMTEXT('POLYGON(("+area+"))'), point(pokestop.latitude, pokestop.longitude))")
          cursor.execute(query)
          name = cursor.fetchall()
          
