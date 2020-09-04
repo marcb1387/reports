@@ -658,7 +658,7 @@ def stuff():
         quest_mon('095', 'Onix', ':sparkles:', '', '00')
         quest_mon('096', 'Drowzee', ':sparkles:', '', '00')
         quest_mon('098', 'Krabby', ':sparkles:', '', '00')
-        quest_mon('100', 'Voltorb', '', '', '00')
+        quest_mon('100', 'Voltorb', ':sparkles:', '', '00')
         quest_mon('102', 'Exeggcute', '', '', '00')
         quest_mon('103', 'Exeggutor', '', '0', '00')
         quest_mon('103', 'Alolan Exeggutor', '', '78', '78')
