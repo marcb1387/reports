@@ -864,8 +864,8 @@ def stuff():
         quest_item('703', 'Nanab Berry','https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/Item_0703.png')
     if mega_energy:
         mega_item('3','Venusaur Mega Energy','https://raw.githubusercontent.com/marcb1387/assets/master/energy.png')
-        mega_item('6','Blastoise Mega Energy','https://raw.githubusercontent.com/marcb1387/assets/master/energy.png')
-        mega_item('9','Charizard Mega Energy','https://raw.githubusercontent.com/marcb1387/assets/master/energy.png')
+        mega_item('6','Charizard Mega Energy','https://raw.githubusercontent.com/marcb1387/assets/master/energy.png')
+        mega_item('9','Blastoise Mega Energy','https://raw.githubusercontent.com/marcb1387/assets/master/energy.png')
     if int(stardust) > 199:
         quest_stardust('0', 'Stardust Over ' + stardust + '','https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/stardust_painted.png')
 
