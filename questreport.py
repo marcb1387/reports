@@ -600,7 +600,7 @@ def ad():
   webhook.remove_embed(0)
   time.sleep(2)
  
-#Pokeomon, Items, Stardust
+#Pokeomon, Items, Stardust, Megas
 def stuff():
     if encounters:
         quest_mon('001', 'Bulbasaur', ':sparkles:', '', '00')
@@ -866,6 +866,7 @@ def stuff():
         mega_item('3','Venusaur Mega Energy','https://raw.githubusercontent.com/marcb1387/assets/master/energy.png')
         mega_item('6','Charizard Mega Energy','https://raw.githubusercontent.com/marcb1387/assets/master/energy.png')
         mega_item('9','Blastoise Mega Energy','https://raw.githubusercontent.com/marcb1387/assets/master/energy.png')
+        mega_item('15','Beedrill Mega Energy','https://raw.githubusercontent.com/marcb1387/assets/master/energy.png')
     if int(stardust) > 199:
         quest_stardust('0', 'Stardust Over ' + stardust + '','https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/stardust_painted.png')
 
