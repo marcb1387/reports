@@ -397,6 +397,8 @@ def quest_item(itemid,item,sprite):
       time.sleep(2)
   else:
       print ("Research Task Is Different "+item)
+      name.sort(key = operator.itemgetter(3,0))
+      res =[tuple(str(ele) for ele in sub) for sub in name]
       for stop in res: 
        research += ('['+stop[0]+'](''https://maps.google.com/?q='''+stop[1]+','+stop[2]+')'+' '+stop[3]+' - Amount: '+stop[4]+'\n')
        if len(research)> 1900:
@@ -496,6 +498,8 @@ def mega_item(itemid,item,sprite):
       time.sleep(2)
   else:
       print ("Research Task Is Different "+item)
+      name.sort(key = operator.itemgetter(3,0))
+      res =[tuple(str(ele) for ele in sub) for sub in name]
       for stop in res: 
        research += ('['+stop[0]+'](''https://maps.google.com/?q='''+stop[1]+','+stop[2]+')'+' '+stop[3]+' - Amount: '+stop[4]+'\n')
        if len(research)> 1900:
