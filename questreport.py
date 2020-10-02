@@ -726,6 +726,7 @@ def stuff():
         quest_mon('228', 'Houndour', ':sparkles:', '', '00')
         quest_mon('231', 'Phanpy', '', '', '00')
         quest_mon('234', 'Stantler', ':sparkles:', '', '00')
+        quest_mon('238', 'Smoochum', ':sparkles:', '', '00')
         quest_mon('246', 'Larvitar', ':sparkles:', '', '00')
         quest_mon('255', 'Torchic', ':sparkles:', '', '00')
         quest_mon('252', 'Treecko', ':sparkles:', '', '00')
