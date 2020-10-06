@@ -1,8 +1,6 @@
 # Field Research/Team Rocket Leaders Report
 Discord Report that will post Research and Rocket Leaders for Pokemon Go. For use with MAD Scanner. 
 
-DO NOT INSTALL ON SAME ENVIRONMENT AS SCANNER.
-
 Discord support channel https://discord.gg/bbvqeBQ
 
 **Optional Pokemon Filter**
