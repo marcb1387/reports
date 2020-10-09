@@ -118,7 +118,7 @@ def quest_mon():
      if result:
          if mons:
           for dex in mons.split(','):
-           if dex == mon[0]:
+           if dex == mon3d:
               print ("Research Task Is The Same "+mon_name)
               #convert data into string
               monres.sort()
@@ -214,7 +214,7 @@ def quest_mon():
      else:
          if mons:
           for dex in mons.split(','):
-           if dex == mon[0]:
+           if dex == mon3d:
               print ("Research Task Is The Different 1"+mon_name)
               #convert data into string
               monname.sort(key = operator.itemgetter(3, 0))
