@@ -131,10 +131,13 @@ Running without any arguments will run the report with static images and no file
 **Requires the Python Modules below:**
 
 https://pypi.org/project/discord-webhook/ 
-pip install discord-webhook
+pip3 install discord-webhook
 
 https://pypi.org/project/mysql-connector-python/
-pip install mysql-connector-python
+pip3 install mysql-connector-python
+
+https://pypi.org/project/beautifulsoup4/
+pip3 install beautifulsoup4 
 
 **If you appreciate this tool please consider buying me a Coffee/Beer/Pizza :D**
 
