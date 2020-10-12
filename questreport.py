@@ -110,7 +110,6 @@ def quest_mon():
       shiny = ":sparkles:"
      snum = ""
      if int(mon[0]) == 327:
-      print("got a spinda")
       url = 'https://leekduck.com/research/'
       reqs = requests.get(url)
       soup = BeautifulSoup(reqs.content, 'html.parser')
