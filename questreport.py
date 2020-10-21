@@ -540,14 +540,14 @@ def mega_item(itemid,item,sprite):
         print ("larger then 2048 breaking up")
         print (item+" Length:", len(research))
         if use_webhook_name:
-         embed = DiscordEmbed(description=research, color=4390656)        
+         embed = DiscordEmbed(description=research, color=1752220)        
          webhook.username = item+' Field Research'
          webhook.avatar_url = sprite
          embed.set_author(name='Research Task: '+stop[3])
         elif use_slim_name:
-         embed = DiscordEmbed(title= item+': '+stop[3], description=research, color=16777011)
+         embed = DiscordEmbed(title= item+': '+stop[3], description=research, color=1752220)
         else:
-         embed = DiscordEmbed(title= item+' Field Research', description=research, color=4390656)
+         embed = DiscordEmbed(title= item+' Field Research', description=research, color=1752220)
          embed.set_author(name='Research Task: '+stop[3])
         if author: embed.set_footer(text='Research by '+author, icon_url=footerimg)
         if use_emoji: embed.set_thumbnail(url=sprite) 
@@ -558,14 +558,14 @@ def mega_item(itemid,item,sprite):
         time.sleep(2)
       print (item+" Length:", len(research))    
       if use_webhook_name:
-       embed = DiscordEmbed(description=research, color=4390656)        
+       embed = DiscordEmbed(description=research, color=1752220)        
        webhook.username = item+' Field Research'
        webhook.avatar_url = sprite
        embed.set_author(name='Research Task: '+stop[3])
       elif use_slim_name:
-       embed = DiscordEmbed(title= item+': '+stop[3], description=research, color=16777011)
+       embed = DiscordEmbed(title= item+': '+stop[3], description=research, color=1752220)
       else:
-       embed = DiscordEmbed(title= item+' Field Research', description=research, color=4390656)
+       embed = DiscordEmbed(title= item+' Field Research', description=research, color=1752220)
        embed.set_author(name='Research Task: '+stop[3])
       if author: embed.set_footer(text='Research by '+author, icon_url=footerimg)
       if use_emoji: embed.set_thumbnail(url=sprite) 
@@ -584,11 +584,11 @@ def mega_item(itemid,item,sprite):
         print (item+" Length:", len(research))
         #add embed object to webhook
         if use_webhook_name:
-         embed = DiscordEmbed(description=research, color=4390656)        
+         embed = DiscordEmbed(description=research, color=1752220)        
          webhook.username = item+' Field Research'
          webhook.avatar_url = sprite
         else:
-         embed = DiscordEmbed(title= item+' Field Research', description=research, color=4390656)
+         embed = DiscordEmbed(title= item+' Field Research', description=research, color=1752220)
         if author: embed.set_footer(text='Research by '+author, icon_url=footerimg)
         if use_emoji: embed.set_thumbnail(url=sprite)
         webhook.add_embed(embed)
@@ -600,11 +600,11 @@ def mega_item(itemid,item,sprite):
       
       #add embed object to webhook
       if use_webhook_name:
-       embed = DiscordEmbed(description=research, color=4390656)        
+       embed = DiscordEmbed(description=research, color=1752220)        
        webhook.username = item+' Field Research'
        webhook.avatar_url = sprite
       else:
-       embed = DiscordEmbed(title= item+' Field Research', description=research, color=4390656)
+       embed = DiscordEmbed(title= item+' Field Research', description=research, color=1752220)
       if author: embed.set_footer(text='Research by '+author, icon_url=footerimg)
       if use_emoji: embed.set_thumbnail(url=sprite) 
       webhook.add_embed(embed)
