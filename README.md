@@ -3,9 +3,9 @@ Discord Report that will post Research and Rocket Leaders for Pokemon Go. For us
 
 Discord support channel https://discord.gg/bbvqeBQ
 
-Install Steps
+**Install Steps**
 ```
-cp config.example config.ini
+cp config.ini.example config.ini
 pip3 install -r requirements.txt --upgrade
 ```
 
