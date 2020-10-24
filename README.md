@@ -65,6 +65,7 @@ glacial_lure=true
 mossy_lure=true
 magnetic_lure=true
 mega_energy=true
+ar_task=true
 stardust=1000
 encounters=true
 
