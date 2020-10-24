@@ -3,6 +3,12 @@ Discord Report that will post Research and Rocket Leaders for Pokemon Go. For us
 
 Discord support channel https://discord.gg/bbvqeBQ
 
+Install Steps
+```
+cp config.example config.ini
+pip3 install -r requirements.txt --upgrade
+```
+
 **Optional Pokemon Filter**
 
 Pokemon filters can be in an area.ini file or config.ini file. Takes 3 digit pokedex numbers to display only those pokemon. If left empty all pokemon encounters will be displayed. An area.ini file will surpass the config.ini file for any settings including a blank dex_number list. If this is not needed it can be commented out in the area.ini file for the config.ini values to be used.
