@@ -231,6 +231,7 @@ def quest_mon():
               print ("Research Task Is The Different "+mon_name)
               #convert data into string
               monname.sort(key = operator.itemgetter(3, 0))
+              monres =[tuple(str(ele) for ele in sub) for sub in monname]
               webhook = DiscordWebhook(url=webhookurl)
               # create embed object for webhook 
               research = ''
@@ -272,6 +273,7 @@ def quest_mon():
               print ("Research Task Is The Different "+mon_name)
               #convert data into string
               monname.sort(key = operator.itemgetter(3, 0))
+              monres =[tuple(str(ele) for ele in sub) for sub in monname]
               webhook = DiscordWebhook(url=webhookurl)
               # create embed object for webhook 
               research = ''
