@@ -29,6 +29,7 @@ Areaname=NAME_OF_TEMP_AREA_FILE (can be anything but i would suggest the name of
 
 #Emojis and formatting of the post
 use_emoji=true
+use_shiny_emoji=false
 use_slim_name=false
 use_webhook_name=false
 
