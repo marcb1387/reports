@@ -92,8 +92,7 @@ imgwn = "https://raw.githubusercontent.com/Debaucus/PAIcons/master/Current%20Shi
 mariadb_connection = mariadb.connect(user=user, password=passwd, database=database, host=host, port=port)
 cursor = mariadb_connection.cursor()
 shiny_data = requests.get("https://pogoapi.net/api/v1/shiny_pokemon.json").json()
-with open(f"names/en.json", "r") as f:
- mon_names = json.load(f)
+mon_names = requests.get("https://pogoapi.net/api/v1/pokemon_names.json").json()
  
 #Pokemon
 def quest_mon():
@@ -106,7 +105,7 @@ def quest_mon():
      cursor.execute(monquery)
      monname = cursor.fetchall()
      monres =[tuple(str(ele) for ele in sub) for sub in monname]
-     mon_name=mon_names.get(str(mon[0]), "")
+     mon_name=mon_names.get(str(mon[0]), {}).get("name", True)
      mon3d = "{:03d}".format(int(mon[0]))
      form2d = "{:02d}".format(int(mon[1]))
      shiny = ""
