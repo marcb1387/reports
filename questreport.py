@@ -834,6 +834,8 @@ def stuff():
         mega_item('6','Charizard Mega Energy','https://raw.githubusercontent.com/marcb1387/assets/master/energy.png')
         mega_item('9','Blastoise Mega Energy','https://raw.githubusercontent.com/marcb1387/assets/master/energy.png')
         mega_item('15','Beedrill Mega Energy','https://raw.githubusercontent.com/marcb1387/assets/master/energy.png')
+        mega_item('94','Gengar Mega Energy','https://raw.githubusercontent.com/marcb1387/assets/master/energy.png')
+        mega_item('460','Abomasnow Mega Energy','https://raw.githubusercontent.com/marcb1387/assets/master/energy.png')
     if ar_task:
         ar_stops('AR','https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/decrypted_assets/png/tx_tutorial_arDataSurround.png')
     if int(stardust) > 199:
