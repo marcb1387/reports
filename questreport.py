@@ -124,8 +124,11 @@ def quest_mon():
       snumm = re.sub("[^0-9]", "", s)
       snum = snumm+" "
      alolan = ""
-     if int(mon[1]) in [46, 74, 64, 56, 52, 60, 68]:
+     galar = ""
+     if int(mon[1]) in [46,48,50,52,54,56,58,60,62,64,66,68,70,72,74,76,78,80]:
       alolan = "(Alolan) " 
+     if int(mon[1]) in [944,946,948,2235,2336,2337,2338,2339,2340,2341,2342,2343,2344,2345]:
+      galar = "(Galarian) "
      taskquery = ("select CONVERT(pokestop.name USING UTF8MB4) as pokestopname,pokestop.latitude,pokestop.longitude,quest_task from pokestop inner join trs_quest on pokestop.pokestop_id = trs_quest.GUID where DATE(FROM_UNIXTIME(trs_quest.quest_timestamp)) = CURDATE() and quest_reward_type = 7 and quest_pokemon_id ="+mon[0]+" and quest_type NOT like 46 and quest_pokemon_form_id like '%"+mon[1]+"%' and ST_CONTAINS(ST_GEOMFROMTEXT('POLYGON(("+area+"))'), point(pokestop.latitude, pokestop.longitude))")
      cursor.execute(taskquery)
      taskname = cursor.fetchall()
@@ -151,7 +154,7 @@ def quest_mon():
                 print (mon_name+" Length:", len(research))
                 if use_webhook_name: 
                  embed = DiscordEmbed(title=shiny+' Research Task: '+stop[3]+shiny, description=research, color=16777011)
-                 webhook.username = mon_name+" "+alolan+snum+'Field Research'
+                 webhook.username = mon_name+" "+alolan+galar+snum+'Field Research'
                  url=imgwn+mon3d+'_'+form2d+ext
                  r = requests.head(url)
                  if r.status_code == requests.codes.ok:
@@ -159,9 +162,9 @@ def quest_mon():
                  else:
                   webhook.avatar_url = img+mon3d+'_'+form2d+ext
                 elif use_slim_name:
-                 embed = DiscordEmbed(title= shiny+mon_name+" "+alolan+snum+': '+stop[3]+shiny, description=research, color=16777011)
+                 embed = DiscordEmbed(title= shiny+mon_name+" "+alolan+galar+snum+': '+stop[3]+shiny, description=research, color=16777011)
                 else:
-                 embed = DiscordEmbed(title= shiny+mon_name+" "+alolan+snum+'Field Research'+shiny, description=research, color=16777011)
+                 embed = DiscordEmbed(title= shiny+mon_name+" "+alolan+galar+snum+'Field Research'+shiny, description=research, color=16777011)
                  embed.set_author(name='Research Task: '+stop[3])
                 if use_emoji:embed.set_thumbnail(url=img+mon3d+'_'+form2d+ext)
                 if use_shiny_emoji:
@@ -181,7 +184,7 @@ def quest_mon():
               print (mon_name+" Length:", len(research))
               if use_webhook_name: 
                embed = DiscordEmbed(title=shiny+' Research Task: '+stop[3]+shiny, description=research, color=16777011)
-               webhook.username = mon_name+" "+alolan+snum+'Field Research'
+               webhook.username = mon_name+" "+alolan+galar+snum+'Field Research'
                url=imgwn+mon3d+'_'+form2d+ext
                r = requests.head(url)
                if r.status_code == requests.codes.ok:
@@ -189,9 +192,9 @@ def quest_mon():
                else:
                 webhook.avatar_url = img+mon3d+'_'+form2d+ext
               elif use_slim_name:
-               embed = DiscordEmbed(title= shiny+mon_name+" "+alolan+snum+': '+stop[3]+shiny, description=research, color=16777011)
+               embed = DiscordEmbed(title= shiny+mon_name+" "+alolan+galar+snum+': '+stop[3]+shiny, description=research, color=16777011)
               else:
-               embed = DiscordEmbed(title= shiny+mon_name+" "+alolan+snum+'Field Research'+shiny, description=research, color=16777011)
+               embed = DiscordEmbed(title= shiny+mon_name+" "+alolan+galar+snum+'Field Research'+shiny, description=research, color=16777011)
                embed.set_author(name='Research Task: '+stop[3])
               if use_emoji:embed.set_thumbnail(url=img+mon3d+'_'+form2d+ext)
               if use_shiny_emoji:
@@ -219,7 +222,7 @@ def quest_mon():
                 print ("larger then 2048 breaking up")
                 print (mon_name+" Length:", len(research))
                 if use_webhook_name: 
-                 webhook.username = mon_name+" "+alolan+snum+'Field Research'
+                 webhook.username = mon_name+" "+alolan+galar+snum+'Field Research'
                  embed = DiscordEmbed(title=shiny+' Research Task: '+stop[3]+shiny, description=research, color=16777011)
                  url=imgwn+mon3d+'_'+form2d+ext
                  r = requests.head(url)
@@ -228,9 +231,9 @@ def quest_mon():
                  else:
                   webhook.avatar_url = img+mon3d+'_'+form2d+ext
                 elif use_slim_name:
-                 embed = DiscordEmbed(title= shiny+mon_name+" "+alolan+snum+': '+stop[3]+shiny, description=research, color=16777011)
+                 embed = DiscordEmbed(title= shiny+mon_name+" "+alolan+galar+snum+': '+stop[3]+shiny, description=research, color=16777011)
                 else:
-                 embed = DiscordEmbed(title= shiny+mon_name+" "+alolan+snum+'Field Research'+shiny, description=research, color=16777011)
+                 embed = DiscordEmbed(title= shiny+mon_name+" "+alolan+galar+snum+'Field Research'+shiny, description=research, color=16777011)
                  embed.set_author(name='Research Task: '+stop[3])
                 if use_emoji: embed.set_thumbnail(url=img+mon3d+'_'+form2d+ext)
                 if use_shiny_emoji:
@@ -247,7 +250,7 @@ def quest_mon():
                 time.sleep(2)
               print (mon_name+" Length:", len(research))
               if use_webhook_name: 
-               webhook.username = mon_name+" "+alolan+snum+'Field Research'
+               webhook.username = mon_name+" "+alolan+galar+snum+'Field Research'
                embed = DiscordEmbed(title=shiny+' Research Task: '+stop[3]+shiny, description=research, color=16777011)
                url=imgwn+mon3d+'_'+form2d+ext
                r = requests.head(url)
@@ -256,9 +259,9 @@ def quest_mon():
                else:
                   webhook.avatar_url = img+mon3d+'_'+form2d+ext
               elif use_slim_name:
-               embed = DiscordEmbed(title= shiny+mon_name+" "+alolan+snum+': '+stop[3]+shiny, description=research, color=16777011)
+               embed = DiscordEmbed(title= shiny+mon_name+" "+alolan+galar+snum+': '+stop[3]+shiny, description=research, color=16777011)
               else:
-               embed = DiscordEmbed(title= shiny+mon_name+" "+alolan+snum+'Field Research'+shiny, description=research, color=16777011)
+               embed = DiscordEmbed(title= shiny+mon_name+" "+alolan+galar+snum+'Field Research'+shiny, description=research, color=16777011)
                embed.set_author(name='Research Task: '+stop[3])
               if use_emoji: embed.set_thumbnail(url=img+mon3d+'_'+form2d+ext)
               if use_shiny_emoji:
@@ -289,7 +292,7 @@ def quest_mon():
                  print ("larger then 2048 breaking up")
                  print (mon_name+" Length:", len(research))
                  if use_webhook_name: 
-                  webhook.username = mon_name+" "+alolan+snum+'Field Research'
+                  webhook.username = mon_name+" "+alolan+galar+snum+'Field Research'
                   embed = DiscordEmbed( description=research, color=16777011)
                   url=imgwn+mon3d+'_'+form2d+ext
                   r = requests.head(url)
@@ -298,7 +301,7 @@ def quest_mon():
                   else:
                    webhook.avatar_url = img+mon3d+'_'+form2d+ext
                  else:
-                  embed = DiscordEmbed(title= shiny+mon_name+" "+alolan+snum+'Field Research'+shiny, description=research, color=16777011)
+                  embed = DiscordEmbed(title= shiny+mon_name+" "+alolan+galar+snum+'Field Research'+shiny, description=research, color=16777011)
                   webhook.avatar_url = img+mon3d+'_'+form2d+ext
                  if use_emoji: embed.set_thumbnail(url=img+mon3d+'_'+form2d+ext)
                  if use_shiny_emoji:
@@ -315,7 +318,7 @@ def quest_mon():
                  time.sleep(2)
               print (mon_name+" Length:", len(research))
               if use_webhook_name: 
-               webhook.username = mon_name+" "+alolan+snum+'Field Research'
+               webhook.username = mon_name+" "+alolan+galar+snum+'Field Research'
                embed = DiscordEmbed( description=research, color=16777011)
                url=imgwn+mon3d+'_'+form2d+ext
                r = requests.head(url)
@@ -324,7 +327,7 @@ def quest_mon():
                else:
                 webhook.avatar_url = img+mon3d+'_'+form2d+ext
               else:
-               embed = DiscordEmbed(title= shiny+mon_name+" "+alolan+snum+'Field Research'+shiny, description=research, color=16777011)
+               embed = DiscordEmbed(title= shiny+mon_name+" "+alolan+galar+snum+'Field Research'+shiny, description=research, color=16777011)
               if use_emoji: embed.set_thumbnail(url=img+mon3d+'_'+form2d+ext)
               if use_shiny_emoji:
                url=imgwn+mon3d+'_'+form2d+ext
@@ -351,7 +354,7 @@ def quest_mon():
                 print ("larger then 2048 breaking up")
                 print (mon_name+" Length:", len(research))
                 if use_webhook_name: 
-                 webhook.username = mon_name+" "+alolan+snum+'Field Research'
+                 webhook.username = mon_name+" "+alolan+galar+snum+'Field Research'
                  embed = DiscordEmbed( description=research, color=16777011)
                  url=imgwn+mon3d+'_'+form2d+ext
                  r = requests.head(url)
@@ -360,7 +363,7 @@ def quest_mon():
                  else:
                   webhook.avatar_url = img+mon3d+'_'+form2d+ext
                 else:
-                 embed = DiscordEmbed(title= shiny+mon_name+" "+alolan+snum+'Field Research'+shiny, description=research, color=16777011)
+                 embed = DiscordEmbed(title= shiny+mon_name+" "+alolan+galar+snum+'Field Research'+shiny, description=research, color=16777011)
                 if use_emoji: embed.set_thumbnail(url=img+mon3d+'_'+form2d+ext)
                 if use_shiny_emoji:
                  url=imgwn+mon3d+'_'+form2d+ext
@@ -376,7 +379,7 @@ def quest_mon():
                 time.sleep(2)
               print (mon_name+" Length:", len(research))
               if use_webhook_name: 
-               webhook.username = mon_name+" "+alolan+snum+'Field Research'
+               webhook.username = mon_name+" "+alolan+galar+snum+'Field Research'
                embed = DiscordEmbed( description=research, color=16777011)
                url=imgwn+mon3d+'_'+form2d+ext
                r = requests.head(url)
@@ -385,7 +388,7 @@ def quest_mon():
                else:
                 webhook.avatar_url = img+mon3d+'_'+form2d+ext
               else:
-               embed = DiscordEmbed(title= shiny+mon_name+" "+alolan+snum+'Field Research'+shiny, description=research, color=16777011)
+               embed = DiscordEmbed(title= shiny+mon_name+" "+alolan+galar+snum+'Field Research'+shiny, description=research, color=16777011)
               if use_emoji: embed.set_thumbnail(url=img+mon3d+'_'+form2d+ext)
               if use_shiny_emoji:
                url=imgwn+mon3d+'_'+form2d+ext
