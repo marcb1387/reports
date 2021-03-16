@@ -836,7 +836,7 @@ def stuff():
          mega_item('3','Venusaur Mega Energy','https://raw.githubusercontent.com/marcb1387/assets/master/energy.png')
          mega_item('6','Charizard Mega Energy','https://raw.githubusercontent.com/marcb1387/assets/master/energy.png')
          mega_item('9','Blastoise Mega Energy','https://raw.githubusercontent.com/marcb1387/assets/master/energy.png')
-         mega_item('15 Beedrill Mega Energy','https://raw.githubusercontent.com/marcb1387/assets/master/energy.png')
+         mega_item('15','Beedrill Mega Energy','https://raw.githubusercontent.com/marcb1387/assets/master/energy.png')
          mega_item('18','Pidgeot Mega Energy','https://raw.githubusercontent.com/marcb1387/assets/master/energy.png')
          mega_item('65','Alakazam Mega Energy','https://raw.githubusercontent.com/marcb1387/assets/master/energy.png')
          mega_item('80','Slowbro Mega Energy','https://raw.githubusercontent.com/marcb1387/assets/master/energy.png')
