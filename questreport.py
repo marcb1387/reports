@@ -66,6 +66,7 @@ rare_candy = config.getboolean('ITEMS','rare_candy')
 glacial_lure = config.getboolean('ITEMS','glacial_lure')
 mossy_lure = config.getboolean('ITEMS','mossy_lure')
 magnetic_lure = config.getboolean('ITEMS','magnetic_lure')
+rainy_lure = config.getboolean('ITEMS','rainy_lure')
 mega_energy = config.getboolean('ITEMS','mega_energy')
 ar_task = config.getboolean('ITEMS','ar_task')
 stardust = config.get('ITEMS','stardust')
@@ -786,6 +787,8 @@ def stuff():
         quest_item('503', 'Mossy Lure','https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/TroyKey_moss.png')
     if magnetic_lure:
         quest_item('504', 'Magnetic Lure','https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/TroyKey_magnetic.png')
+    if rainy_lure:
+        quest_item('505', 'Rainy Lure','https://raw.githubusercontent.com/PokeMiners/pogo_assets/master/Images/Items/TroyKey_rainy.png')
     if golden_razz_berry:
         quest_item('706', 'Golden Razz','https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/Item_0706.png')
     if silver_pinap_berry:
