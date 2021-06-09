@@ -79,6 +79,7 @@ encounters=true
 
 [POKEMON]
 dex_number= (delete this text if you want all pokemon) accepts 3 digit Pokedex numbers in any order seprated by a comma. example 001,025,125
+mega_dex_number=
 
 [AD]
 Ad_Title = Pokemon Master
