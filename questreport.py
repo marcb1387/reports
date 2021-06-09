@@ -128,7 +128,7 @@ def quest_mon():
      galar = ""
      if int(mon[1]) in [46,48,50,52,54,56,58,60,62,64,66,68,70,72,74,76,78,80]:
       alolan = "(Alolan) " 
-     if int(mon[1]) in [944,946,948,2335,2336,2337,2338,2339,2340,2341,2342,2343,2344,2345]:
+     if int(mon[1]) in [944,946,948,1017,2335,2336,2337,2338,2339,2340,2341,2342,2343,2344,2345]:
       galar = "(Galarian) "
      taskquery = ("select CONVERT(pokestop.name USING UTF8MB4) as pokestopname,pokestop.latitude,pokestop.longitude,quest_task from pokestop inner join trs_quest on pokestop.pokestop_id = trs_quest.GUID where DATE(FROM_UNIXTIME(trs_quest.quest_timestamp)) = CURDATE() and quest_reward_type = 7 and quest_pokemon_id ="+mon[0]+" and quest_type NOT like 46 and quest_pokemon_form_id like '%"+mon[1]+"%' and ST_CONTAINS(ST_GEOMFROMTEXT('POLYGON(("+area+"))'), point(pokestop.latitude, pokestop.longitude))")
      cursor.execute(taskquery)
