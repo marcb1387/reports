@@ -68,10 +68,10 @@ mossy_lure = config.getboolean('ITEMS','mossy_lure')
 magnetic_lure = config.getboolean('ITEMS','magnetic_lure')
 rainy_lure = config.getboolean('ITEMS','rainy_lure')
 mega_energy = config.getboolean('ITEMS','mega_energy')
-ar_task = config.getboolean('ITEMS','ar_task')
 stardust = config.get('ITEMS','stardust')
 encounters = config.getboolean('ITEMS','encounters')
 mons = config.get('POKEMON','dex_number')
+mega_dex = config.get('POKEMON','mega_dex_number')
 adtitle = config.get('AD','Ad_Title')
 adbody = config.get('AD','Ad_Body')
 adthumb = config.get('AD','Ad_Thumbnail')
@@ -126,9 +126,11 @@ def quest_mon():
       snum = snumm+" "
      alolan = ""
      galar = ""
-     if int(mon[1]) in [46,48,50,52,54,56,58,60,62,64,66,68,70,72,74,76,78,80]:
+     alolan_forms = [46,48,50,52,54,56,58,60,62,64,66,68,70,72,74,76,78,80]
+     if int(mon[1]) in alolan_forms:
       alolan = "(Alolan) " 
-     if int(mon[1]) in [944,946,948,2335,2336,2337,2338,2339,2340,2341,2342,2343,2344,2345,2582]:
+     galar_forms = [944,946,948,2335,2336,2337,2338,2339,2340,2341,2342,2343,2344,2345,2582]
+     if int(mon[1]) in galar_forms:
       galar = "(Galarian) "
      taskquery = ("select CONVERT(pokestop.name USING UTF8MB4) as pokestopname,pokestop.latitude,pokestop.longitude,quest_task from pokestop inner join trs_quest on pokestop.pokestop_id = trs_quest.GUID where DATE(FROM_UNIXTIME(trs_quest.quest_timestamp)) = CURDATE() and quest_reward_type = 7 and quest_pokemon_id ="+mon[0]+" and quest_type NOT like 46 and quest_pokemon_form_id like '%"+mon[1]+"%' and ST_CONTAINS(ST_GEOMFROMTEXT('POLYGON(("+area+"))'), point(pokestop.latitude, pokestop.longitude))")
      cursor.execute(taskquery)
@@ -503,208 +505,195 @@ def quest_item(itemid,item,sprite):
       webhook.execute()
       research = ''
       time.sleep(2)
-#AR Stops
-def ar_stops(item,sprite):
- mariadb_connection = mariadb.connect(user=user, password=passwd, database=database, host=host,port=port)
- cursor = mariadb_connection.cursor()
- query = ("select CONVERT(pokestop.name USING UTF8MB4) as pokestopname,pokestop.latitude,pokestop.longitude,trs_quest.quest_task from pokestop inner join trs_quest on pokestop.pokestop_id = trs_quest.GUID where DATE(FROM_UNIXTIME(trs_quest.quest_timestamp)) = CURDATE() and quest_type = 46 and ST_CONTAINS(ST_GEOMFROMTEXT('POLYGON(("+area+"))'), point(pokestop.latitude, pokestop.longitude))")
- cursor.execute(query)
- name = cursor.fetchall()
- 
- if not name:
-  print ("no quests for "+item)
- else:
-  #convert data into string
-  res =[tuple(str(ele) for ele in sub) for sub in name]
-  
-  res.sort()
-  webhook = DiscordWebhook(url=webhookurl)
-  # create embed object for webhook
-  research = ''
-  task3 =[]
-  for task in res:
-   task3 += [task[3]]
-  result = all(elem == task3[0] for elem in task3)
-  if result:
-      print ("Research Task Is The Same "+item)
-      for stop in res: 
-       research += ('['+stop[0]+'](''https://maps.google.com/?q='''+stop[1]+','+stop[2]+')'+'\n')
-       if len(research)> 1900:
-        print ("larger then 2048 breaking up")
-        print (item+" Length:", len(research))
-        if use_webhook_name:
-         embed = DiscordEmbed(description=research, color=15105570)        
-         webhook.username = item+' Field Research'
-         webhook.avatar_url = sprite
-         embed.set_author(name='Research Task: '+stop[3])
-        elif use_slim_name:
-         embed = DiscordEmbed(title= item+': '+stop[3], description=research, color=15105570)
-        else:
-         embed = DiscordEmbed(title= item+' Field Research', description=research, color=15105570)
-         embed.set_author(name='Research Task: '+stop[3])
-        if author: embed.set_footer(text='Research by '+author, icon_url=footerimg)
-        if use_emoji: embed.set_thumbnail(url=sprite) 
-        webhook.add_embed(embed)
-        webhook.execute()
-        research = ''
-        webhook.remove_embed(0)
-        time.sleep(2)
-      print (item+" Length:", len(research))    
-      if use_webhook_name:
-       embed = DiscordEmbed(description=research, color=15105570)        
-       webhook.username = item+' Field Research'
-       webhook.avatar_url = sprite
-       embed.set_author(name='Research Task: '+stop[3])
-      elif use_slim_name:
-       embed = DiscordEmbed(title= item+': '+stop[3], description=research, color=15105570)
-      else:
-       embed = DiscordEmbed(title= item+' Field Research', description=research, color=15105570)
-       embed.set_author(name='Research Task: '+stop[3])
-      if author: embed.set_footer(text='Research by '+author, icon_url=footerimg)
-      if use_emoji: embed.set_thumbnail(url=sprite) 
-      webhook.add_embed(embed)
-      webhook.execute()
-      research = ''
-      time.sleep(2)
-  else:
-      print ("Research Task Is Different "+item)
-      name.sort(key = operator.itemgetter(3,0))
-      res =[tuple(str(ele) for ele in sub) for sub in name]
-      for stop in res: 
-       research += ('['+stop[0]+'](''https://maps.google.com/?q='''+stop[1]+','+stop[2]+')'+' '+stop[3]+'\n')
-       if len(research)> 1900:
-        print ("larger then 2048 breaking up")
-        print (item+" Length:", len(research))
-        #add embed object to webhook
-        if use_webhook_name:
-         embed = DiscordEmbed(description=research, color=15105570)        
-         webhook.username = item+' Field Research'
-         webhook.avatar_url = sprite
-        else:
-         embed = DiscordEmbed(title= item+' Field Research', description=research, color=15105570)
-        if author: embed.set_footer(text='Research by '+author, icon_url=footerimg)
-        if use_emoji: embed.set_thumbnail(url=sprite)
-        webhook.add_embed(embed)
-        webhook.execute()
-        research = ''
-        webhook.remove_embed(0)
-        time.sleep(2)
-      print (item+" Length:", len(research))
-      
-      #add embed object to webhook
-      if use_webhook_name:
-       embed = DiscordEmbed(description=research, color=15105570)        
-       webhook.username = item+' Field Research'
-       webhook.avatar_url = sprite
-      else:
-       embed = DiscordEmbed(title= item+' Field Research', description=research, color=15105570)
-      if author: embed.set_footer(text='Research by '+author, icon_url=footerimg)
-      if use_emoji: embed.set_thumbnail(url=sprite) 
-      webhook.add_embed(embed)
-      webhook.execute()
-      research = ''
-      time.sleep(2)
+      .0
 #mega energy
-def mega_item(itemid,item,sprite):
- mariadb_connection = mariadb.connect(user=user, password=passwd, database=database, host=host,port=port)
- cursor = mariadb_connection.cursor()
- query = ("select CONVERT(pokestop.name USING UTF8MB4) as pokestopname,pokestop.latitude,pokestop.longitude,trs_quest.quest_task,trs_quest.quest_item_amount,trs_quest.quest_pokemon_id from pokestop inner join trs_quest on pokestop.pokestop_id = trs_quest.GUID where DATE(FROM_UNIXTIME(trs_quest.quest_timestamp)) = CURDATE() and quest_reward_type = 12 and quest_pokemon_id = "+itemid+" and ST_CONTAINS(ST_GEOMFROMTEXT('POLYGON(("+area+"))'), point(pokestop.latitude, pokestop.longitude))")
- cursor.execute(query)
- name = cursor.fetchall()
- 
- if not name:
-  print ("no quests for "+item)
- else:
-  #convert data into string
-  res =[tuple(str(ele) for ele in sub) for sub in name]
-  
-  res.sort()
-  webhook = DiscordWebhook(url=webhookurl)
-  # create embed object for webhook
-  research = ''
-  task3 =[]
-  for task in res:
-   task3 += [task[3]]
-  result = all(elem == task3[0] for elem in task3)
-  if result:
-      print ("Research Task Is The Same "+item)
-      for stop in res: 
-       research += ('['+stop[0]+'](''https://maps.google.com/?q='''+stop[1]+','+stop[2]+')'+' - Amount: '+stop[4]+'\n')
-       if len(research)> 1900:
-        print ("larger then 2048 breaking up")
-        print (item+" Length:", len(research))
-        if use_webhook_name:
-         embed = DiscordEmbed(description=research, color=1752220)        
-         webhook.username = item+' Field Research'
-         webhook.avatar_url = sprite
-         embed.set_author(name='Research Task: '+stop[3])
-        elif use_slim_name:
-         embed = DiscordEmbed(title= item+': '+stop[3], description=research, color=1752220)
-        else:
-         embed = DiscordEmbed(title= item+' Field Research', description=research, color=1752220)
-         embed.set_author(name='Research Task: '+stop[3])
-        if author: embed.set_footer(text='Research by '+author, icon_url=footerimg)
-        if use_emoji: embed.set_thumbnail(url=sprite) 
-        webhook.add_embed(embed)
-        webhook.execute()
-        research = ''
-        webhook.remove_embed(0)
-        time.sleep(2)
-      print (item+" Length:", len(research))    
-      if use_webhook_name:
-       embed = DiscordEmbed(description=research, color=1752220)        
-       webhook.username = item+' Field Research'
-       webhook.avatar_url = sprite
-       embed.set_author(name='Research Task: '+stop[3])
-      elif use_slim_name:
-       embed = DiscordEmbed(title= item+': '+stop[3], description=research, color=1752220)
-      else:
-       embed = DiscordEmbed(title= item+' Field Research', description=research, color=1752220)
-       embed.set_author(name='Research Task: '+stop[3])
-      if author: embed.set_footer(text='Research by '+author, icon_url=footerimg)
-      if use_emoji: embed.set_thumbnail(url=sprite) 
-      webhook.add_embed(embed)
-      webhook.execute()
-      research = ''
-      time.sleep(2)
-  else:
-      print ("Research Task Is Different "+item)
-      name.sort(key = operator.itemgetter(3,0))
-      res =[tuple(str(ele) for ele in sub) for sub in name]
-      for stop in res: 
-       research += ('['+stop[0]+'](''https://maps.google.com/?q='''+stop[1]+','+stop[2]+')'+' '+stop[3]+' - Amount: '+stop[4]+'\n')
-       if len(research)> 1900:
-        print ("larger then 2048 breaking up")
-        print (item+" Length:", len(research))
-        #add embed object to webhook
-        if use_webhook_name:
-         embed = DiscordEmbed(description=research, color=1752220)        
-         webhook.username = item+' Field Research'
-         webhook.avatar_url = sprite
-        else:
-         embed = DiscordEmbed(title= item+' Field Research', description=research, color=1752220)
-        if author: embed.set_footer(text='Research by '+author, icon_url=footerimg)
-        if use_emoji: embed.set_thumbnail(url=sprite)
-        webhook.add_embed(embed)
-        webhook.execute()
-        research = ''
-        webhook.remove_embed(0)
-        time.sleep(2)
-      print (item+" Length:", len(research))
-      
-      #add embed object to webhook
-      if use_webhook_name:
-       embed = DiscordEmbed(description=research, color=1752220)        
-       webhook.username = item+' Field Research'
-       webhook.avatar_url = sprite
-      else:
-       embed = DiscordEmbed(title= item+' Field Research', description=research, color=1752220)
-      if author: embed.set_footer(text='Research by '+author, icon_url=footerimg)
-      if use_emoji: embed.set_thumbnail(url=sprite) 
-      webhook.add_embed(embed)
-      webhook.execute()
-      research = ''
-      time.sleep(2)
+def mega_item():
+    query = ("SELECT DISTINCT quest_pokemon_id,quest_pokemon_form_id,quest_pokemon_costume_id FROM trs_quest inner join pokestop on trs_quest.GUID = pokestop.pokestop_id where DATE(FROM_UNIXTIME(trs_quest.quest_timestamp)) = CURDATE() and quest_reward_type = 12 and ST_CONTAINS(ST_GEOMFROMTEXT('POLYGON(("+area+"))'), point(pokestop.latitude, pokestop.longitude)) order by trs_quest.quest_pokemon_id;")
+    cursor.execute(query)
+    name = cursor.fetchall()
+    res =[tuple(str(ele) for ele in sub) for sub in name]
+    for mon in res:
+     megaquery = ("select CONVERT(pokestop.name USING UTF8MB4) as pokestopname,pokestop.latitude,pokestop.longitude,trs_quest.quest_task,trs_quest.quest_item_amount,trs_quest.quest_pokemon_id from pokestop inner join trs_quest on pokestop.pokestop_id = trs_quest.GUID where DATE(FROM_UNIXTIME(trs_quest.quest_timestamp)) = CURDATE() and quest_reward_type = 12 and quest_pokemon_id ="+mon[0]+" and ST_CONTAINS(ST_GEOMFROMTEXT('POLYGON(("+area+"))'), point(pokestop.latitude, pokestop.longitude))")
+     cursor.execute(megaquery)
+     monname = cursor.fetchall()
+     monres =[tuple(str(ele) for ele in sub) for sub in monname]
+     mon_name=mon_names.get(str(mon[0]), {}).get("name", True)
+     mon3d = "{:03d}".format(int(mon[0]))
+     form2d = "{:02d}".format(int(mon[1]))
+     task3 =[]
+     for task in monres:
+      task3 += [task[3]]
+     result = all(elem == task3[0] for elem in task3)
+     research= ''
+     webhook = DiscordWebhook(url=webhookurl)
+     if result:
+         if mega_dex:
+            for dex in mega_dex.split(','):
+             if dex == mon3d:
+                  print ("Research Task Is The Same "+mon_name+" Mega")
+                  monname.sort(key = operator.itemgetter(3,0))
+                  res =[tuple(str(ele) for ele in sub) for sub in monname]
+                  for stop in res: 
+                   research += ('['+stop[0]+'](''https://maps.google.com/?q='''+stop[1]+','+stop[2]+')'+' - Amount: '+stop[4]+'\n')
+                   if len(research)> 1900:
+                    print ("larger then 2048 breaking up")
+                    print (mon_name+" Length:", len(research))
+                    if use_webhook_name:
+                     embed = DiscordEmbed(description=research, color=1752220)        
+                     webhook.username = mon_name+' Mega Energy Field Research'
+                     webhook.avatar_url = 'https://raw.githubusercontent.com/marcb1387/assets/master/energy.png'
+                     embed.set_author(name='Research Task: '+stop[3])
+                    elif use_slim_name:
+                     embed = DiscordEmbed(title= mon_name+': '+stop[3], description=research, color=1752220)
+                    else:
+                     embed = DiscordEmbed(title= mon_name+' Mega Energy Field Research', description=research, color=1752220)
+                     embed.set_author(name='Research Task: '+stop[3])
+                    if author: embed.set_footer(text='Research by '+author, icon_url=footerimg)
+                    if use_emoji: embed.set_thumbnail(url='https://raw.githubusercontent.com/marcb1387/assets/master/energy.png') 
+                    webhook.add_embed(embed)
+                    webhook.execute()
+                    research = ''
+                    webhook.remove_embed(0)
+                    time.sleep(2)
+                  print (mon_name+" Length:", len(research))    
+                  if use_webhook_name:
+                   embed = DiscordEmbed(description=research, color=1752220)        
+                   webhook.username = mon_name+' Mega Energy Field Research'
+                   webhook.avatar_url = 'https://raw.githubusercontent.com/marcb1387/assets/master/energy.png'
+                   embed.set_author(name='Research Task: '+stop[3])
+                  elif use_slim_name:
+                   embed = DiscordEmbed(title= mon_name+': '+stop[3], description=research, color=1752220)
+                  else:
+                   embed = DiscordEmbed(title= mon_name+' Mega Energy Field Research', description=research, color=1752220)
+                   embed.set_author(name='Research Task: '+stop[3])
+                  if author: embed.set_footer(text='Research by '+author, icon_url=footerimg)
+                  if use_emoji: embed.set_thumbnail(url='https://raw.githubusercontent.com/marcb1387/assets/master/energy.png') 
+                  webhook.add_embed(embed)
+                  webhook.execute()
+                  research = ''
+                  time.sleep(2)
+         else:
+                  print ("Research Task Is The Same "+mon_name+" Mega")
+                  monname.sort(key = operator.itemgetter(3,0))
+                  res =[tuple(str(ele) for ele in sub) for sub in monname]
+                  for stop in res: 
+                   research += ('['+stop[0]+'](''https://maps.google.com/?q='''+stop[1]+','+stop[2]+')'+' - Amount: '+stop[4]+'\n')
+                   if len(research)> 1900:
+                    print ("larger then 2048 breaking up")
+                    print (mon_name+" Length:", len(research))
+                    if use_webhook_name:
+                     embed = DiscordEmbed(description=research, color=1752220)        
+                     webhook.username = mon_name+' Mega Energy Field Research'
+                     webhook.avatar_url = 'https://raw.githubusercontent.com/marcb1387/assets/master/energy.png'
+                     embed.set_author(name='Research Task: '+stop[3])
+                    elif use_slim_name:
+                     embed = DiscordEmbed(title= mon_name+': '+stop[3], description=research, color=1752220)
+                    else:
+                     embed = DiscordEmbed(title= mon_name+' Mega Energy Field Research', description=research, color=1752220)
+                     embed.set_author(name='Research Task: '+stop[3])
+                    if author: embed.set_footer(text='Research by '+author, icon_url=footerimg)
+                    if use_emoji: embed.set_thumbnail(url='https://raw.githubusercontent.com/marcb1387/assets/master/energy.png') 
+                    webhook.add_embed(embed)
+                    webhook.execute()
+                    research = ''
+                    webhook.remove_embed(0)
+                    time.sleep(2)
+                  print (mon_name+" Length:", len(research))    
+                  if use_webhook_name:
+                   embed = DiscordEmbed(description=research, color=1752220)        
+                   webhook.username = mon_name+' Mega Energy Field Research'
+                   webhook.avatar_url = 'https://raw.githubusercontent.com/marcb1387/assets/master/energy.png'
+                   embed.set_author(name='Research Task: '+stop[3])
+                  elif use_slim_name:
+                   embed = DiscordEmbed(title= mon_name+': '+stop[3], description=research, color=1752220)
+                  else:
+                   embed = DiscordEmbed(title= mon_name+' Mega Energy Field Research', description=research, color=1752220)
+                   embed.set_author(name='Research Task: '+stop[3])
+                  if author: embed.set_footer(text='Research by '+author, icon_url=footerimg)
+                  if use_emoji: embed.set_thumbnail(url='https://raw.githubusercontent.com/marcb1387/assets/master/energy.png') 
+                  webhook.add_embed(embed)
+                  webhook.execute()
+                  research = ''
+                  time.sleep(2)
+     else:
+         if mega_dex:
+            for dex in mega_dex.split(','):
+             if dex == mon3d:
+                  print ("Research Task Is Different "+mon_name+" Mega")
+                  monname.sort(key = operator.itemgetter(3,0))
+                  res =[tuple(str(ele) for ele in sub) for sub in monname]
+                  for stop in res: 
+                   research += ('['+stop[0]+'](''https://maps.google.com/?q='''+stop[1]+','+stop[2]+')'+' '+stop[3]+' - Amount: '+stop[4]+'\n')
+                   if len(research)> 1900:
+                    print ("larger then 2048 breaking up")
+                    print (mon_name+" Length:", len(research))
+                    #add embed object to webhook
+                    if use_webhook_name:
+                     embed = DiscordEmbed(description=research, color=1752220)        
+                     webhook.username = mon_name+' Mega Energy Field Research'
+                     webhook.avatar_url = 'https://raw.githubusercontent.com/marcb1387/assets/master/energy.png'
+                    else:
+                     embed = DiscordEmbed(title= mon_name+' Mega Energy Field Research', description=research, color=1752220)
+                    if author: embed.set_footer(text='Research by '+author, icon_url=footerimg)
+                    if use_emoji: embed.set_thumbnail(url='https://raw.githubusercontent.com/marcb1387/assets/master/energy.png')
+                    webhook.add_embed(embed)
+                    webhook.execute()
+                    research = ''
+                    webhook.remove_embed(0)
+                    time.sleep(2)
+                  print (mon_name+" Length:", len(research))
+                  
+                  #add embed object to webhook
+                  if use_webhook_name:
+                   embed = DiscordEmbed(description=research, color=1752220)        
+                   webhook.username = mon_name+' Mega Energy Field Research'
+                   webhook.avatar_url = 'https://raw.githubusercontent.com/marcb1387/assets/master/energy.png'
+                  else:
+                   embed = DiscordEmbed(title= mon_name+' Mega Energy Field Research', description=research, color=1752220)
+                  if author: embed.set_footer(text='Research by '+author, icon_url=footerimg)
+                  if use_emoji: embed.set_thumbnail(url='https://raw.githubusercontent.com/marcb1387/assets/master/energy.png') 
+                  webhook.add_embed(embed)
+                  webhook.execute()
+                  research = ''
+                  time.sleep(2)
+         else:
+              print ("Research Task Is Different "+mon_name+" Mega")
+              monname.sort(key = operator.itemgetter(3,0))
+              res =[tuple(str(ele) for ele in sub) for sub in monname]
+              for stop in res: 
+               research += ('['+stop[0]+'](''https://maps.google.com/?q='''+stop[1]+','+stop[2]+')'+' '+stop[3]+' - Amount: '+stop[4]+'\n')
+               if len(research)> 1900:
+                print ("larger then 2048 breaking up")
+                print (mon_name+" Length:", len(research))
+                #add embed object to webhook
+                if use_webhook_name:
+                 embed = DiscordEmbed(description=research, color=1752220)        
+                 webhook.username = mon_name+' Mega Energy Field Research'
+                 webhook.avatar_url = 'https://raw.githubusercontent.com/marcb1387/assets/master/energy.png'
+                else:
+                 embed = DiscordEmbed(title= mon_name+' Mega Energy Field Research', description=research, color=1752220)
+                if author: embed.set_footer(text='Research by '+author, icon_url=footerimg)
+                if use_emoji: embed.set_thumbnail(url='https://raw.githubusercontent.com/marcb1387/assets/master/energy.png')
+                webhook.add_embed(embed)
+                webhook.execute()
+                research = ''
+                webhook.remove_embed(0)
+                time.sleep(2)
+              print (mon_name+" Length:", len(research))
+              
+              #add embed object to webhook
+              if use_webhook_name:
+               embed = DiscordEmbed(description=research, color=1752220)        
+               webhook.username = mon_name+' Mega Energy Field Research'
+               webhook.avatar_url = 'https://raw.githubusercontent.com/marcb1387/assets/master/energy.png'
+              else:
+               embed = DiscordEmbed(title= mon_name+' Mega Energy Field Research', description=research, color=1752220)
+              if author: embed.set_footer(text='Research by '+author, icon_url=footerimg)
+              if use_emoji: embed.set_thumbnail(url='https://raw.githubusercontent.com/marcb1387/assets/master/energy.png') 
+              webhook.add_embed(embed)
+              webhook.execute()
+              research = ''
+              time.sleep(2)
 #Stardust
 def quest_stardust(itemid,item,sprite):
  mariadb_connection = mariadb.connect(user=user, password=passwd, database=database, host=host, port=port)
@@ -836,57 +825,7 @@ def stuff():
     if nanab_berry:
         quest_item('703', 'Nanab Berry','https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/Item_0703.png')
     if mega_energy:
-         mega_item('3','Venusaur Mega Energy','https://raw.githubusercontent.com/marcb1387/assets/master/energy.png')
-         mega_item('6','Charizard Mega Energy','https://raw.githubusercontent.com/marcb1387/assets/master/energy.png')
-         mega_item('9','Blastoise Mega Energy','https://raw.githubusercontent.com/marcb1387/assets/master/energy.png')
-         mega_item('15','Beedrill Mega Energy','https://raw.githubusercontent.com/marcb1387/assets/master/energy.png')
-         mega_item('18','Pidgeot Mega Energy','https://raw.githubusercontent.com/marcb1387/assets/master/energy.png')
-         mega_item('65','Alakazam Mega Energy','https://raw.githubusercontent.com/marcb1387/assets/master/energy.png')
-         mega_item('80','Slowbro Mega Energy','https://raw.githubusercontent.com/marcb1387/assets/master/energy.png')
-         mega_item('94','Gengar Mega Energy','https://raw.githubusercontent.com/marcb1387/assets/master/energy.png')
-         mega_item('115','Kangaskhan Mega Energy','https://raw.githubusercontent.com/marcb1387/assets/master/energy.png')
-         mega_item('127','Pinsir Mega Energy','https://raw.githubusercontent.com/marcb1387/assets/master/energy.png')
-         mega_item('130','Gyarados Mega Energy','https://raw.githubusercontent.com/marcb1387/assets/master/energy.png')
-         mega_item('142','Aerodactyl Mega Energy','https://raw.githubusercontent.com/marcb1387/assets/master/energy.png')
-         mega_item('150','Mewtwo Mega Energy','https://raw.githubusercontent.com/marcb1387/assets/master/energy.png')
-         mega_item('181','Ampharos Mega Energy','https://raw.githubusercontent.com/marcb1387/assets/master/energy.png')
-         mega_item('208','Steelix Mega Energy','https://raw.githubusercontent.com/marcb1387/assets/master/energy.png')
-         mega_item('212','Scizor Mega Energy','https://raw.githubusercontent.com/marcb1387/assets/master/energy.png')
-         mega_item('214','Heracross Mega Energy','https://raw.githubusercontent.com/marcb1387/assets/master/energy.png')
-         mega_item('229','Houndoom Mega Energy','https://raw.githubusercontent.com/marcb1387/assets/master/energy.png')
-         mega_item('248','Tyranitar Mega Energy','https://raw.githubusercontent.com/marcb1387/assets/master/energy.png')
-         mega_item('254','Sceptile Mega Energy','https://raw.githubusercontent.com/marcb1387/assets/master/energy.png')
-         mega_item('257','Blaziken Mega Energy','https://raw.githubusercontent.com/marcb1387/assets/master/energy.png')
-         mega_item('260','Swampert Mega Energy','https://raw.githubusercontent.com/marcb1387/assets/master/energy.png')
-         mega_item('282','Gardevoir Mega Energy','https://raw.githubusercontent.com/marcb1387/assets/master/energy.png')
-         mega_item('302','Sableye Mega Energy','https://raw.githubusercontent.com/marcb1387/assets/master/energy.png')
-         mega_item('303','Mawile Mega Energy','https://raw.githubusercontent.com/marcb1387/assets/master/energy.png')
-         mega_item('306','Aggron Mega Energy','https://raw.githubusercontent.com/marcb1387/assets/master/energy.png')
-         mega_item('308','Medicham Mega Energy','https://raw.githubusercontent.com/marcb1387/assets/master/energy.png')
-         mega_item('310','Manectric Mega Energy','https://raw.githubusercontent.com/marcb1387/assets/master/energy.png')
-         mega_item('319','Sharpedo Mega Energy','https://raw.githubusercontent.com/marcb1387/assets/master/energy.png')
-         mega_item('323','Camerupt Mega Energy','https://raw.githubusercontent.com/marcb1387/assets/master/energy.png')
-         mega_item('334','Altaria Mega Energy','https://raw.githubusercontent.com/marcb1387/assets/master/energy.png')
-         mega_item('354','Banette Mega Energy','https://raw.githubusercontent.com/marcb1387/assets/master/energy.png')
-         mega_item('359','Absol Mega Energy','https://raw.githubusercontent.com/marcb1387/assets/master/energy.png')
-         mega_item('362','Glalie Mega Energy','https://raw.githubusercontent.com/marcb1387/assets/master/energy.png')
-         mega_item('373','Salamence Mega Energy','https://raw.githubusercontent.com/marcb1387/assets/master/energy.png')
-         mega_item('376','Metagross Mega Energy','https://raw.githubusercontent.com/marcb1387/assets/master/energy.png')
-         mega_item('379','Registeel Mega Energy','https://raw.githubusercontent.com/marcb1387/assets/master/energy.png')
-         mega_item('380','Latias Mega Energy','https://raw.githubusercontent.com/marcb1387/assets/master/energy.png')
-         mega_item('381','Latios Mega Energy','https://raw.githubusercontent.com/marcb1387/assets/master/energy.png')
-         mega_item('382','Kyogre Mega Energy','https://raw.githubusercontent.com/marcb1387/assets/master/energy.png')
-         mega_item('383','Groudon Mega Energy','https://raw.githubusercontent.com/marcb1387/assets/master/energy.png')
-         mega_item('384','Rayquaza Mega Energy','https://raw.githubusercontent.com/marcb1387/assets/master/energy.png')
-         mega_item('428','Lopunny Mega Energy','https://raw.githubusercontent.com/marcb1387/assets/master/energy.png')
-         mega_item('445','Garchomp Mega Energy','https://raw.githubusercontent.com/marcb1387/assets/master/energy.png')
-         mega_item('448','Lucario Mega Energy','https://raw.githubusercontent.com/marcb1387/assets/master/energy.png')
-         mega_item('460','Abomasnow Mega Energy','https://raw.githubusercontent.com/marcb1387/assets/master/energy.png')
-         mega_item('475','Gallade Mega Energy','https://raw.githubusercontent.com/marcb1387/assets/master/energy.png')
-         mega_item('531','Audino Mega Energy','https://raw.githubusercontent.com/marcb1387/assets/master/energy.png')
-         mega_item('719','Diance Mega Energy','https://raw.githubusercontent.com/marcb1387/assets/master/energy.png')
-    if ar_task:
-        ar_stops('AR','https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/decrypted_assets/png/tx_tutorial_arDataSurround.png')
+         mega_item()
     if int(stardust) > 199:
         quest_stardust('0', 'Stardust Over ' + stardust + '','https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/stardust_painted.png')
 
