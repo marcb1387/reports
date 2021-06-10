@@ -79,7 +79,9 @@ encounters=true
 
 [POKEMON]
 dex_number= (delete this text if you want all pokemon) accepts 3 digit Pokedex numbers in any order seprated by a comma. example 001,025,125
-mega_dex_number=
+galar_dex_number=dex_number, galar_dex_number and alolan_dex_number are all linked if filter is in 1 it will need to be in all 3 sections. this list is all of the possible galar pokemon 052,077,078,079,080,083,110,122,263,264,554,555,562,618,862,863,865,866,867
+alolan_dex_number=dex_number, galar_dex_number and alolan_dex_number are all linked if filter is in 1 it will need to be in all 3 sections. this list is all of the possible alolan pokemon 019,020,026,027,028,037,038,050,051,052,053,074,075,076,088,089,103,105
+mega_dex_number= Filtering is independant of pokemon requires the same 3 digit pokedex number
 
 [AD]
 Ad_Title = Pokemon Master
