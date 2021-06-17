@@ -70,10 +70,10 @@ rainy_lure = config.getboolean('ITEMS','rainy_lure')
 mega_energy = config.getboolean('ITEMS','mega_energy')
 stardust = config.get('ITEMS','stardust')
 encounters = config.getboolean('ITEMS','encounters')
-candy = config.getboolean('ITEMS','candy')
+candyi = config.getboolean('ITEMS','candy')
 mons = config.get('POKEMON','dex_number')
 mega_dex = config.get('POKEMON','mega_dex_number')
-candy = config.get('POKEMON','candy_dex_number')
+candy_dex = config.get('POKEMON','candy_dex_number')
 galar_dex = config.get('POKEMON','galar_dex_number')
 alolan_dex = config.get('POKEMON','alolan_dex_number')
 adtitle = config.get('AD','Ad_Title')
@@ -305,7 +305,7 @@ def pokemon_diff(mon_name,monres,shiny,alolan,galar,snum,mon3d,form2d,monname):
   research = ''
   time.sleep(2)
 #pokemon candy
-def candy():
+def candy_item():
     query = ("SELECT DISTINCT quest_pokemon_id,quest_pokemon_form_id,quest_pokemon_costume_id FROM trs_quest inner join pokestop on trs_quest.GUID = pokestop.pokestop_id where DATE(FROM_UNIXTIME(trs_quest.quest_timestamp)) = CURDATE() and quest_reward_type = 4 and ST_CONTAINS(ST_GEOMFROMTEXT('POLYGON(("+area+"))'), point(pokestop.latitude, pokestop.longitude)) order by trs_quest.quest_pokemon_id;")
     cursor.execute(query)
     name = cursor.fetchall()
@@ -325,8 +325,8 @@ def candy():
      research= ''
      webhook = DiscordWebhook(url=webhookurl)
      if result:
-         if candy:
-            for dex in candy.split(','):
+         if candy_dex:
+            for dex in candy_dex.split(','):
              if dex == mon3d:
                   print ("Research Task Is The Same "+mon_name+" Mega")
                   monname.sort(key = operator.itemgetter(3,0))
@@ -414,8 +414,8 @@ def candy():
                   research = ''
                   time.sleep(2)
      else:
-         if mega_dex:
-            for dex in mega_dex.split(','):
+         if candy_dex:
+            for dex in candy_dex.split(','):
              if dex == mon3d:
                   print ("Research Task Is Different "+mon_name+" Mega")
                   monname.sort(key = operator.itemgetter(3,0))
@@ -856,8 +856,8 @@ def ad():
 def stuff():
     if encounters:
         quest_mon()
-    if candy:
-        candy()
+    if candyi:
+        candy_item()
     if max_revive:
         quest_item('202', 'Max Revive','https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/Item_0202.png')
     if glacial_lure:
