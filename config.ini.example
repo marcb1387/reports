@@ -54,12 +54,14 @@ mega_energy=true
 ar_task=true
 stardust=1000
 encounters=true
+candy=true
 
 [POKEMON]
 dex_number= (delete this text if you want all pokemon) accepts 3 digit Pokedex numbers in any order seprated by a comma. example 001,025,125
 galar_dex_number=
 alolan_dex_number=
 mega_dex_number=
+candy_dex_number=
 
 [AD]
 Ad_Title = Pokemon Master
