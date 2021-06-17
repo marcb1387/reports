@@ -70,8 +70,10 @@ rainy_lure = config.getboolean('ITEMS','rainy_lure')
 mega_energy = config.getboolean('ITEMS','mega_energy')
 stardust = config.get('ITEMS','stardust')
 encounters = config.getboolean('ITEMS','encounters')
+candy = config.getboolean('ITEMS','candy')
 mons = config.get('POKEMON','dex_number')
 mega_dex = config.get('POKEMON','mega_dex_number')
+candy = config.get('POKEMON','candy_dex_number')
 galar_dex = config.get('POKEMON','galar_dex_number')
 alolan_dex = config.get('POKEMON','alolan_dex_number')
 adtitle = config.get('AD','Ad_Title')
@@ -302,6 +304,194 @@ def pokemon_diff(mon_name,monres,shiny,alolan,galar,snum,mon3d,form2d,monname):
   webhook.execute()
   research = ''
   time.sleep(2)
+#pokemon candy
+def candy():
+    query = ("SELECT DISTINCT quest_pokemon_id,quest_pokemon_form_id,quest_pokemon_costume_id FROM trs_quest inner join pokestop on trs_quest.GUID = pokestop.pokestop_id where DATE(FROM_UNIXTIME(trs_quest.quest_timestamp)) = CURDATE() and quest_reward_type = 4 and ST_CONTAINS(ST_GEOMFROMTEXT('POLYGON(("+area+"))'), point(pokestop.latitude, pokestop.longitude)) order by trs_quest.quest_pokemon_id;")
+    cursor.execute(query)
+    name = cursor.fetchall()
+    res =[tuple(str(ele) for ele in sub) for sub in name]
+    for mon in res:
+     candy = ("select CONVERT(pokestop.name USING UTF8MB4) as pokestopname,pokestop.latitude,pokestop.longitude,trs_quest.quest_task,trs_quest.quest_item_amount,trs_quest.quest_pokemon_id from pokestop inner join trs_quest on pokestop.pokestop_id = trs_quest.GUID where DATE(FROM_UNIXTIME(trs_quest.quest_timestamp)) = CURDATE() and quest_reward_type = 4 and quest_pokemon_id ="+mon[0]+" and ST_CONTAINS(ST_GEOMFROMTEXT('POLYGON(("+area+"))'), point(pokestop.latitude, pokestop.longitude))")
+     cursor.execute(candy)
+     monname = cursor.fetchall()
+     monres =[tuple(str(ele) for ele in sub) for sub in monname]
+     mon_name=mon_names.get(str(mon[0]), {}).get("name", True)
+     mon3d = "{:03d}".format(int(mon[0]))
+     form2d = "{:02d}".format(int(mon[1]))
+     task3 =[]
+     for task in monres:
+      task3 += [task[3]]
+     result = all(elem == task3[0] for elem in task3)
+     research= ''
+     webhook = DiscordWebhook(url=webhookurl)
+     if result:
+         if candy:
+            for dex in candy.split(','):
+             if dex == mon3d:
+                  print ("Research Task Is The Same "+mon_name+" Mega")
+                  monname.sort(key = operator.itemgetter(3,0))
+                  res =[tuple(str(ele) for ele in sub) for sub in monname]
+                  for stop in res: 
+                   research += ('['+stop[0]+'](''https://maps.google.com/?q='''+stop[1]+','+stop[2]+')'+' - Amount: '+stop[4]+'\n')
+                   if len(research)> 1900:
+                    print ("larger then 2048 breaking up")
+                    print (mon_name+" Length:", len(research))
+                    if use_webhook_name:
+                     embed = DiscordEmbed(description=research, color=11027200)        
+                     webhook.username = mon_name+' Candy Field Research'
+                     webhook.avatar_url = 'https://raw.githubusercontent.com/marcb1387/assets/master/candy.png'
+                     embed.set_author(name='Research Task: '+stop[3])
+                    elif use_slim_name:
+                     embed = DiscordEmbed(title= mon_name+': '+stop[3], description=research, color=11027200)
+                    else:
+                     embed = DiscordEmbed(title= mon_name+' Candy Field Research', description=research, color=11027200)
+                     embed.set_author(name='Research Task: '+stop[3])
+                    if author: embed.set_footer(text='Research by '+author, icon_url=footerimg)
+                    if use_emoji: embed.set_thumbnail(url='https://raw.githubusercontent.com/marcb1387/assets/master/candy.png') 
+                    webhook.add_embed(embed)
+                    webhook.execute()
+                    research = ''
+                    webhook.remove_embed(0)
+                    time.sleep(2)
+                  print (mon_name+" Length:", len(research))    
+                  if use_webhook_name:
+                   embed = DiscordEmbed(description=research, color=11027200)        
+                   webhook.username = mon_name+' Candy Field Research'
+                   webhook.avatar_url = 'https://raw.githubusercontent.com/marcb1387/assets/master/candy.png'
+                   embed.set_author(name='Research Task: '+stop[3])
+                  elif use_slim_name:
+                   embed = DiscordEmbed(title= mon_name+': '+stop[3], description=research, color=11027200)
+                  else:
+                   embed = DiscordEmbed(title= mon_name+' Candy Field Research', description=research, color=11027200)
+                   embed.set_author(name='Research Task: '+stop[3])
+                  if author: embed.set_footer(text='Research by '+author, icon_url=footerimg)
+                  if use_emoji: embed.set_thumbnail(url='https://raw.githubusercontent.com/marcb1387/assets/master/candy.png') 
+                  webhook.add_embed(embed)
+                  webhook.execute()
+                  research = ''
+                  time.sleep(2)
+         else:
+                  print ("Research Task Is The Same "+mon_name+" Mega")
+                  monname.sort(key = operator.itemgetter(3,0))
+                  res =[tuple(str(ele) for ele in sub) for sub in monname]
+                  for stop in res: 
+                   research += ('['+stop[0]+'](''https://maps.google.com/?q='''+stop[1]+','+stop[2]+')'+' - Amount: '+stop[4]+'\n')
+                   if len(research)> 1900:
+                    print ("larger then 2048 breaking up")
+                    print (mon_name+" Length:", len(research))
+                    if use_webhook_name:
+                     embed = DiscordEmbed(description=research, color=11027200)        
+                     webhook.username = mon_name+' Candy Field Research'
+                     webhook.avatar_url = 'https://raw.githubusercontent.com/marcb1387/assets/master/candy.png'
+                     embed.set_author(name='Research Task: '+stop[3])
+                    elif use_slim_name:
+                     embed = DiscordEmbed(title= mon_name+': '+stop[3], description=research, color=11027200)
+                    else:
+                     embed = DiscordEmbed(title= mon_name+' Candy Field Research', description=research, color=11027200)
+                     embed.set_author(name='Research Task: '+stop[3])
+                    if author: embed.set_footer(text='Research by '+author, icon_url=footerimg)
+                    if use_emoji: embed.set_thumbnail(url='https://raw.githubusercontent.com/marcb1387/assets/master/candy.png') 
+                    webhook.add_embed(embed)
+                    webhook.execute()
+                    research = ''
+                    webhook.remove_embed(0)
+                    time.sleep(2)
+                  print (mon_name+" Length:", len(research))    
+                  if use_webhook_name:
+                   embed = DiscordEmbed(description=research, color=11027200)        
+                   webhook.username = mon_name+' Candy Field Research'
+                   webhook.avatar_url = 'https://raw.githubusercontent.com/marcb1387/assets/master/candy.png'
+                   embed.set_author(name='Research Task: '+stop[3])
+                  elif use_slim_name:
+                   embed = DiscordEmbed(title= mon_name+': '+stop[3], description=research, color=11027200)
+                  else:
+                   embed = DiscordEmbed(title= mon_name+' Candy Field Research', description=research, color=11027200)
+                   embed.set_author(name='Research Task: '+stop[3])
+                  if author: embed.set_footer(text='Research by '+author, icon_url=footerimg)
+                  if use_emoji: embed.set_thumbnail(url='https://raw.githubusercontent.com/marcb1387/assets/master/candy.png') 
+                  webhook.add_embed(embed)
+                  webhook.execute()
+                  research = ''
+                  time.sleep(2)
+     else:
+         if mega_dex:
+            for dex in mega_dex.split(','):
+             if dex == mon3d:
+                  print ("Research Task Is Different "+mon_name+" Mega")
+                  monname.sort(key = operator.itemgetter(3,0))
+                  res =[tuple(str(ele) for ele in sub) for sub in monname]
+                  for stop in res: 
+                   research += ('['+stop[0]+'](''https://maps.google.com/?q='''+stop[1]+','+stop[2]+')'+' '+stop[3]+' - Amount: '+stop[4]+'\n')
+                   if len(research)> 1900:
+                    print ("larger then 2048 breaking up")
+                    print (mon_name+" Length:", len(research))
+                    #add embed object to webhook
+                    if use_webhook_name:
+                     embed = DiscordEmbed(description=research, color=11027200)        
+                     webhook.username = mon_name+' Candy Field Research'
+                     webhook.avatar_url = 'https://raw.githubusercontent.com/marcb1387/assets/master/candy.png'
+                    else:
+                     embed = DiscordEmbed(title= mon_name+' Candy Field Research', description=research, color=11027200)
+                    if author: embed.set_footer(text='Research by '+author, icon_url=footerimg)
+                    if use_emoji: embed.set_thumbnail(url='https://raw.githubusercontent.com/marcb1387/assets/master/candy.png')
+                    webhook.add_embed(embed)
+                    webhook.execute()
+                    research = ''
+                    webhook.remove_embed(0)
+                    time.sleep(2)
+                  print (mon_name+" Length:", len(research))
+                  
+                  #add embed object to webhook
+                  if use_webhook_name:
+                   embed = DiscordEmbed(description=research, color=11027200)        
+                   webhook.username = mon_name+' Candy Field Research'
+                   webhook.avatar_url = 'https://raw.githubusercontent.com/marcb1387/assets/master/candy.png'
+                  else:
+                   embed = DiscordEmbed(title= mon_name+' Candy Field Research', description=research, color=11027200)
+                  if author: embed.set_footer(text='Research by '+author, icon_url=footerimg)
+                  if use_emoji: embed.set_thumbnail(url='https://raw.githubusercontent.com/marcb1387/assets/master/candy.png') 
+                  webhook.add_embed(embed)
+                  webhook.execute()
+                  research = ''
+                  time.sleep(2)
+         else:
+              print ("Research Task Is Different "+mon_name+" Mega")
+              monname.sort(key = operator.itemgetter(3,0))
+              res =[tuple(str(ele) for ele in sub) for sub in monname]
+              for stop in res: 
+               research += ('['+stop[0]+'](''https://maps.google.com/?q='''+stop[1]+','+stop[2]+')'+' '+stop[3]+' - Amount: '+stop[4]+'\n')
+               if len(research)> 1900:
+                print ("larger then 2048 breaking up")
+                print (mon_name+" Length:", len(research))
+                #add embed object to webhook
+                if use_webhook_name:
+                 embed = DiscordEmbed(description=research, color=11027200)        
+                 webhook.username = mon_name+' Candy Field Research'
+                 webhook.avatar_url = 'https://raw.githubusercontent.com/marcb1387/assets/master/candy.png'
+                else:
+                 embed = DiscordEmbed(title= mon_name+' Candy Field Research', description=research, color=11027200)
+                if author: embed.set_footer(text='Research by '+author, icon_url=footerimg)
+                if use_emoji: embed.set_thumbnail(url='https://raw.githubusercontent.com/marcb1387/assets/master/candy.png')
+                webhook.add_embed(embed)
+                webhook.execute()
+                research = ''
+                webhook.remove_embed(0)
+                time.sleep(2)
+              print (mon_name+" Length:", len(research))
+              
+              #add embed object to webhook
+              if use_webhook_name:
+               embed = DiscordEmbed(description=research, color=11027200)        
+               webhook.username = mon_name+' Candy Field Research'
+               webhook.avatar_url = 'https://raw.githubusercontent.com/marcb1387/assets/master/candy.png'
+              else:
+               embed = DiscordEmbed(title= mon_name+' Candy Field Research', description=research, color=11027200)
+              if author: embed.set_footer(text='Research by '+author, icon_url=footerimg)
+              if use_emoji: embed.set_thumbnail(url='https://raw.githubusercontent.com/marcb1387/assets/master/candy.png') 
+              webhook.add_embed(embed)
+              webhook.execute()
+              research = ''
+              time.sleep(2)
 #items
 def quest_item(itemid,item,sprite):
  mariadb_connection = mariadb.connect(user=user, password=passwd, database=database, host=host,port=port)
@@ -666,6 +856,8 @@ def ad():
 def stuff():
     if encounters:
         quest_mon()
+    if candy:
+        candy()
     if max_revive:
         quest_item('202', 'Max Revive','https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/Item_0202.png')
     if glacial_lure:
