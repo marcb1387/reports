@@ -106,7 +106,7 @@ def quest_mon():
  name = cursor.fetchall()
  res =[tuple(str(ele) for ele in sub) for sub in name]
  for mon in res:
-     monquery = ("select CONVERT(pokestop.name USING UTF8MB4) as pokestopname,pokestop.latitude,pokestop.longitude,quest_task from pokestop inner join trs_quest on pokestop.pokestop_id = trs_quest.GUID where DATE(FROM_UNIXTIME(trs_quest.quest_timestamp)) = CURDATE() and quest_reward_type = 7 and quest_pokemon_id ="+mon[0]+" and quest_type NOT like 46 and quest_pokemon_form_id like '%"+mon[1]+"%' and ST_CONTAINS(ST_GEOMFROMTEXT('POLYGON(("+area+"))'), point(pokestop.latitude, pokestop.longitude))")
+     monquery = ("select CONVERT(pokestop.name USING UTF8MB4) as pokestopname,pokestop.latitude,pokestop.longitude,quest_task from pokestop inner join trs_quest on pokestop.pokestop_id = trs_quest.GUID where pokestop.name is not NULL and DATE(FROM_UNIXTIME(trs_quest.quest_timestamp)) = CURDATE() and quest_reward_type = 7 and quest_pokemon_id ="+mon[0]+" and quest_type NOT like 46 and quest_pokemon_form_id like '%"+mon[1]+"%' and ST_CONTAINS(ST_GEOMFROMTEXT('POLYGON(("+area+"))'), point(pokestop.latitude, pokestop.longitude))")
      cursor.execute(monquery)
      monname = cursor.fetchall()
      monres =[tuple(str(ele) for ele in sub) for sub in monname]
