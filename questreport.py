@@ -914,6 +914,8 @@ def stuff():
         quest_item('705', 'Pinap Berry','https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/Item_0705.png')
     if nanab_berry:
         quest_item('703', 'Nanab Berry','https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/Item_0703.png')
+    if map_fragment:
+        quest_item('1501', 'Mysterious Component','https://raw.githubusercontent.com/PokeMiners/pogo_assets/master/Images/Rocket/hideout_map_frag.png')
     if mega_energy:
          mega_item()
     if int(stardust) > 199:
