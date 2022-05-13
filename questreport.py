@@ -12,6 +12,7 @@ import re
 import json
 import requests
 from bs4 import BeautifulSoup
+import urllib.request
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-a", "--area",default="config.ini", help="Area config file to use")
@@ -87,13 +88,15 @@ if args.gif:
  img = 'https://raw.githubusercontent.com/marcb1387/assets/master/pokemon_icon_' #animated
  ext = '.gif' #animated
 else:
- img = 'https://raw.githubusercontent.com/whitewillem/PogoAssets/resized/no_border/pokemon_icon_' # Static
+ img = 'https://raw.githubusercontent.com/whitewillem/PogoAssets/main/uicons/pokemon/' # Static
  ext = '.png' #Static
  
-imgs = 'https://raw.githubusercontent.com/whitewillem/PogoAssets/resized/no_border/pokemon_icon_' # Static
+imgs = 'https://raw.githubusercontent.com/whitewillem/PogoAssets/main/uicons/pokemon/' # Static
 exts = '.png' #Static
 
 imgwn = "https://raw.githubusercontent.com/Debaucus/PAIcons/master/Current%20Shiny/pokemon_icon_" #webhook name shiny
+
+# set URL
 
 mariadb_connection = mariadb.connect(user=user, password=passwd, database=database, host=host, port=port)
 cursor = mariadb_connection.cursor()
@@ -113,6 +116,7 @@ def quest_mon():
      monres =[tuple(str(ele) for ele in sub) for sub in monname]
      mon_name=mon_names.get(str(mon[0]), {}).get("name", True)
      mon3d = "{:03d}".format(int(mon[0]))
+     imgmon = "{:01d}".format(int(mon[0]))
      form2d = "{:02d}".format(int(mon[1]))
      shiny = ""
      if str(mon[0]) in shiny_data:
@@ -149,32 +153,39 @@ def quest_mon():
          if mons or galar_dex or alolan_dex:
           for dexr in mons.split(','):
            if dexr == mon3d and int(mon[1]) not in galar_forms and int(mon[1]) not in alolan_forms:
-            pokemon_same(mon_name,monres,shiny,alolan,galar,snum,mon3d,form2d,monname)
+            pokemon_same(mon_name,monres,shiny,alolan,galar,snum,mon3d,form2d,monname,imgmon)
           for dexg in galar_dex.split(','):
            if dexg == mon3d and int(mon[1]) in galar_forms:
-            pokemon_same(mon_name,monres,shiny,alolan,galar,snum,mon3d,form2d,monname)
+            pokemon_same(mon_name,monres,shiny,alolan,galar,snum,mon3d,form2d,monname,imgmon)
           for dexa in alolan_dex.split(','):
            if dexa == mon3d and int(mon[1]) in alolan_forms:
-            pokemon_same(mon_name,monres,shiny,alolan,galar,snum,mon3d,form2d,monname)  
+            pokemon_same(mon_name,monres,shiny,alolan,galar,snum,mon3d,form2d,monname,imgmon)  
          else:
-            pokemon_same(mon_name,monres,shiny,alolan,galar,snum,mon3d,form2d,monname)
+            pokemon_same(mon_name,monres,shiny,alolan,galar,snum,mon3d,form2d,monname,imgmon)
      else:
          if mons or galar_dex or alolan_dex:
           for dexr in mons.split(','):
            if dexr == mon3d and int(mon[1]) not in galar_forms and int(mon[1]) not in alolan_forms:
-            pokemon_diff(mon_name,monres,shiny,alolan,galar,snum,mon3d,form2d,monname)
+            pokemon_diff(mon_name,monres,shiny,alolan,galar,snum,mon3d,form2d,monname,imgmon)
           for dexg in galar_dex.split(','):
            if dexg == mon3d and int(mon[1]) in galar_forms:
-            pokemon_diff(mon_name,monres,shiny,alolan,galar,snum,mon3d,form2d,monname)
+            pokemon_diff(mon_name,monres,shiny,alolan,galar,snum,mon3d,form2d,monname,imgmon)
           for dexa in alolan_dex.split(','):
            if dexa == mon3d and int(mon[1]) in alolan_forms:
-            pokemon_diff(mon_name,monres,shiny,alolan,galar,snum,mon3d,form2d,monname)
+            pokemon_diff(mon_name,monres,shiny,alolan,galar,snum,mon3d,form2d,monname,imgmon)
          else:
-            pokemon_diff(mon_name,monres,shiny,alolan,galar,snum,mon3d,form2d,monname)
+            pokemon_diff(mon_name,monres,shiny,alolan,galar,snum,mon3d,form2d,monname,imgmon)
 #post webhook pokemon same
-def pokemon_same(mon_name,monres,shiny,alolan,galar,snum,mon3d,form2d,monname):
+def pokemon_same(mon_name,monres,shiny,alolan,galar,snum,mon3d,form2d,monname,imgmon):
   #Regular Pokemon
   print ("Research Task Is The Same "+mon_name)
+  # set sprite URL
+  try: 
+      (urllib.request.urlopen(img+imgmon+'_f'+form2d+ext).getcode())
+      sprite_url = img+imgmon+'_f'+form2d+ext
+  except:
+      sprite_url = img+imgmon+ext
+  print (sprite_url)
   #convert data into string
   monres.sort()
   webhook = DiscordWebhook(url=webhookurl)
@@ -193,20 +204,20 @@ def pokemon_same(mon_name,monres,shiny,alolan,galar,snum,mon3d,form2d,monname):
      if r.status_code == requests.codes.ok:
       webhook.avatar_url = imgwn+mon3d+'_'+form2d+exts
      else:
-      webhook.avatar_url = img+mon3d+'_'+form2d+ext
+      webhook.avatar_url = sprite_url
     elif use_slim_name:
      embed = DiscordEmbed(title= shiny+mon_name+" "+alolan+galar+snum+': '+stop[3]+shiny, description=research, color=16777011)
     else:
      embed = DiscordEmbed(title= shiny+mon_name+" "+alolan+galar+snum+'Field Research'+shiny, description=research, color=16777011)
      embed.set_author(name='Research Task: '+stop[3])
-    if use_emoji:embed.set_thumbnail(url=img+mon3d+'_'+form2d+ext)
+    if use_emoji:embed.set_thumbnail(url=sprite_url)
     if use_shiny_emoji:
      url=imgwn+mon3d+'_'+form2d+ext
      r = requests.head(url)
      if r.status_code == requests.codes.ok:
       embed.set_thumbnail(url=imgwn+mon3d+'_'+form2d+ext)
      else:
-      embed.set_thumbnail(url=img+mon3d+'_'+form2d+ext)
+      embed.set_thumbnail(url=sprite_url)
     if author: embed.set_footer(text='Research by '+author, icon_url=footerimg)
     #add embed object to webhook
     webhook.add_embed(embed)
@@ -223,18 +234,18 @@ def pokemon_same(mon_name,monres,shiny,alolan,galar,snum,mon3d,form2d,monname):
    if r.status_code == requests.codes.ok:
     webhook.avatar_url = imgwn+mon3d+'_'+form2d+exts
    else:
-    webhook.avatar_url = img+mon3d+'_'+form2d+ext
+    webhook.avatar_url = sprite_url
   elif use_slim_name:
    embed = DiscordEmbed(title= shiny+mon_name+" "+alolan+galar+snum+': '+stop[3]+shiny, description=research, color=16777011)
   else:
    embed = DiscordEmbed(title= shiny+mon_name+" "+alolan+galar+snum+'Field Research'+shiny, description=research, color=16777011)
    embed.set_author(name='Research Task: '+stop[3])
-  if use_emoji:embed.set_thumbnail(url=img+mon3d+'_'+form2d+ext)
+  if use_emoji:embed.set_thumbnail(url=sprite_url)
   if use_shiny_emoji:
    url=imgwn+mon3d+'_'+form2d+ext
    r = requests.head(url)
    if r.status_code == requests.codes.ok:embed.set_thumbnail(url=imgwn+mon3d+'_'+form2d+ext)
-   else:embed.set_thumbnail(url=img+mon3d+'_'+form2d+ext)
+   else:embed.set_thumbnail(url=sprite_url)
   if author: embed.set_footer(text='Research by '+author, icon_url=footerimg)
   #add embed object to webhook
   webhook.add_embed(embed)
@@ -243,8 +254,15 @@ def pokemon_same(mon_name,monres,shiny,alolan,galar,snum,mon3d,form2d,monname):
   webhook.remove_embed(0)
   time.sleep(2)
 #post webhook pokemon different
-def pokemon_diff(mon_name,monres,shiny,alolan,galar,snum,mon3d,form2d,monname):
+def pokemon_diff(mon_name,monres,shiny,alolan,galar,snum,mon3d,form2d,monname,imgmon):
   print ("Research Task Is The Different "+mon_name)
+  # set sprite URL
+  try: 
+      (urllib.request.urlopen(img+imgmon+'_f'+form2d+ext).getcode())
+      sprite_url = img+imgmon+'_f'+form2d+ext
+  except:
+      sprite_url = img+imgmon+ext
+  print (sprite_url)
   #convert data into string
   monname.sort(key = operator.itemgetter(3, 0))
   monres =[tuple(str(ele) for ele in sub) for sub in monname]
@@ -264,16 +282,16 @@ def pokemon_diff(mon_name,monres,shiny,alolan,galar,snum,mon3d,form2d,monname):
       if r.status_code == requests.codes.ok:
        webhook.avatar_url = imgwn+mon3d+'_'+form2d+exts
       else:
-       webhook.avatar_url = img+mon3d+'_'+form2d+ext
+       webhook.avatar_url = sprite_url
      else:
       embed = DiscordEmbed(title= shiny+mon_name+" "+alolan+galar+snum+'Field Research'+shiny, description=research, color=16777011)
-      webhook.avatar_url = img+mon3d+'_'+form2d+ext
-     if use_emoji: embed.set_thumbnail(url=img+mon3d+'_'+form2d+ext)
+      webhook.avatar_url = sprite_url
+     if use_emoji: embed.set_thumbnail(url=sprite_url)
      if use_shiny_emoji:
       url=imgwn+mon3d+'_'+form2d+ext
       r = requests.head(url)
       if r.status_code == requests.codes.ok:embed.set_thumbnail(url=imgwn+mon3d+'_'+form2d+ext)
-      else:embed.set_thumbnail(url=img+mon3d+'_'+form2d+ext)
+      else:embed.set_thumbnail(url=sprite_url)
      if author: embed.set_footer(text='Research by '+author, icon_url=footerimg)
      #add embed object to webhook
      webhook.add_embed(embed)
@@ -290,15 +308,15 @@ def pokemon_diff(mon_name,monres,shiny,alolan,galar,snum,mon3d,form2d,monname):
    if r.status_code == requests.codes.ok:
     webhook.avatar_url = imgwn+mon3d+'_'+form2d+exts
    else:
-    webhook.avatar_url = img+mon3d+'_'+form2d+ext
+    webhook.avatar_url = sprite_url
   else:
    embed = DiscordEmbed(title= shiny+mon_name+" "+alolan+galar+snum+'Field Research'+shiny, description=research, color=16777011)
-  if use_emoji: embed.set_thumbnail(url=img+mon3d+'_'+form2d+ext)
+  if use_emoji: embed.set_thumbnail(url=sprite_url)
   if use_shiny_emoji:
    url=imgwn+mon3d+'_'+form2d+ext
    r = requests.head(url)
    if r.status_code == requests.codes.ok:embed.set_thumbnail(url=imgwn+mon3d+'_'+form2d+ext)
-   else:embed.set_thumbnail(url=img+mon3d+'_'+form2d+ext)
+   else:embed.set_thumbnail(url=sprite_url)
   if author: embed.set_footer(text='Research by '+author, icon_url=footerimg)
   #add embed object to webhook
   webhook.add_embed(embed)
