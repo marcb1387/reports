@@ -105,7 +105,7 @@ mon_names = requests.get("https://pogoapi.net/api/v1/pokemon_names.json").json()
  
 #Pokemon
 def quest_mon():
- query = ("SELECT DISTINCT quest_pokemon_id,quest_pokemon_form_id,quest_pokemon_costume_id FROM trs_quest inner join pokestop on trs_quest.GUID = pokestop.pokestop_id where pokestop.name is not NULL and DATE(FROM_UNIXTIME(trs_quest.quest_timestamp)) = CURDATE() and quest_reward_type = 7 and quest_type NOT like 46 and ST_CONTAINS(ST_GEOMFROMTEXT('POLYGON(("+area+"))'), point(pokestop.latitude, pokestop.longitude)) order by trs_quest.quest_pokemon_id;")
+ query = ("SELECT DISTINCT quest_pokemon_id,quest_pokemon_form_id,quest_pokemon_costume_id FROM trs_quest inner join pokestop on trs_quest.GUID = pokestop.pokestop_id where pokestop.name is not NULL and DATE(FROM_UNIXTIME(trs_quest.quest_timestamp)) = CURDATE() and quest_reward_type = 7 and quest_type NOT like 46 and ST_CONTAINS(ST_GEOMFROMTEXT('POLYGON(("+area+"))'), point(pokestop.latitude, pokestop.longitude)) order by trs_quest.quest_pokemon_id and layer = 1;")
  cursor.execute(query)
  name = cursor.fetchall()
  res =[tuple(str(ele) for ele in sub) for sub in name]
@@ -948,7 +948,7 @@ yesterday = yday.strftime("%m_%d_%Y")
 
 mariadb_connection = mariadb.connect(user=user, password=passwd, database=database, host=host, port=port)
 cursor = mariadb_connection.cursor()
-quests = ("select count(*) from pokestop inner join trs_quest on pokestop.pokestop_id = trs_quest.GUID where pokestop.name is not NULL and DATE(FROM_UNIXTIME(trs_quest.quest_timestamp)) = CURDATE() and ST_CONTAINS(ST_GEOMFROMTEXT('POLYGON(("+area+"))'), point(pokestop.latitude, pokestop.longitude))")
+quests = ("select count(*) from pokestop inner join trs_quest on pokestop.pokestop_id = trs_quest.GUID where pokestop.name is not NULL and DATE(FROM_UNIXTIME(trs_quest.quest_timestamp)) = CURDATE() and ST_CONTAINS(ST_GEOMFROMTEXT('POLYGON(("+area+"))'), point(pokestop.latitude, pokestop.longitude)) and layer = 1")
 stops = ("select count(*) from pokestop where ST_CONTAINS(ST_GEOMFROMTEXT('POLYGON(("+area+"))'), point(pokestop.latitude, pokestop.longitude))")
 cursor.execute(quests)
 qcount = cursor.fetchall()
