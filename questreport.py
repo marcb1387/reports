@@ -948,7 +948,7 @@ yesterday = yday.strftime("%m_%d_%Y")
 
 mariadb_connection = mariadb.connect(user=user, password=passwd, database=database, host=host, port=port)
 cursor = mariadb_connection.cursor()
-quests = ("select count(*) from pokestop inner join trs_quest on pokestop.pokestop_id = trs_quest.GUID where pokestop.name is not NULL and DATE(FROM_UNIXTIME(trs_quest.quest_timestamp)) = CURDATE() and ST_CONTAINS(ST_GEOMFROMTEXT('POLYGON(("+area+"))'), point(pokestop.latitude, pokestop.longitude)) and trs_quest.layer = 1")
+quests = ("select count(distinct pokestop.pokestop_id) from pokestop inner join trs_quest on pokestop.pokestop_id = trs_quest.GUID where pokestop.name is not NULL and DATE(FROM_UNIXTIME(trs_quest.quest_timestamp)) = CURDATE() and ST_CONTAINS(ST_GEOMFROMTEXT('POLYGON(("+area+"))'), point(pokestop.latitude, pokestop.longitude))")
 stops = ("select count(*) from pokestop where ST_CONTAINS(ST_GEOMFROMTEXT('POLYGON(("+area+"))'), point(pokestop.latitude, pokestop.longitude))")
 cursor.execute(quests)
 qcount = cursor.fetchall()
